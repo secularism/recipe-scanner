@@ -16,7 +16,7 @@ export function matchRecipes(input: GenerateInput, recipes: Recipe[]): MatchResu
   const userIngredients = normalizeList(input.ingredients)
   const userSeasonings = normalizeList(input.seasonings)
 
-  if (userIngredients.length === 0 && userSeasonings.length === 0) {
+  if (userIngredients.size === 0 && userSeasonings.size === 0) {
     return []
   }
 
