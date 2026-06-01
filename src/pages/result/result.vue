@@ -54,6 +54,10 @@ function openDetail(r: MatchResult) {
 }
 
 const hasResults = computed(() => results.value.length > 0)
+
+function goBack() {
+  uni.navigateBack()
+}
 </script>
 
 <template>
@@ -79,7 +83,11 @@ const hasResults = computed(() => results.value.length > 0)
       emoji="😢"
       title="没有找到匹配的菜谱"
       subtitle="试试多选几个食材和调味料，或换个菜系"
-    />
+    >
+      <view class="back-btn" @tap="goBack">
+        <text>← 回去再选选</text>
+      </view>
+    </EmptyState>
   </view>
 </template>
 
@@ -107,5 +115,15 @@ const hasResults = computed(() => results.value.length > 0)
   color: var(--color-primary);
   font-size: 30rpx;
   font-weight: 600;
+}
+.back-btn {
+  margin-top: 40rpx;
+  padding: 24rpx 48rpx;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  font-size: 28rpx;
+  font-weight: 600;
+  display: inline-block;
 }
 </style>

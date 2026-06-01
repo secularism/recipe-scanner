@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onShareAppMessage } from '@dcloudio/uni-app'
 import { useFavoritesStore } from '@/stores/favorites'
 import { useHistoryStore } from '@/stores/history'
 
@@ -7,6 +8,12 @@ const histStore = useHistoryStore()
 
 favStore.load()
 histStore.load()
+
+// 分享给好友：进入首页
+onShareAppMessage(() => ({
+  title: '今天吃什么？告诉我你有什么，我帮你想想 🍳',
+  path: '/pages/index/index'
+}))
 </script>
 
 <template>

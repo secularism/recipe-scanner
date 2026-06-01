@@ -3,17 +3,23 @@ import { ref, computed } from 'vue'
 import type { Recipe } from '@/types'
 import { findRecipeById, CUISINE_LABELS, TASTE_LABELS, DIFFICULTY_LABELS } from '@/data'
 import { useFavoritesStore } from '@/stores/favorites'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
 
 const favStore = useFavoritesStore()
 const recipe = ref<Recipe | null>(null)
+const fromShare = ref(false)
 
 onLoad((q) => {
   const id = (q?.id as string) || ''
+  const from = (q?.from as string) || ''
   const r = findRecipeById(id)
   if (r) {
     recipe.value = r
     favStore.load()
+    fromShare.value = from === 'share'
+    if (fromShare.value) {
+      uni.showToast({ title: '好友分享的菜谱', icon: 'none' })
+    }
   } else {
     uni.showToast({ title: '菜谱不存在', icon: 'none' })
     setTimeout(() => uni.navigateBack(), 800)
@@ -28,10 +34,16 @@ function onFav() {
   uni.showToast({ title: nowFav ? '已收藏' : '已取消', icon: 'none' })
 }
 
-function onShare() {
-  // 微信小程序分享 — phase 4 完善 onShareAppMessage
-  uni.showToast({ title: '点击右上角分享', icon: 'none' })
-}
+// 微信分享给好友（无 onShareTimeline → 不上朋友圈）
+onShareAppMessage(() => {
+  if (!recipe.value) {
+    return { title: '菜谱生成', path: '/pages/index/index' }
+  }
+  return {
+    title: `${recipe.value.name} — ${recipe.value.shortDesc}`,
+    path: `/pages/detail/detail?id=${recipe.value.id}&from=share`
+  }
+})
 </script>
 
 <template>
@@ -93,12 +105,12 @@ function onShare() {
     </view>
 
     <view class="actions">
-      <view class="btn-ghost" @tap="onShare">
-        <text>📤 分享</text>
-      </view>
       <view class="btn-primary" :class="{ active: isFav }" @tap="onFav">
         <text>{{ isFav ? '★ 已收藏' : '☆ 收藏' }}</text>
       </view>
+      <button open-type="share" class="btn-ghost btn-share">
+        <text>📤 分享给好友</text>
+      </button>
     </view>
   </view>
 </template>
@@ -220,6 +232,15 @@ function onShare() {
   background: #fff;
   color: var(--color-text);
   border: 2rpx solid var(--color-border);
+}
+.btn-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 30rpx;
+  line-height: 1.4;
+  text { line-height: 1.4; }
 }
 .btn-primary {
   background: var(--color-primary);
