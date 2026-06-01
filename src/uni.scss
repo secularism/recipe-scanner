@@ -1,0 +1,69 @@
+/* global styles - 手绘插画风 */
+page {
+  --color-primary: #FF8C42;
+  --color-primary-light: #FFB877;
+  --color-secondary: #FFD4A3;
+  --color-bg: #FFF7EB;
+  --color-bg-card: #FFFFFF;
+  --color-text: #4A3520;
+  --color-text-sub: #8B6F4E;
+  --color-border: #F0E0C0;
+  --color-success: #7BC47F;
+  --color-danger: #E57373;
+  --radius-sm: 12rpx;
+  --radius-md: 20rpx;
+  --radius-lg: 32rpx;
+  --radius-pill: 999rpx;
+  --shadow-soft: 0 4rpx 16rpx rgba(255, 140, 66, 0.1);
+  --shadow-card: 0 6rpx 20rpx rgba(74, 53, 32, 0.08);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+view, text, button, input, scroll-view {
+  box-sizing: border-box;
+}
+
+button::after { border: none; }
+button { background: transparent; padding: 0; }
+
+.handwritten {
+  font-family: 'Marker Felt', 'Comic Sans MS', cursive;
+}
+
+.container {
+  min-height: 100vh;
+  padding: 40rpx 32rpx;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 24rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-ghost {
+  background: #fff;
+  color: var(--color-text);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 24rpx 0;
+  text-align: center;
+  font-size: 32rpx;
+}
+
+.card {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
+  padding: 32rpx;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 24rpx;
+}

@@ -15,5 +15,5 @@ onHide(() => {
 </script>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+/* global styles in uni.scss */
 </style>

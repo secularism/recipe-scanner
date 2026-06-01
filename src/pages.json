@@ -18,35 +18,40 @@
       "path": "pages/generator/generator",
       "style": {
         "navigationBarTitleText": "选食材",
-        "navigationBarBackgroundColor": "#FFF7EB"
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black"
       }
     },
     {
       "path": "pages/result/result",
       "style": {
         "navigationBarTitleText": "为你推荐",
-        "navigationBarBackgroundColor": "#FFF7EB"
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black"
       }
     },
     {
       "path": "pages/detail/detail",
       "style": {
         "navigationBarTitleText": "菜谱详情",
-        "navigationBarBackgroundColor": "#FFF7EB"
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black"
       }
     },
     {
       "path": "pages/favorites/favorites",
       "style": {
         "navigationBarTitleText": "我的收藏",
-        "navigationBarBackgroundColor": "#FFF7EB"
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black"
       }
     },
     {
       "path": "pages/history/history",
       "style": {
         "navigationBarTitleText": "历史记录",
-        "navigationBarBackgroundColor": "#FFF7EB"
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black"
       }
     }
   ],

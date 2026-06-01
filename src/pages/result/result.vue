@@ -1,9 +1,9 @@
 <script setup lang="ts">
-// placeholder, will be implemented in Phase 3
+// placeholder - implemented in phase 3
 </script>
 
 <template>
-  <view class="page">
+  <view class="container">
     <text>为你推荐</text>
   </view>
 </template>
