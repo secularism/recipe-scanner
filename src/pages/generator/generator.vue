@@ -1,0 +1,9 @@
+<script setup lang="ts">
+// placeholder, will be implemented in Phase 3
+</script>
+
+<template>
+  <view class="page">
+    <text>选食材</text>
+  </view>
+</template>

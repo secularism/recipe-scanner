@@ -1,0 +1,47 @@
+{
+  "name": "菜谱生成",
+  "appid": "__UNI__RECIPE1",
+  "description": "根据你的食材和调味料，智能推荐菜谱",
+  "versionName": "0.1.0",
+  "versionCode": "1",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    },
+    "modules": {},
+    "distribute": {
+      "android": { "permissions": [] },
+      "ios": {},
+      "sdkConfigs": {}
+    }
+  },
+  "quickapp": {},
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "minified": true,
+      "postcss": true
+    },
+    "usingComponents": true,
+    "permission": {
+      "scope.userLocation": { "desc": "你的位置信息将用于个性化推荐" }
+    },
+    "requiredPrivateInfos": [],
+    "lazyCodeLoading": "requiredComponents"
+  },
+  "h5": {
+    "title": "菜谱生成",
+    "router": { "mode": "hash" },
+    "devServer": { "port": 8080 }
+  },
+  "vueVersion": "3"
+}

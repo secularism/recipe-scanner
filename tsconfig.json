@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": [
+      "@dcloudio/types",
+      "@types/node"
+    ],
+    "lib": ["ESNext", "DOM"],
+    "isolatedModules": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/shims-vue.d.ts"
+  ],
+  "exclude": ["node_modules", "dist", "unpackage"]
+}
