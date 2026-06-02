@@ -31,15 +31,11 @@ function loadDraft() {
 
 function saveDraft() {
   try {
-    const draft: Draft = {
-      i: selectedIngredients.value,
-      s: selectedSeasonings.value,
-      ci: customIngredients.value,
-      cs: customSeasonings.value,
-      cu: selectedCuisine.value,
-      t: selectedTastes.value
-    }
-    uni.setStorageSync(GENERATOR_DRAFT_KEY, draft)
+    uni.setStorageSync(GENERATOR_DRAFT_KEY, {
+      i: selectedIngredients.value, s: selectedSeasonings.value,
+      ci: customIngredients.value, cs: customSeasonings.value,
+      cu: selectedCuisine.value, t: selectedTastes.value
+    })
   } catch { /* 忽略 */ }
 }
 
@@ -53,24 +49,16 @@ watch([selectedIngredients, selectedSeasonings, customIngredients, customSeasoni
 
 const allIngredients = computed(() => [...selectedIngredients.value, ...customIngredients.value])
 const allSeasonings = computed(() => [...selectedSeasonings.value, ...customSeasonings.value])
+const canSubmit = computed(() => allIngredients.value.length > 0 || allSeasonings.value.length > 0)
 
-const canSubmit = computed(() =>
-  allIngredients.value.length > 0 || allSeasonings.value.length > 0
+const cuisineOptions = Object.entries(CUISINE_LABELS).map(([v, l]) => ({ value: v, label: l }))
+const tasteOptions = Object.entries(TASTE_LABELS).map(([v, l]) => ({ value: v, label: l }))
+const ingredientTagOptions = computed(() =>
+  INGREDIENT_GROUPS.flatMap(g => g.items.map(i => ({ value: i.name, label: i.name })))
 )
-
-const cuisineOptions = Object.entries(CUISINE_LABELS).map(([value, label]) => ({ value, label }))
-const tasteOptions = Object.entries(TASTE_LABELS).map(([value, label]) => ({ value, label }))
-
-const ingredientTagOptions = computed(() => {
-  return INGREDIENT_GROUPS.flatMap(g =>
-    g.items.map(i => ({ value: i.name, label: i.name }))
-  )
-})
-const seasoningTagOptions = computed(() => {
-  return SEASONING_GROUPS.flatMap(g =>
-    g.items.map(s => ({ value: s.name, label: s.name }))
-  )
-})
+const seasoningTagOptions = computed(() =>
+  SEASONING_GROUPS.flatMap(g => g.items.map(s => ({ value: s.name, label: s.name })))
+)
 
 function clearAll() {
   selectedIngredients.value = []
@@ -95,79 +83,73 @@ function onSubmit() {
     tastes: selectedTastes.value.length > 0 ? selectedTastes.value : undefined
   }
   const app = getApp()
-  if (app?.globalData) {
-    app.globalData.pendingInput = input
-  }
+  if (app?.globalData) app.globalData.pendingInput = input
   uni.navigateTo({ url: '/pages/result/result' })
+}
+
+function toggleCuisine(v: string) {
+  selectedCuisine.value = selectedCuisine.value === v ? null : (v as Cuisine)
+}
+function toggleTaste(v: string) {
+  const tv = v as Taste
+  selectedTastes.value = selectedTastes.value.includes(tv)
+    ? selectedTastes.value.filter(t => t !== tv)
+    : [...selectedTastes.value, tv]
 }
 </script>
 
 <template>
   <view class="page">
-    <SectionTitle emoji="🥬" title="你有什么食材？" hint="可多选 / 自填" />
-    <view class="block">
-      <TagSelector
-        v-model="selectedIngredients"
-        :options="ingredientTagOptions"
-        placeholder="点击下方标签选择"
-      />
-    </view>
-    <view class="block">
-      <ChipInput v-model="customIngredients" placeholder="比如：外婆的秘制腊肉" />
+    <view class="section">
+      <SectionTitle icon="list" title="你有什么食材" />
+      <TagSelector v-model="selectedIngredients" :options="ingredientTagOptions" />
+      <view class="custom-row">
+        <ChipInput v-model="customIngredients" placeholder="写下你自己的" />
+      </view>
     </view>
 
-    <SectionTitle emoji="🧂" title="你有什么调味料？" />
-    <view class="block">
-      <TagSelector
-        v-model="selectedSeasonings"
-        :options="seasoningTagOptions"
-        placeholder="基础调味料也要选哦"
-      />
-    </view>
-    <view class="block">
-      <ChipInput v-model="customSeasonings" placeholder="比如：沙茶酱" />
+    <view class="section">
+      <SectionTitle icon="gear" title="你有什么调味料" />
+      <TagSelector v-model="selectedSeasonings" :options="seasoningTagOptions" />
+      <view class="custom-row">
+        <ChipInput v-model="customSeasonings" placeholder="添加你的调味料" />
+      </view>
     </view>
 
-    <SectionTitle emoji="🍜" title="想吃哪种菜系？" hint="不选就全部匹配" />
-    <view class="block">
-      <view class="cuisine-list">
+    <view class="section">
+      <SectionTitle icon="globe" title="想吃哪个菜系" />
+      <view class="chip-row">
         <view
           v-for="opt in cuisineOptions"
           :key="opt.value"
-          class="cuisine-chip"
-          :class="{ active: selectedCuisine === opt.value }"
-          @tap="selectedCuisine = selectedCuisine === opt.value ? null : (opt.value as Cuisine)"
+          class="chip"
+          :class="{ selected: selectedCuisine === opt.value }"
+          @tap="toggleCuisine(opt.value)"
         >
           <text>{{ opt.label }}</text>
         </view>
       </view>
     </view>
 
-    <SectionTitle emoji="👅" title="想要什么口味？" hint="可多选" />
-    <view class="block">
-      <view class="taste-list">
+    <view class="section">
+      <SectionTitle icon="fire" title="想要什么口味" />
+      <view class="chip-row">
         <view
           v-for="opt in tasteOptions"
           :key="opt.value"
-          class="taste-chip"
-          :class="{ active: selectedTastes.includes(opt.value as Taste) }"
-          @tap="
-            selectedTastes = selectedTastes.includes(opt.value as Taste)
-              ? selectedTastes.filter(t => t !== opt.value)
-              : [...selectedTastes, opt.value as Taste]
-          "
+          class="chip"
+          :class="{ selected: selectedTastes.includes(opt.value as Taste) }"
+          @tap="toggleTaste(opt.value)"
         >
           <text>{{ opt.label }}</text>
         </view>
       </view>
     </view>
 
-    <view class="footer">
-      <view class="btn-secondary" @tap="clearAll">
-        <text>清空</text>
-      </view>
-      <view class="btn-primary" :class="{ disabled: !canSubmit }" @tap="onSubmit">
-        <text>开始生成 ✨</text>
+    <view class="bottom-cta">
+      <view class="btn-generate" :class="{ disabled: !canSubmit }" @tap="onSubmit">
+        <uni-icons type="paperplane" color="#fff" size="17" />
+        <text>看看能做啥</text>
       </view>
     </view>
   </view>
@@ -176,68 +158,58 @@ function onSubmit() {
 <style lang="scss" scoped>
 .page {
   min-height: 100vh;
-  padding: 32rpx 32rpx 200rpx;
+  background: var(--gradient-bg);
+  padding-bottom: 200rpx;
 }
-.block {
-  background: #fff;
-  border-radius: var(--radius-md);
-  padding: 24rpx;
-  margin-bottom: 16rpx;
-  box-shadow: var(--shadow-soft);
+.section {
+  padding: 28rpx 32rpx;
+  border-bottom: 2rpx dashed var(--color-border);
 }
-.cuisine-list, .taste-list {
+.custom-row { margin-top: 16rpx; }
+.chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
+  gap: 12rpx;
 }
-.cuisine-chip, .taste-chip {
-  padding: 16rpx 32rpx;
+.chip {
+  padding: 14rpx 28rpx;
   border-radius: var(--radius-pill);
-  background: var(--color-secondary);
-  color: var(--color-text);
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 500;
-  &.active {
-    background: var(--color-primary);
-    color: #fff;
-    box-shadow: var(--shadow-soft);
-  }
+  border: 2rpx solid var(--color-primary-light);
+  background: var(--color-bg-card);
+  color: var(--color-text);
 }
-.footer {
+.chip:active { transform: scale(0.96); }
+.chip.selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+.bottom-cta {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  gap: 16rpx;
-  padding: 24rpx 32rpx;
-  background: rgba(255, 247, 235, 0.96);
-  backdrop-filter: blur(8rpx);
-  border-top: 2rpx solid var(--color-border);
+  padding: 24rpx 32rpx 32rpx;
+  background: var(--gradient-bg);
   z-index: 10;
 }
-.btn-secondary, .btn-primary {
-  padding: 24rpx 0;
-  text-align: center;
+.btn-generate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  width: 100%;
+  padding: 26rpx 0;
+  background: var(--gradient-cta);
+  color: #fff;
+  border: none;
+  border-radius: 32rpx;
   font-size: 30rpx;
   font-weight: 600;
-  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-cta);
 }
-.btn-secondary {
-  background: #fff;
-  color: var(--color-text);
-  border: 2rpx solid var(--color-border);
-  width: 180rpx;
-}
-.btn-primary {
-  flex: 1;
-  background: var(--color-primary);
-  color: #fff;
-  box-shadow: var(--shadow-soft);
-  &.disabled {
-    background: var(--color-border);
-    box-shadow: none;
-    color: var(--color-text-sub);
-  }
-}
+.btn-generate:active { transform: scale(0.98); }
+.btn-generate.disabled { opacity: 0.5; pointer-events: none; }
 </style>

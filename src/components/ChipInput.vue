@@ -21,7 +21,6 @@ function commit() {
   const v = inputValue.value.trim()
   if (!v) return
   if (props.modelValue.includes(v)) {
-    uni.showToast({ title: '已存在', icon: 'none' })
     inputValue.value = ''
     return
   }
@@ -61,7 +60,9 @@ function remove(idx: number) {
         class="chip"
       >
         <text>{{ item }}</text>
-        <text class="x" @tap.stop="remove(idx)">×</text>
+        <view class="x" @tap.stop="remove(idx)">
+          <uni-icons type="close" color="#8B5E3D" size="11" />
+        </view>
       </view>
     </view>
   </view>
@@ -70,51 +71,59 @@ function remove(idx: number) {
 <style lang="scss" scoped>
 .input-row {
   display: flex;
-  gap: 16rpx;
+  gap: 12rpx;
   align-items: center;
 }
 .input {
   flex: 1;
-  height: 80rpx;
+  height: 64rpx;
   padding: 0 24rpx;
-  background: #fff;
+  border-radius: 16rpx;
   border: 2rpx solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: 28rpx;
+  background: var(--color-bg-card);
+  font-size: 26rpx;
+  color: var(--color-text);
 }
+.input:focus { border-color: var(--color-primary); }
 .add-btn {
-  width: 80rpx;
-  height: 80rpx;
-  background: var(--color-primary);
-  color: #fff;
-  border-radius: var(--radius-md);
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  border: 2rpx solid var(--color-primary);
+  background: var(--color-bg-card);
+  color: var(--color-primary);
+  font-size: 32rpx;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48rpx;
-  font-weight: 300;
-  line-height: 1;
+}
+.add-btn:active {
+  background: var(--color-primary);
+  color: #fff;
 }
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
-  margin-top: 20rpx;
+  gap: 8rpx;
+  margin-top: 12rpx;
 }
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 8rpx;
-  padding: 8rpx 20rpx;
-  background: var(--color-secondary);
-  color: var(--color-text);
+  gap: 6rpx;
+  padding: 6rpx 16rpx 6rpx 20rpx;
   border-radius: var(--radius-pill);
-  font-size: 26rpx;
-  .x {
-    color: var(--color-text-sub);
-    font-size: 32rpx;
-    line-height: 1;
-    padding: 0 4rpx;
-  }
+  background: var(--color-primary-light);
+  font-size: 22rpx;
+  color: var(--color-text);
+  font-weight: 500;
+}
+.x {
+  width: 28rpx;
+  height: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

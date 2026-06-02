@@ -11,8 +11,7 @@ const props = withDefaults(defineProps<{
   options: Option[]
   modelValue: string[]
   max?: number
-  placeholder?: string
-}>(), { max: 0, placeholder: '点击下方标签添加' })
+}>(), { max: 0 })
 
 const emit = defineEmits<{
   (e: 'update:modelValue', v: string[]): void
@@ -36,54 +35,38 @@ function toggle(v: string) {
 </script>
 
 <template>
-  <view class="tag-selector">
-    <view class="tags">
-      <view
-        v-for="opt in options"
-        :key="opt.value"
-        class="tag"
-        :class="{ active: isSelected(opt.value) }"
-        @tap="toggle(opt.value)"
-      >
-        <text>{{ opt.label }}</text>
-      </view>
-    </view>
-    <view v-if="modelValue.length === 0" class="placeholder">
-      <text>{{ placeholder }}</text>
-    </view>
-    <view v-else class="summary">
-      <text>已选 {{ modelValue.length }} 项</text>
+  <view class="tags">
+    <view
+      v-for="opt in options"
+      :key="opt.value"
+      class="tag"
+      :class="{ selected: isSelected(opt.value) }"
+      @tap="toggle(opt.value)"
+    >
+      <text>{{ opt.label }}</text>
     </view>
   </view>
 </template>
 
 <style lang="scss" scoped>
-.tag-selector {
-  width: 100%;
-}
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 16rpx;
+  gap: 12rpx;
 }
 .tag {
-  padding: 14rpx 28rpx;
+  padding: 12rpx 24rpx;
   border-radius: var(--radius-pill);
-  background: #fff;
-  border: 2rpx solid var(--color-border);
   font-size: 26rpx;
+  font-weight: 500;
+  border: 2rpx solid var(--color-primary-light);
+  background: var(--color-bg-card);
   color: var(--color-text);
-  transition: all 0.15s;
-  &.active {
-    background: var(--color-primary);
-    color: #fff;
-    border-color: var(--color-primary);
-    box-shadow: var(--shadow-soft);
-  }
 }
-.placeholder, .summary {
-  margin-top: 16rpx;
-  font-size: 24rpx;
-  color: var(--color-text-sub);
+.tag:active { transform: scale(0.96); }
+.tag.selected {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
 }
 </style>
