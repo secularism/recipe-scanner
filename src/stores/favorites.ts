@@ -5,13 +5,17 @@ import type { Recipe } from '@/types'
 
 const STORAGE_KEY = 'recipe-favorites'
 
+function isValidIdArray(x: unknown): x is string[] {
+  return Array.isArray(x) && x.every(i => typeof i === 'string')
+}
+
 export const useFavoritesStore = defineStore('favorites', () => {
   const ids = ref<string[]>([])
 
   function load() {
     try {
-      const raw = uni.getStorageSync(STORAGE_KEY) as string[] | null
-      ids.value = raw || []
+      const raw = uni.getStorageSync(STORAGE_KEY)
+      ids.value = isValidIdArray(raw) ? raw : []
     } catch {
       ids.value = []
     }
@@ -41,5 +45,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
       .filter((r): r is Recipe => r !== undefined)
   })
 
-  return { ids, list, load, isFavorite, toggle }
+  const count = computed(() => ids.value.length)
+
+  return { ids, list, count, load, isFavorite, toggle }
 })

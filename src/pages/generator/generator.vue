@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { INGREDIENT_GROUPS, SEASONING_GROUPS, CUISINE_LABELS, TASTE_LABELS } from '@/data'
+import { ref, computed, watch, onMounted } from 'vue'
+import { INGREDIENT_GROUPS, SEASONING_GROUPS, CUISINE_LABELS, TASTE_LABELS, GENERATOR_DRAFT_KEY } from '@/data'
 import type { Cuisine, Taste, GenerateInput } from '@/types'
 import { generateRecipe } from '@/services'
 
@@ -10,6 +10,46 @@ const customIngredients = ref<string[]>([])
 const customSeasonings = ref<string[]>([])
 const selectedCuisine = ref<Cuisine | null>(null)
 const selectedTastes = ref<Taste[]>([])
+
+interface Draft {
+  i: string[]; s: string[]; ci: string[]; cs: string[]
+  cu: Cuisine | null; t: Taste[]
+}
+
+function loadDraft() {
+  try {
+    const raw = uni.getStorageSync(GENERATOR_DRAFT_KEY) as Draft | null
+    if (!raw || typeof raw !== 'object') return
+    selectedIngredients.value = Array.isArray(raw.i) ? raw.i : []
+    selectedSeasonings.value = Array.isArray(raw.s) ? raw.s : []
+    customIngredients.value = Array.isArray(raw.ci) ? raw.ci : []
+    customSeasonings.value = Array.isArray(raw.cs) ? raw.cs : []
+    selectedCuisine.value = raw.cu ?? null
+    selectedTastes.value = Array.isArray(raw.t) ? raw.t : []
+  } catch { /* 忽略 */ }
+}
+
+function saveDraft() {
+  try {
+    const draft: Draft = {
+      i: selectedIngredients.value,
+      s: selectedSeasonings.value,
+      ci: customIngredients.value,
+      cs: customSeasonings.value,
+      cu: selectedCuisine.value,
+      t: selectedTastes.value
+    }
+    uni.setStorageSync(GENERATOR_DRAFT_KEY, draft)
+  } catch { /* 忽略 */ }
+}
+
+function clearDraft() {
+  try { uni.removeStorageSync(GENERATOR_DRAFT_KEY) } catch { /* 忽略 */ }
+}
+
+onMounted(loadDraft)
+watch([selectedIngredients, selectedSeasonings, customIngredients, customSeasonings, selectedCuisine, selectedTastes],
+  saveDraft, { deep: true })
 
 const allIngredients = computed(() => [...selectedIngredients.value, ...customIngredients.value])
 const allSeasonings = computed(() => [...selectedSeasonings.value, ...customSeasonings.value])
@@ -39,6 +79,8 @@ function clearAll() {
   customSeasonings.value = []
   selectedCuisine.value = null
   selectedTastes.value = []
+  clearDraft()
+  uni.showToast({ title: '已清空', icon: 'none' })
 }
 
 function onSubmit() {
@@ -52,7 +94,6 @@ function onSubmit() {
     cuisine: selectedCuisine.value,
     tastes: selectedTastes.value.length > 0 ? selectedTastes.value : undefined
   }
-  // 暂存到 globalData 让 result 页拿
   const app = getApp()
   if (app?.globalData) {
     app.globalData.pendingInput = input

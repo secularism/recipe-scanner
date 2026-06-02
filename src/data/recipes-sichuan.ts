@@ -2,6 +2,7 @@ import type { Recipe } from '@/types'
 
 /**
  * 川菜 & 湘菜 — 重口味，香辣为主
+ * 食材/调味料名与 data/ingredients.ts、data/seasonings.ts 的 name 字段一致
  */
 export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
   {
@@ -12,8 +13,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'salty'],
     cookTime: 15,
     difficulty: 2,
-    ingredients: ['tofu', 'pork'],
-    seasonings: ['bean-paste', 'sichuan-pepper', 'soy-sauce', 'ginger', 'garlic', 'scallion', 'oil'],
+    ingredients: ['豆腐', '猪肉'],
+    seasonings: ['豆瓣酱', '花椒', '生抽', '姜', '蒜', '葱', '食用油'],
     steps: [
       { order: 1, text: '豆腐切丁焯水备用，肉末用料酒腌一下' },
       { order: 2, text: '热油爆香姜蒜末，加豆瓣酱炒出红油' },
@@ -31,8 +32,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'sweet', 'salty'],
     cookTime: 20,
     difficulty: 2,
-    ingredients: ['chicken', 'peanut'],
-    seasonings: ['dried-chili', 'sichuan-pepper', 'vinegar', 'sugar', 'soy-sauce', 'ginger', 'garlic', 'scallion'],
+    ingredients: ['鸡肉', '花生米'],
+    seasonings: ['干辣椒', '花椒', '醋', '糖', '生抽', '姜', '蒜', '葱'],
     steps: [
       { order: 1, text: '鸡腿肉切丁，用料酒、盐、淀粉腌10分钟' },
       { order: 2, text: '调汁：醋、糖、生抽、淀粉、水按1:1:1比例混合' },
@@ -50,8 +51,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'salty'],
     cookTime: 25,
     difficulty: 2,
-    ingredients: ['pork-belly', 'garlic-sprout', 'pepper'],
-    seasonings: ['bean-paste', 'sweet-bean', 'soy-sauce', 'sugar', 'ginger', 'garlic'],
+    ingredients: ['五花肉', '蒜苗', '青椒'],
+    seasonings: ['豆瓣酱', '甜面酱', '生抽', '糖', '姜', '蒜'],
     steps: [
       { order: 1, text: '整块五花肉冷水下锅，加姜片煮8成熟，捞出切薄片' },
       { order: 2, text: '热锅不放油，下肉片煸炒出油至微卷' },
@@ -69,8 +70,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'sweet', 'sour', 'salty'],
     cookTime: 20,
     difficulty: 2,
-    ingredients: ['pork-tenderloin', 'carrot', 'mushroom'],
-    seasonings: ['bean-paste', 'vinegar', 'sugar', 'soy-sauce', 'ginger', 'garlic', 'scallion'],
+    ingredients: ['里脊', '胡萝卜', '蘑菇'],
+    seasonings: ['豆瓣酱', '醋', '糖', '生抽', '姜', '蒜', '葱'],
     steps: [
       { order: 1, text: '里脊切丝，用盐、料酒、淀粉腌10分钟' },
       { order: 2, text: '调鱼香汁：醋、糖、生抽、淀粉、水按1:1:1:1混合' },
@@ -88,8 +89,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'salty'],
     cookTime: 30,
     difficulty: 3,
-    ingredients: ['fish', 'tofu', 'cabbage'],
-    seasonings: ['bean-paste', 'dried-chili', 'sichuan-pepper', 'soy-sauce', 'ginger', 'garlic', 'scallion', 'oil'],
+    ingredients: ['鱼', '豆腐', '白菜'],
+    seasonings: ['豆瓣酱', '干辣椒', '花椒', '生抽', '姜', '蒜', '葱', '食用油'],
     steps: [
       { order: 1, text: '鱼片用盐、料酒、淀粉、蛋清腌15分钟' },
       { order: 2, text: '豆芽白菜焯水铺底' },
@@ -107,8 +108,8 @@ export const SICHUAN_HUNAN_RECIPES: Recipe[] = [
     taste: ['spicy', 'salty'],
     cookTime: 25,
     difficulty: 2,
-    ingredients: ['fish'],
-    seasonings: ['chili', 'ginger', 'garlic', 'scallion', 'soy-sauce', 'oil'],
+    ingredients: ['鱼'],
+    seasonings: ['辣椒', '姜', '蒜', '葱', '生抽', '食用油'],
     steps: [
       { order: 1, text: '鱼头剖开，抹盐和料酒腌10分钟' },
       { order: 2, text: '剁椒加姜蒜末拌匀' },

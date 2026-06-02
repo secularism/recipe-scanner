@@ -28,7 +28,7 @@ function doGenerate() {
   results.value = generateRecipe(input.value)
   if (results.value.length > 0) {
     const top = results.value[0]
-    histStore.add({
+    histStore.addIfFresh({
       recipeId: top.recipe.id,
       recipeName: top.recipe.name,
       input: input.value
