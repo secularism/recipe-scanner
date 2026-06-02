@@ -11,6 +11,17 @@
 
 **4 phases** | **17 requirements mapped** | All v1 requirements covered ✓
 
+### Phase 5: UI 重构（OpenDesign 设计驱动）
+**Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
+**Mode**: ui-phase
+**Status**: UI-SPEC.md 已产出，待出图
+**Success Criteria**:
+1. OpenDesign 出图覆盖 6 个页面（750×1334）
+2. 配色 / 字号 / 间距 / 文案严格遵循 `05-UI-SPEC.md`
+3. 不引入 Tailwind / 第三方 icon / CDN 图片
+4. 4 种交互态在 UI 中均有体现
+5. 6 个页面 + 5 个组件的 `<template>` 与 `<style>` 全部按设计图重写
+
 ---
 
 ## Phase Details
