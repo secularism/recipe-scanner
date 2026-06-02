@@ -88,50 +88,42 @@ git push -u origin feat/MM-DD/phase-NN-<功能简述>
 
 ## 2. Commit 信息规范
 
-> 本节由用户后续提供具体格式。Agent 在收到格式前，**先按 Conventional Commits 写**，用户给规则后切换到新规范。
-
-### 当前占位规范（Conventional Commits）
+### 格式
 
 ```
-<type>(<scope>): <subject>
-
-<body>
+type: 具体更改内容
 ```
 
-**type**（必填）：
-- `feat` — 新功能
-- `fix` — bug 修复
-- `docs` — 文档/注释
-- `style` — 格式（不影响代码运行）
-- `refactor` — 重构（既不修 bug 也不加功能）
-- `perf` — 性能优化
-- `test` — 测试
-- `chore` — 杂项（构建、依赖等）
-- `ui` — UI 视觉/样式变更（项目内自定义）
+**只写一行**，不加 body。type 后用**英文冒号 + 空格**，内容用中文描述。
 
-**scope**（可选但推荐）：
-- `phase-01`..`phase-NN` — phase 范围
-- `data` / `services` / `stores` / `pages` / `components` — 模块范围
-- 多个 phase 改动用 `phase1-4` / `phase0-init` 等
+### type 清单
 
-**subject**（必填，≤ 50 字符）：
-- 中文或英文都可
-- 不加句号
-- 用动词开头（"添加"/"修复"/"重构"/"add"/"fix"/"refactor"）
+| Type | 场景 |
+|---|---|
+| `feat` | 新功能（新 plan、新页面、新组件） |
+| `fix` | 修 bug（闪退、NPE、逻辑错误） |
+| `refactor` | 改结构不改功能（重命名、拆文件、移动包） |
+| `docs` | 文档（CLAUDE.md、plan 文档、ROADMAP） |
+| `test` | 测试 |
+| `chore` | 杂项（删文件、清理代码、build 配置） |
 
-**body**（可选，解释 what & why）：
-- 换行后写
-- 列出关键改动点
-- 解释非显而易见的设计决策
+### 示例
 
-**示例**：
 ```
-fix(stores): 防止脏数据污染历史与收藏
-
-- favorites: 加 isValidIdArray 校验，丢弃非字符串元素
-- history: 加 isValidItem 校验，丢弃缺字段项
-- 触发场景：本地存储被外部脚本写入异常值
+feat: 新增首页一键预设卡
+fix: 修复 result 页历史重复入库
+refactor: 拆分 history store 为 addIfFresh 与 add 两个方法
+docs: 更新 AGENTS.md commit 规范
+test: 补 e2e 用例覆盖换一换场景
+chore: 删除废弃的 vue-cli 配置文件
 ```
+
+### 注意事项
+
+- 不加 scope（不要写 `fix(stores):` 这种）
+- 不加 body
+- type 必须是上述 6 个之一，其他不接受
+- 内容开头用动词：「新增」「修复」「重构」「更新」「删除」「拆分」
 
 ---
 
