@@ -25,7 +25,7 @@
 ```
 src/
 ├── pages/        # 6 个页面：index/generator/result/detail/favorites/history
-├── components/   # 4 个公共组件：TagSelector/ChipInput/RecipeCard/EmptyState/SectionTitle
+├── components/   # 5 个公共组件：TagSelector/ChipInput/RecipeCard/EmptyState/SectionTitle
 ├── stores/       # Pinia stores：favorites/history
 ├── services/     # matcher.ts + generator.ts（业务服务）
 ├── types/        # TS 领域类型
@@ -38,7 +38,7 @@ src/
 └── uni.scss      # 全局样式（手绘插画风）
 ```
 
-每个文件均 ≤ 250 行，模块边界清晰。
+当前源码文件遵循 AGENTS.md 的单文件 ≤ 300 行约束，模块边界清晰。
 
 ## 开发
 
@@ -69,4 +69,18 @@ npx tsx tests/matcher.test.ts
 - **匹配算法**：`services/matcher.ts` 单一职责，可独立测试
 - **状态持久化**：Pinia + `uni.setStorageSync`，跨页实时同步
 - **分享策略**：`onShareAppMessage` 提供 path 含 `?id=xxx&from=share`；**没有** `onShareTimeline`，确保不上朋友圈
-- **UI 风格**：手绘插画风 — 暖橘主色、米白背景、圆角卡片、emoji 装饰、伪"贴纸"效果（CSS 旋转矩形叠加）
+- **UI 风格**：手绘插画风 — 暖橘主色、米白背景、圆角卡片、uni-icons 图标与内联 SVG 装饰；UI 代码不使用 emoji
+
+## 小程序验证
+
+```bash
+# 微信小程序开发构建，供开发者工具导入
+npm run dev:mp-weixin
+# 导入 dist/dev/mp-weixin
+
+# 微信小程序生产构建
+npm run build:mp-weixin
+# 导入 dist/build/mp-weixin
+```
+
+当前微信小程序 appid 统一配置为 `wxb8b86d12083c52cd`。

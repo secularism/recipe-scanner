@@ -1,10 +1,11 @@
 ---
 phase: 5
 slug: ui-redesign
-status: draft
-revision: 1
-revision_note: 用户修订：禁用 emoji、改用 uni-ui 组件、允许 Tailwind / 第三方 icon 备选
+status: implemented-pending-user-validation
+revision: 2
+revision_note: 代码侧已按 OpenDesign 风格重构，并补齐小程序运行修复；等待用户验收
 created: 2026-06-02
+implemented: 2026-06-04
 target_platform: 微信小程序 (uni-app + Vue 3 + TypeScript)
 ui_library: uni-ui (主) + Tailwind CSS (备选)
 output_for: OpenDesign 出图
@@ -492,3 +493,30 @@ output_for: OpenDesign 出图
 - [ ] 维度 6 注册表安全：通过（已确认 uni-ui 为主、Tailwind/iconfont 备选）
 
 **批准状态**：pending（待 OpenDesign 出图后由 gsd-ui-checker 复核）
+
+---
+
+## 15. 实现同步记录 (2026-06-04)
+
+**代码提交**
+- `e5bbb99 refactor: 按 OpenDesign 设计稿重构 6 页面 + 5 组件样式`
+- `b4ed00f fix: 修复小程序页面组件渲染`
+
+**已落地范围**
+- 页面：`index`、`generator`、`result`、`detail`、`favorites`、`history`
+- 组件：`TagSelector`、`ChipInput`、`RecipeCard`、`EmptyState`、`SectionTitle`
+- 小程序配置：`pages.json` 首页改用原生导航头；`manifest.json` 顶层与 `mp-weixin.appid` 统一为 `wxb8b86d12083c52cd`
+- 构建注册：显式 import 本地组件，确保小程序端生成 `usingComponents`
+- 图标安全：替换不存在的 `uni-icons` type（`bolt`、`globe`、`share`）
+
+**已验证**
+- `npx tsc --noEmit`
+- `npx tsx tests/e2e.test.ts`（27/27）
+- `npx tsx tests/matcher.test.ts`（9/9）
+- `npm run build:mp-weixin`
+- `npm run dev:mp-weixin` 已生成 `dist/dev/mp-weixin`
+
+**当前状态**
+- 代码已推送到 `feat/06-02/phase-05-ui-redesign`
+- 等待用户在微信开发者工具验收
+- 验收通过后由 agent 合并到 `main`，保留当前 feature 分支

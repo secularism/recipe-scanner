@@ -14,13 +14,20 @@
 ### Phase 5: UI 重构（OpenDesign 设计驱动）
 **Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
 **Mode**: ui-phase
-**Status**: UI-SPEC.md 已产出，待出图
+**Status**: 代码侧已完成并推送，等待用户微信开发者工具验收
 **Success Criteria**:
 1. OpenDesign 出图覆盖 6 个页面（750×1334）
 2. 配色 / 字号 / 间距 / 文案严格遵循 `05-UI-SPEC.md`
 3. 不引入 Tailwind / 第三方 icon / CDN 图片
 4. 4 种交互态在 UI 中均有体现
 5. 6 个页面 + 5 个组件的 `<template>` 与 `<style>` 全部按设计图重写
+
+**Implementation Update (2026-06-04)**:
+- `e5bbb99` 已按 OpenDesign 风格重构 6 个页面与 5 个组件。
+- `b4ed00f` 已修复小程序端页面显示不全、生成按钮无效、原生头部、appid、无效 `uni-icons` type 与 `.vue` 类型声明问题。
+- 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
+- 已执行 `npm run dev:mp-weixin`，微信开发者工具可导入 `dist/dev/mp-weixin` 验收。
+- 下一步：等待用户验收；验收通过后合并到 `main`，保留当前 feature 分支。
 
 ---
 
