@@ -17,7 +17,7 @@ export interface QuickPreset {
 export const QUICK_PRESETS: QuickPreset[] = [
   {
     id: 'egg-rice',
-    icon: 'time',
+    icon: 'paperplane',
     title: '快手晚餐',
     desc: '15分钟搞定',
     input: {
