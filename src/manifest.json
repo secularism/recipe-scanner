@@ -1,6 +1,6 @@
 {
     "name" : "菜谱生成",
-    "appid" : "__UNI__RECIPE1",
+    "appid" : "wxb8b86d12083c52cd",
     "description" : "根据你的食材和调味料，智能推荐菜谱",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -50,7 +50,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wxb8b86d12083c52cd",
         "setting" : {
             "urlCheck" : false
         },

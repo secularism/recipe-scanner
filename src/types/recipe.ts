@@ -55,4 +55,5 @@ export interface HistoryItem {
   recipeName: string
   generatedAt: number
   input: GenerateInput
+  missingCount?: number
 }

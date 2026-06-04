@@ -4,9 +4,10 @@ import type { MatchResult, GenerateInput } from '@/types'
 import { generateRecipe, shuffleResult } from '@/services'
 import { useHistoryStore } from '@/stores/history'
 import { onLoad } from '@dcloudio/uni-app'
+import RecipeCard from '@/components/RecipeCard.vue'
+import EmptyState from '@/components/EmptyState.vue'
 
 const histStore = useHistoryStore()
-
 const input = ref<GenerateInput | null>(null)
 const results = ref<MatchResult[]>([])
 
@@ -31,7 +32,8 @@ function doGenerate() {
     histStore.addIfFresh({
       recipeId: top.recipe.id,
       recipeName: top.recipe.name,
-      input: input.value
+      input: input.value,
+      missingCount: top.missingIngredients.length + top.missingSeasonings.length
     })
   }
 }
@@ -50,42 +52,55 @@ function reshuffle() {
 }
 
 function openDetail(r: MatchResult) {
+  const app = getApp()
+  if (app?.globalData) {
+    app.globalData.pendingDetailInput = {
+      input: input.value,
+      coverage: r.coverage
+    }
+  }
   uni.navigateTo({ url: `/pages/detail/detail?id=${r.recipe.id}` })
 }
 
 const hasResults = computed(() => results.value.length > 0)
-
-function goBack() {
-  uni.navigateBack()
-}
+const totalInputItems = computed(() => {
+  if (!input.value) return 0
+  return input.value.ingredients.length + input.value.seasonings.length
+})
+function goBack() { uni.navigateBack() }
 </script>
 
 <template>
   <view class="page">
     <view v-if="hasResults" class="results">
-      <view class="headline">
-        <text class="title">为你找到 {{ results.length }} 道菜</text>
-        <text class="hint">点击查看详情</text>
+      <view class="summary">
+        <text>基于你输入的 <text class="strong">{{ totalInputItems }} 种食材</text></text>
       </view>
-      <RecipeCard
-        v-for="r in results"
-        :key="r.recipe.id"
-        :result="r"
-        show-score
-        @tap="openDetail"
-      />
-      <view class="reshuffle" @tap="reshuffle">
-        <text>🔀 换一换</text>
+      <view class="cards">
+        <RecipeCard
+          v-for="(r, i) in results"
+          :key="r.recipe.id"
+          :result="r"
+          show-score
+          :variant="i === 0 ? 'large' : 'small'"
+          @tap="openDetail"
+        />
+      </view>
+      <view class="refresh-wrap">
+        <view class="btn-refresh" @tap="reshuffle">
+          <uni-icons type="refresh" color="#E8783B" size="14" />
+          <text>换一换</text>
+        </view>
       </view>
     </view>
     <EmptyState
       v-else
-      emoji="😢"
+      icon="info"
       title="没有找到匹配的菜谱"
       subtitle="试试多选几个食材和调味料，或换个菜系"
     >
       <view class="back-btn" @tap="goBack">
-        <text>← 回去再选选</text>
+        <text>返回修改</text>
       </view>
     </EmptyState>
   </view>
@@ -94,36 +109,50 @@ function goBack() {
 <style lang="scss" scoped>
 .page {
   min-height: 100vh;
-  padding: 32rpx;
+  background: var(--gradient-bg);
+  padding-bottom: 40rpx;
 }
-.headline {
+.summary {
+  padding: 20rpx 32rpx;
+  font-size: 24rpx;
+  color: var(--color-text-sub);
+  background: var(--color-bg-card);
+  border-bottom: 2rpx solid var(--color-border);
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 24rpx;
-  padding: 0 8rpx;
-  .title { font-size: 36rpx; font-weight: 700; color: var(--color-text); }
-  .hint { font-size: 24rpx; color: var(--color-text-sub); }
+  align-items: center;
 }
-.reshuffle {
-  margin-top: 40rpx;
+.strong { color: var(--color-text); font-weight: 600; }
+.cards { padding: 24rpx 0 0; }
+.refresh-wrap {
   text-align: center;
-  padding: 28rpx 0;
-  background: #fff;
-  border: 2rpx dashed var(--color-primary);
+  padding: 32rpx 0;
+}
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 48rpx;
   border-radius: var(--radius-pill);
+  border: 2rpx solid var(--color-primary);
+  background: var(--color-bg-card);
   color: var(--color-primary);
-  font-size: 30rpx;
+  font-size: 26rpx;
   font-weight: 600;
+}
+.btn-refresh:active {
+  transform: scale(0.97);
+  background: var(--color-primary-light);
 }
 .back-btn {
   margin-top: 40rpx;
   padding: 24rpx 48rpx;
-  background: var(--color-primary);
+  background: var(--gradient-cta);
   color: #fff;
   border-radius: var(--radius-pill);
   font-size: 28rpx;
   font-weight: 600;
   display: inline-block;
+  box-shadow: var(--shadow-cta);
 }
+.back-btn:active { transform: scale(0.98); }
 </style>
