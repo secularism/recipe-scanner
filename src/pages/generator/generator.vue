@@ -2,7 +2,9 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { INGREDIENT_GROUPS, SEASONING_GROUPS, CUISINE_LABELS, TASTE_LABELS, GENERATOR_DRAFT_KEY } from '@/data'
 import type { Cuisine, Taste, GenerateInput } from '@/types'
-import { generateRecipe } from '@/services'
+import SectionTitle from '@/components/SectionTitle.vue'
+import TagSelector from '@/components/TagSelector.vue'
+import ChipInput from '@/components/ChipInput.vue'
 
 const selectedIngredients = ref<string[]>([])
 const selectedSeasonings = ref<string[]>([])
@@ -117,7 +119,7 @@ function toggleTaste(v: string) {
     </view>
 
     <view class="section">
-      <SectionTitle icon="globe" title="想吃哪个菜系" />
+      <SectionTitle icon="map" title="想吃哪个菜系" />
       <view class="chip-row">
         <view
           v-for="opt in cuisineOptions"
@@ -211,5 +213,5 @@ function toggleTaste(v: string) {
   box-shadow: var(--shadow-cta);
 }
 .btn-generate:active { transform: scale(0.98); }
-.btn-generate.disabled { opacity: 0.5; pointer-events: none; }
+.btn-generate.disabled { opacity: 0.5; }
 </style>

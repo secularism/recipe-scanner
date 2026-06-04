@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { onShow } from '@dcloudio/uni-app'
 import { useHistoryStore } from '@/stores/history'
 import type { HistoryItem } from '@/types'
+import EmptyState from '@/components/EmptyState.vue'
 
 const histStore = useHistoryStore()
 

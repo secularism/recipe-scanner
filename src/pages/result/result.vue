@@ -4,6 +4,8 @@ import type { MatchResult, GenerateInput } from '@/types'
 import { generateRecipe, shuffleResult } from '@/services'
 import { useHistoryStore } from '@/stores/history'
 import { onLoad } from '@dcloudio/uni-app'
+import RecipeCard from '@/components/RecipeCard.vue'
+import EmptyState from '@/components/EmptyState.vue'
 
 const histStore = useHistoryStore()
 const input = ref<GenerateInput | null>(null)

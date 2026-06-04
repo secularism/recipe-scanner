@@ -53,7 +53,7 @@ function usePreset(p: QuickPreset) {
 
     <!-- Presets -->
     <view class="section-title">
-      <uni-icons type="bolt" color="#4A2D15" size="16" />
+      <uni-icons type="fire" color="#4A2D15" size="16" />
       <text>一键生成</text>
     </view>
     <scroll-view scroll-x class="presets" show-scrollbar="false">

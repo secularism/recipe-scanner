@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onShow } from '@dcloudio/uni-app'
 import { useFavoritesStore } from '@/stores/favorites'
+import EmptyState from '@/components/EmptyState.vue'
 
 const favStore = useFavoritesStore()
 

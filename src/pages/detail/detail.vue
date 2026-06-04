@@ -4,6 +4,7 @@ import type { Recipe, GenerateInput } from '@/types'
 import { findRecipeById, CUISINE_LABELS, TASTE_LABELS, DIFFICULTY_LABELS } from '@/data'
 import { useFavoritesStore } from '@/stores/favorites'
 import { onLoad, onShareAppMessage } from '@dcloudio/uni-app'
+import SectionTitle from '@/components/SectionTitle.vue'
 
 const favStore = useFavoritesStore()
 const recipe = ref<Recipe | null>(null)
@@ -157,7 +158,7 @@ onShareAppMessage(() => {
         <text>{{ isFav ? '已收藏' : '收藏' }}</text>
       </view>
       <button open-type="share" class="btn-share">
-        <uni-icons type="share" color="#fff" size="16" />
+        <uni-icons type="paperplane" color="#fff" size="16" />
         <text>分享给好友</text>
       </button>
     </view>

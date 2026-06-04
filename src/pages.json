@@ -10,7 +10,8 @@
       "path": "pages/index/index",
       "style": {
         "navigationBarTitleText": "菜谱生成",
-        "navigationStyle": "custom",
+        "navigationBarBackgroundColor": "#FFF7EB",
+        "navigationBarTextStyle": "black",
         "enablePullDownRefresh": false
       }
     },
