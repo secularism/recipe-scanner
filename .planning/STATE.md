@@ -2,8 +2,8 @@
 
 ## Current Position
 - Phase: 5 (UI 重构 — OpenDesign 设计驱动)
-- Plan: 1 of 1
-- Status: OpenDesign 风格重构与小程序运行修复已推送，等待用户在微信开发者工具验收
+- Plan: 2 of 2
+- Status: 首页视觉 bugfix 已完成验证，待推送后用户验收
 
 ## Project Memory
 - 项目类型: 微信小程序（uniapp vue3+ts）
@@ -22,6 +22,7 @@
 - 已修复微信小程序端本地组件未注册、首页自定义头部遮挡、appid 未写入 mp-weixin、无效 uni-icons type、生成按钮禁用态不可提示等问题，提交 `b4ed00f`
 - 当前待办：用户验证 `dist/dev/mp-weixin` 后，再由 agent 切回 main 合并；保留 feature 分支不删除
 - 后续新 plan/phase 必须基于合并后的最新 main 新拉 feature 分支
+- 2026-06-04 新建 `feat/06-04/phase-05-home-bugfix` 修复首页：补可渲染手绘锅插图、对齐一键生成卡片、整体内容下移、说明收藏/历史为本机缓存
 
 ## Last Updated
-- 2026-06-04 Phase 5 代码重构与运行修复已推送到 `feat/06-02/phase-05-ui-redesign`，等待用户验收
+- 2026-06-04 进入 Phase 5 首页 bugfix，分支 `feat/06-04/phase-05-home-bugfix`

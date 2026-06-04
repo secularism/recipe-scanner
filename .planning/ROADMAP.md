@@ -27,7 +27,8 @@
 - `b4ed00f` 已修复小程序端页面显示不全、生成按钮无效、原生头部、appid、无效 `uni-icons` type 与 `.vue` 类型声明问题。
 - 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
 - 已执行 `npm run dev:mp-weixin`，微信开发者工具可导入 `dist/dev/mp-weixin` 验收。
-- 下一步：等待用户验收；验收通过后合并到 `main`，保留当前 feature 分支。
+- `50fddcb` 已将 Phase 5 UI 重构合并到 `main`。
+- `feat/06-04/phase-05-home-bugfix` 正在修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
 
 ---
 

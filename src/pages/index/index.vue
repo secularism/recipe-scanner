@@ -24,26 +24,24 @@ function usePreset(p: QuickPreset) {
 
 <template>
   <view class="page">
-    <!-- Hero -->
     <view class="hero">
       <view class="hero-illustration">
-        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="28" cy="36" rx="22" ry="14" fill="none" stroke="#4A2D15" stroke-width="3"/>
-          <path d="M6 36 Q2 36 2 32 Q2 28 6 28 L10 28" fill="none" stroke="#4A2D15" stroke-width="3" stroke-linecap="round"/>
-          <line x1="46" y1="30" x2="56" y2="20" stroke="#4A2D15" stroke-width="3.5" stroke-linecap="round"/>
-          <ellipse cx="30" cy="32" rx="8" ry="5" fill="none" stroke="#E8783B" stroke-width="2" stroke-dasharray="3 2" opacity="0.6"/>
-        </svg>
-        <svg class="steam" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 26 Q6 18 10 12" fill="none" stroke="#FFB682" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
-          <path d="M16 28 Q14 20 18 14" fill="none" stroke="#FFB682" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-          <path d="M24 26 Q22 18 26 10" fill="none" stroke="#FFB682" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
-        </svg>
+        <view class="steam">
+          <view class="steam-line one" />
+          <view class="steam-line two" />
+          <view class="steam-line three" />
+        </view>
+        <view class="pan">
+          <view class="pan-body">
+            <view class="pan-inner" />
+          </view>
+          <view class="pan-handle" />
+        </view>
       </view>
       <text class="title">今天吃什么？</text>
       <text class="subtitle">告诉我你冰箱里有什么，我帮你想想</text>
     </view>
 
-    <!-- Primary CTA -->
     <view class="cta-wrap">
       <navigator url="/pages/generator/generator" class="btn-primary" hover-class="none">
         <uni-icons type="cart" color="#fff" size="18" />
@@ -51,29 +49,28 @@ function usePreset(p: QuickPreset) {
       </navigator>
     </view>
 
-    <!-- Presets -->
     <view class="section-title">
       <uni-icons type="fire" color="#4A2D15" size="16" />
       <text>一键生成</text>
     </view>
     <scroll-view scroll-x class="presets" show-scrollbar="false">
-      <view
-        v-for="(p, i) in QUICK_PRESETS"
-        :key="p.id"
-        class="preset-card"
-        :class="{ 'no-margin': i === QUICK_PRESETS.length - 1 }"
-        hover-class="preset-card-hover"
-        @tap="usePreset(p)"
-      >
-        <view class="preset-icon-wrap">
-          <uni-icons :type="p.icon" color="#8B5E3D" size="22" />
+      <view class="presets-track">
+        <view
+          v-for="p in QUICK_PRESETS"
+          :key="p.id"
+          class="preset-card"
+          hover-class="preset-card-hover"
+          @tap="usePreset(p)"
+        >
+          <view class="preset-icon-wrap">
+            <uni-icons :type="p.icon" color="#8B5E3D" size="22" />
+          </view>
+          <text class="preset-title">{{ p.title }}</text>
+          <text class="preset-desc">{{ p.desc }}</text>
         </view>
-        <text class="preset-title">{{ p.title }}</text>
-        <text class="preset-desc">{{ p.desc }}</text>
       </view>
     </scroll-view>
 
-    <!-- Entry grid -->
     <view class="entry-grid">
       <navigator url="/pages/favorites/favorites" class="entry-card" hover-class="entry-card-hover">
         <uni-icons type="star" color="#8B5E3D" size="22" />
@@ -91,7 +88,6 @@ function usePreset(p: QuickPreset) {
       </navigator>
     </view>
 
-    <!-- Footer -->
     <view class="footer">
       <uni-icons type="heart-filled" color="#D9706A" size="14" />
       <text>用心做饭，用爱生活</text>
@@ -103,15 +99,14 @@ function usePreset(p: QuickPreset) {
 .page {
   min-height: 100vh;
   background: var(--gradient-bg);
-  padding: 0 32rpx 48rpx;
+  padding: 28rpx 32rpx 40rpx;
 }
 
-/* Hero */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40rpx 32rpx 48rpx;
+  padding: 52rpx 24rpx 44rpx;
   text-align: center;
 }
 .hero-illustration {
@@ -125,14 +120,60 @@ function usePreset(p: QuickPreset) {
   justify-content: center;
   margin-bottom: 24rpx;
   position: relative;
+  overflow: visible;
 }
-.hero-illustration svg { width: 112rpx; height: 112rpx; }
 .steam {
   position: absolute;
-  top: -16rpx;
-  right: 8rpx;
-  width: 64rpx;
-  height: 64rpx;
+  top: 22rpx;
+  left: 50%;
+  width: 96rpx;
+  height: 48rpx;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 14rpx;
+}
+.steam-line {
+  width: 12rpx;
+  height: 42rpx;
+  border-left: 4rpx solid var(--color-primary-glow);
+  border-radius: 50%;
+  opacity: 0.7;
+  transform: rotate(12deg);
+}
+.steam-line.two { height: 50rpx; opacity: 0.55; transform: rotate(-8deg); }
+.steam-line.three { height: 36rpx; opacity: 0.45; transform: rotate(16deg); }
+.pan {
+  width: 124rpx;
+  height: 96rpx;
+  position: relative;
+  margin-top: 54rpx;
+}
+.pan-body {
+  width: 104rpx;
+  height: 68rpx;
+  border: 6rpx solid var(--color-text);
+  border-radius: 50%;
+  background: #FFFDF9;
+  transform: rotate(-4deg);
+}
+.pan-inner {
+  width: 44rpx;
+  height: 24rpx;
+  border: 4rpx dashed var(--color-primary);
+  border-radius: 50%;
+  margin: 18rpx auto 0;
+  opacity: 0.55;
+}
+.pan-handle {
+  position: absolute;
+  right: -4rpx;
+  top: 24rpx;
+  width: 42rpx;
+  height: 8rpx;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  transform: rotate(-42deg);
 }
 .title {
   font-size: 56rpx;
@@ -163,7 +204,6 @@ function usePreset(p: QuickPreset) {
   display: block;
 }
 
-/* CTA */
 .cta-wrap { padding-bottom: 40rpx; }
 .btn-primary {
   display: flex;
@@ -181,7 +221,6 @@ function usePreset(p: QuickPreset) {
 }
 .btn-primary:active { transform: scale(0.98); }
 
-/* Section title */
 .section-title {
   display: flex;
   align-items: center;
@@ -192,13 +231,17 @@ function usePreset(p: QuickPreset) {
   color: var(--color-text);
 }
 
-/* Presets */
 .presets {
-  white-space: nowrap;
-  padding-bottom: 32rpx;
+  width: 100%;
+  padding-bottom: 36rpx;
+}
+.presets-track {
+  display: flex;
+  gap: 16rpx;
+  width: 848rpx;
 }
 .preset-card {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -208,11 +251,9 @@ function usePreset(p: QuickPreset) {
   background: var(--color-bg-card);
   border: 2rpx solid var(--color-border);
   border-radius: 20rpx;
-  margin-right: 16rpx;
   padding: 20rpx 16rpx;
   flex-shrink: 0;
 }
-.preset-card.no-margin { margin-right: 0; }
 .preset-card-hover { transform: scale(0.97); }
 .preset-icon-wrap {
   width: 44rpx;
@@ -224,7 +265,6 @@ function usePreset(p: QuickPreset) {
 .preset-title { font-size: 24rpx; font-weight: 600; color: var(--color-text); }
 .preset-desc { font-size: 20rpx; color: var(--color-text-sub); }
 
-/* Entry grid */
 .entry-grid {
   display: flex;
   gap: 16rpx;
@@ -245,7 +285,6 @@ function usePreset(p: QuickPreset) {
 .e-label { font-size: 28rpx; font-weight: 600; color: var(--color-text); }
 .e-count { font-size: 22rpx; color: var(--color-text-sub); }
 
-/* Footer */
 .footer {
   display: flex;
   align-items: center;
