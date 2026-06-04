@@ -22,6 +22,8 @@
 - [x] 替换不存在的预设卡图标 type
 - [x] 在 README 中说明收藏/历史为本机缓存机制
 - [x] 同步 GSD 文档
+- [x] 用户验收通过后合并到 `main`
+- [x] 合并后同步 GSD 文档状态
 
 ## Verification
 
@@ -29,4 +31,4 @@
 - [x] `npx tsx tests/e2e.test.ts`
 - [x] `npx tsx tests/matcher.test.ts`
 - [x] `npm run build:mp-weixin`
-- [ ] `npm run dev:mp-weixin`
+- [x] `npm run dev:mp-weixin`
