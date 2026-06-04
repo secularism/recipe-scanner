@@ -14,7 +14,7 @@
 ### Phase 5: UI 重构（OpenDesign 设计驱动）
 **Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
 **Mode**: ui-phase
-**Status**: 代码侧已完成并推送，等待用户微信开发者工具验收
+**Status**: 已完成、已验收、已合并到 `main`
 **Success Criteria**:
 1. OpenDesign 出图覆盖 6 个页面（750×1334）
 2. 配色 / 字号 / 间距 / 文案严格遵循 `05-UI-SPEC.md`
@@ -28,7 +28,9 @@
 - 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
 - 已执行 `npm run dev:mp-weixin`，微信开发者工具可导入 `dist/dev/mp-weixin` 验收。
 - `50fddcb` 已将 Phase 5 UI 重构合并到 `main`。
-- `feat/06-04/phase-05-home-bugfix` 正在修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
+- `9282f5a` 已修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
+- `6000b14` 已将 `feat/06-04/phase-05-home-bugfix` 合并到 `main`，feature 分支保留。
+- 2026-06-04 起执行新规则：用户确认验收通过后，agent 合并到 `main` 并推送后必须立即同步 `.planning/` 与项目 Markdown 状态，再进入下一个 plan / phase。
 
 ---
 

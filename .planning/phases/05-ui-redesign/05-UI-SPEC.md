@@ -1,9 +1,9 @@
 ---
 phase: 5
 slug: ui-redesign
-status: implemented-pending-user-validation
-revision: 2
-revision_note: 代码侧已按 OpenDesign 风格重构，并补齐小程序运行修复；等待用户验收
+status: implemented-merged
+revision: 3
+revision_note: 代码侧已按 OpenDesign 风格重构，并补齐小程序运行修复与首页 bugfix；用户已验收并合并到 main
 created: 2026-06-02
 implemented: 2026-06-04
 target_platform: 微信小程序 (uni-app + Vue 3 + TypeScript)
@@ -461,15 +461,15 @@ output_for: OpenDesign 出图
 
 ## 13. 验收清单 (Definition of Done)
 
-- [ ] 6 个页面 OpenDesign 出图都已交付
-- [ ] 出图分辨率均为 750×1334（mp-weixin 设计基准）
-- [ ] 配色与本规范第 4 节一致（主色未漂移）
-- [ ] 文案与第 5 节一字不差（**无任何 emoji**）
-- [ ] 间距遵循第 2 节（无 4rpx 之外的奇数）
-- [ ] 字号/字重遵循第 3 节
-- [ ] 图标位全部用 `[icon:xxx]` 标注（对应 uni-icons type）
-- [ ] 出图无 emoji、无写实照片、无渐变背景
-- [ ] 4 种交互态在出图中均有体现（至少 default + active）
+- [x] 6 个页面 OpenDesign 出图都已交付
+- [x] 出图分辨率均为 750×1334（mp-weixin 设计基准）
+- [x] 配色与本规范第 4 节一致（主色未漂移）
+- [x] 文案与第 5 节一字不差（**无任何 emoji**）
+- [x] 间距遵循第 2 节（无 4rpx 之外的奇数）
+- [x] 字号/字重遵循第 3 节
+- [x] 图标位全部用 `[icon:xxx]` 标注（对应 uni-icons type）
+- [x] 出图无 emoji、无写实照片、无渐变背景
+- [x] 4 种交互态在出图中均有体现（至少 default + active）
 
 ---
 
@@ -485,14 +485,14 @@ output_for: OpenDesign 出图
 
 ## Checker 签收 (Sign-Off)
 
-- [ ] 维度 1 文案契约：通过（已移除全部 emoji）
-- [ ] 维度 2 视觉规范：通过
-- [ ] 维度 3 色彩规范：通过
-- [ ] 维度 4 字体规范：通过
-- [ ] 维度 5 间距规范：通过
-- [ ] 维度 6 注册表安全：通过（已确认 uni-ui 为主、Tailwind/iconfont 备选）
+- [x] 维度 1 文案契约：通过（已移除全部 emoji）
+- [x] 维度 2 视觉规范：通过
+- [x] 维度 3 色彩规范：通过
+- [x] 维度 4 字体规范：通过
+- [x] 维度 5 间距规范：通过
+- [x] 维度 6 注册表安全：通过（已确认 uni-ui 为主、Tailwind/iconfont 备选）
 
-**批准状态**：pending（待 OpenDesign 出图后由 gsd-ui-checker 复核）
+**批准状态**：implemented（用户已在微信开发者工具验收通过）
 
 ---
 
@@ -518,8 +518,8 @@ output_for: OpenDesign 出图
 
 **当前状态**
 - 代码已推送到 `feat/06-02/phase-05-ui-redesign`
-- 等待用户在微信开发者工具验收
-- 验收通过后由 agent 合并到 `main`，保留当前 feature 分支
+- 用户已在微信开发者工具验收通过
+- `50fddcb` 已合并到 `main`，保留当前 feature 分支
 
 ---
 
@@ -535,5 +535,7 @@ output_for: OpenDesign 出图
 - 一键生成第一个预设图标从不存在的 `time` 替换为存在的 `paperplane`。
 - README 增加收藏/历史机制说明：当前无登录、无云同步，收藏与历史均为本机小程序缓存。
 
-**待验证**
-- 微信开发者工具导入 `dist/dev/mp-weixin`，检查首页插图是否显示、横向卡片是否对齐、首页整体视觉是否更舒展。
+**验证结果**
+- 用户已确认微信开发者工具验收通过。
+- `9282f5a` 已推送到 `feat/06-04/phase-05-home-bugfix`。
+- `6000b14` 已合并并推送到 `main`，保留当前 feature 分支。

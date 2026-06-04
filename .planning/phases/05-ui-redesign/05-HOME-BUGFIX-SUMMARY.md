@@ -3,7 +3,7 @@
 ## Status
 
 - Branch: `feat/06-04/phase-05-home-bugfix`
-- Current state: implementation complete; pushed verification pending user review
+- Current state: 已验收并合并到 `main`
 
 ## Changes
 
@@ -25,3 +25,11 @@
 - `npx tsx tests/e2e.test.ts` — 27/27 passed
 - `npx tsx tests/matcher.test.ts` — 9/9 passed
 - `npm run build:mp-weixin` — passed
+- `npm run dev:mp-weixin` — generated `dist/dev/mp-weixin`
+
+## Merge Result
+
+- `9282f5a fix: 修复首页插图和预设卡对齐` 已推送到 `feat/06-04/phase-05-home-bugfix`
+- 用户已确认微信开发者工具验收通过
+- `6000b14 fix: 合并首页 bug 修复` 已合并并推送到 `main`
+- `feat/06-04/phase-05-home-bugfix` 已保留

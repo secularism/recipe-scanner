@@ -10,7 +10,7 @@
 - **项目**：微信小程序「菜谱生成」(recipe-scanner)
 - **技术栈**：uni-app + Vue 3 + TypeScript + Vite + Pinia + uni-ui
 - **目标平台**：微信小程序（主），H5 兼容
-- **当前 main 分支**：bootstrap 状态（4 个 build phase + 自测修复 + UI-SPEC）
+- **当前 main 分支**：v1 功能 + Phase 5 UI 重构与首页 bugfix 已合并状态
 
 `.planning/` 下有：
 - `PROJECT.md` — 项目定义
@@ -79,10 +79,18 @@ git push -u origin feat/MM-DD/phase-NN-<功能简述>
 - push 前用 `git log --oneline` 确认只包含本次任务的 commits
 - 推送成功后向用户报告 commit hash + 文件清单
 
-### 1.5 合并由用户处理
+### 1.5 用户验收后的合并与文档同步
 
-- Agent **不要**自己 merge 到 main
-- 推送完成后告知用户：「请验证后自行 merge 到 main」
+- 推送 feature 分支后，Agent 等用户在微信开发者工具或指定环境中验收。
+- 用户明确回复「可以了」「没问题」「合并」等确认语后，Agent 才能切回 `main` 合并对应 feature 分支。
+- 合并时保留当前 feature 分支，不删除。
+- 合并到 `main` 并推送后，Agent **必须立即同步项目文档**，至少检查并更新：
+  - `.planning/STATE.md`
+  - `.planning/ROADMAP.md`
+  - 当前 phase/plan 的 SUMMARY / REVIEW / PLAN 状态
+  - 其他被本次实现影响的项目 Markdown（如 `README.md`、`REQUIREMENTS.md`、`PROJECT.md`）
+- 文档同步需要单独提交并推送，或在合并提交之后立即创建文档同步提交。
+- 完成文档同步后，Agent 再和用户一起进入下一个 plan / phase。
 
 ---
 
@@ -151,7 +159,9 @@ chore: 删除废弃的 vue-cli 配置文件
 2. 更新 `.planning/STATE.md`（Last Updated、当前 phase、Plan 计数）
 3. 写本 phase 的 REVIEW.md（如适用）
 4. 提交 + 推送 feature 分支
-5. 告知用户 commit hash + 等用户 merge
+5. 告知用户 commit hash + 等用户验收
+6. 用户验收通过后，按 §1.5 合并到 `main`，并立即同步文档状态
+7. 文档状态同步完成后，才能进入下一个 plan / phase
 
 ### 3.4 UI 类 phase 特殊流程（Phase 5 起）
 

@@ -20,6 +20,8 @@
 - [x] 让生成页禁用态按钮仍可给出输入提示
 - [x] 补 `.vue` 类型声明，使 `npx tsc --noEmit` 可通过
 - [x] 推送 feature 分支，等待用户验收
+- [x] 用户验收通过后合并到 `main`
+- [x] 合并后同步 GSD 文档状态
 
 ## Verification
 
@@ -32,5 +34,6 @@
 ## Exit Criteria
 
 - 用户在微信开发者工具验证 `dist/dev/mp-weixin` 通过
-- agent 切回 `main` 合并 `feat/06-02/phase-05-ui-redesign`
+- agent 已切回 `main` 合并 `feat/06-02/phase-05-ui-redesign`
 - 保留当前 feature 分支
+- 合并后文档状态已同步
