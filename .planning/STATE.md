@@ -1,9 +1,9 @@
 # State
 
 ## Current Position
-- Phase: 5 (UI 重构 — OpenDesign 设计驱动)
-- Plan: 2 of 2
-- Status: Phase 5 UI 重构与首页 bugfix 已验收、已合并到 main，等待创建下一个 plan / phase
+- Phase: 6 (用户登录与收藏/历史云同步)
+- Plan: 1 of 1
+- Status: Phase 6 SPEC/CONTEXT/RESEARCH/PLAN 已创建，待用户确认后进入执行
 
 ## Project Memory
 - 项目类型: 微信小程序（uniapp vue3+ts）
@@ -25,6 +25,7 @@
 - 后续新 plan/phase 必须基于合并后的最新 `main` 新拉 feature 分支
 - 2026-06-04 新建 `feat/06-04/phase-05-home-bugfix` 修复首页：补可渲染手绘锅插图、对齐一键生成卡片、整体内容下移、说明收藏/历史为本机缓存
 - 2026-06-04 `6000b14` 已将首页 bugfix 合并到 `main`
+- 2026-06-05 新建 `feat/06-05/phase-06-cloud-sync` 创建 Phase 6：微信身份 + 收藏/历史云同步 + 本地优先降级
 
 ## Last Updated
-- 2026-06-04 Phase 5 已合并完成，合并后文档规则与状态已同步到 main
+- 2026-06-05 进入 Phase 6 规划，已创建云同步 SPEC/CONTEXT/RESEARCH/PLAN

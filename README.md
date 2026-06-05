@@ -71,6 +71,7 @@ npx tsx tests/matcher.test.ts
 - **分享策略**：`onShareAppMessage` 提供 path 含 `?id=xxx&from=share`；**没有** `onShareTimeline`，确保不上朋友圈
 - **UI 风格**：手绘插画风 — 暖橘主色、米白背景、圆角卡片、uni-icons 图标与内联 SVG 装饰；UI 代码不使用 emoji
 - **收藏/历史机制**：当前版本不接登录与云端账号。收藏保存 recipe id 到本机小程序缓存 `recipe-favorites`；历史保存最近生成记录到本机小程序缓存 `recipe-history`，最多 50 条。换设备、清缓存或卸载小程序后不会保留。
+- **下一阶段计划**：Phase 6 将补微信身份与收藏/历史云同步；实现前仍以本机缓存为准。
 
 ## 小程序验证
 

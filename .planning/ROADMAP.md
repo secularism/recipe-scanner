@@ -8,8 +8,9 @@
 | 2 | 菜谱数据与匹配引擎 | 内置菜谱库 + 标签/食材匹配 + 生成服务 | GEN-01..02 | 3 |
 | 3 | 页面与组件 (输入/结果/详情) | 首页/生成页/结果页/详情页 + 公共组件 | INPUT-01..06, DISP-01..03 | 4 |
 | 4 | 收藏/历史/分享/收尾 | 收藏、历史、微信分享、深链、UI 收尾 | FAV-01..02, HIST-01..02, SHARE-01..03 | 4 |
+| 6 | 用户登录与云同步 | 微信身份 + 收藏/历史云同步 + 本地优先降级 | SYNC-01..06 | 6 |
 
-**4 phases** | **17 requirements mapped** | All v1 requirements covered ✓
+**6 phases** | **17 v1 requirements complete** | **6 Phase 6 requirements planned**
 
 ### Phase 5: UI 重构（OpenDesign 设计驱动）
 **Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
@@ -31,6 +32,27 @@
 - `9282f5a` 已修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
 - `6000b14` 已将 `feat/06-04/phase-05-home-bugfix` 合并到 `main`，feature 分支保留。
 - 2026-06-04 起执行新规则：用户确认验收通过后，agent 合并到 `main` 并推送后必须立即同步 `.planning/` 与项目 Markdown 状态，再进入下一个 plan / phase。
+
+---
+
+### Phase 6: 用户登录与收藏/历史云同步
+**Goal**: 引入微信小程序身份与 local-first 云同步，让收藏与历史可跨设备恢复，同时保留本地缓存降级能力
+**Mode**: standard
+**Status**: SPEC/PLAN 已创建，待用户确认后进入执行
+**Requirements**: SYNC-01..06
+**Success Criteria**:
+1. 小程序启动后能获得并暴露登录/同步状态，失败不阻塞主流程
+2. 收藏 recipe id 可本地即时更新，并登录后同步到云端
+3. 历史记录可本地即时追加/删除，并登录后同步到云端，最多 50 条
+4. 网络或云端失败时保留本地可用，下一次可重试同步
+5. 收藏页/历史页展示同步中、已同步、同步失败状态
+6. 云端只保存最小同步字段，不保存昵称、头像、手机号、位置
+
+**Planning Artifacts (2026-06-05)**:
+- `.planning/phases/06-cloud-sync/06-SPEC.md`
+- `.planning/phases/06-cloud-sync/06-CONTEXT.md`
+- `.planning/phases/06-cloud-sync/06-RESEARCH.md`
+- `.planning/phases/06-cloud-sync/06-PLAN.md`
 
 ---
 
