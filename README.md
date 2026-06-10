@@ -13,6 +13,7 @@
 ## 功能
 
 - 选食材（多选/自定义）+ 选调味料（多选/自定义）
+- 首页场景预设卡 + 生成页最近使用 / 恢复上次输入
 - 选菜系 + 选口味偏好
 - 本地匹配算法：食材覆盖率 70% + 调味料覆盖率 30% + 菜系/口味加分
 - 26 道真实菜谱（川/粤/家常/西餐/日韩/东北）
@@ -25,10 +26,12 @@
 ```
 src/
 ├── pages/        # 6 个页面：index/generator/result/detail/favorites/history
-├── components/   # 5 个公共组件：TagSelector/ChipInput/RecipeCard/EmptyState/SectionTitle
+├── components/   # 公共组件：TagSelector/ChipInput/RecipeCard/EmptyState/SectionTitle/GeneratorSelectionSection
+├── composables/  # 页面交互逻辑：如生成页表单状态
 ├── stores/       # Pinia stores：favorites/history
 ├── services/     # matcher.ts + generator.ts（业务服务）
 ├── types/        # TS 领域类型
+├── utils/        # 纯函数辅助逻辑
 ├── data/         # 静态数据：食材/调味料/菜谱（按菜系分文件）
 ├── static/       # 静态资源
 ├── App.vue
@@ -70,6 +73,7 @@ npx tsx tests/matcher.test.ts
 - **状态持久化**：Pinia + `uni.setStorageSync`，跨页实时同步
 - **分享策略**：`onShareAppMessage` 提供 path 含 `?id=xxx&from=share`；**没有** `onShareTimeline`，确保不上朋友圈
 - **UI 风格**：手绘插画风 — 暖橘主色、米白背景、圆角卡片、uni-icons 图标与内联 SVG 装饰；UI 代码不使用 emoji
+- **首页 / 生成页体验**：首页提供 4 张场景化预设卡；生成页支持顶部摘要、草稿恢复、最近使用和已选项即时反馈
 - **收藏/历史机制**：当前版本不接登录与云端账号。收藏保存 recipe id 到本机小程序缓存 `recipe-favorites`；历史保存最近生成记录到本机小程序缓存 `recipe-history`，最多 50 条。换设备、清缓存或卸载小程序后不会保留。
 
 ## 小程序验证

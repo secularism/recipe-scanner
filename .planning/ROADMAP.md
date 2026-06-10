@@ -38,7 +38,7 @@
 ### Phase 6: 首页 + 生成页体验升级
 **Goal**: 在不改动核心匹配逻辑的前提下，把首页和生成页升级为更像“美食产品页”的高完成度体验，优先强化视觉吸引力，再补足操作效率
 **Mode**: ui-phase
-**Status**: 规划中（当前分支：`feat/06-06/phase-06-cloud-sync`）
+**Status**: 已完成、已验收、已合并到 `main`
 **Success Criteria**:
 1. 首页形成单一强主路径：Hero、主 CTA、场景预设、次级入口层级明确
 2. 一键预设从普通功能卡升级为有场景感的“做饭入口卡”
@@ -47,11 +47,13 @@
 5. 视觉语言与 Phase 5 暖系手绘风兼容，但更精致、更像美食产品页
 6. 不引入云开发、登录、外部 API，不改 matcher/generator 核心规则
 
-**Planning Notes (2026-06-06)**:
-- 当前首页已具备 Hero、主 CTA、横滑预设卡、收藏/历史入口，但场景表达和层级还偏平。
-- 当前生成页已具备草稿自动保存，但“最近使用”“恢复上次输入”“已选摘要”都还没形成完整体验。
-- 本 phase 先产出 `06-UI-SPEC.md` 供 OpenDesign 出图，图回后再实现代码。
-- Phase 6 产物为 `06-CONTEXT.md`、`06-RESEARCH.md`、`06-PLAN.md`、`06-UI-SPEC.md`。
+**Implementation Update (2026-06-10)**:
+- `9336c8d` 已提交 Phase 6 的 `CONTEXT / RESEARCH / PLAN / UI-SPEC` 规划文档。
+- `b2a5991` 已完成首页与生成页代码实现：重做首页封面层级、场景预设卡、次级入口，并为生成页新增摘要条、草稿恢复、最近使用和已选反馈。
+- 新增 `src/components/generator-selection-section.vue`、`src/composables/use-generator-form.ts` 与 `src/utils/generator-form.ts` 以保证文件粒度和交互复用。
+- `tests/e2e.test.ts` 已补最近使用与草稿恢复辅助逻辑覆盖。
+- 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
+- `95ea1f0` 已将 `feat/06-06/phase-06-cloud-sync` 合并到 `main` 并推送。
 
 ---
 
