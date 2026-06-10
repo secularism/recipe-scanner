@@ -8,8 +8,9 @@
 | 2 | 菜谱数据与匹配引擎 | 内置菜谱库 + 标签/食材匹配 + 生成服务 | GEN-01..02 | 3 |
 | 3 | 页面与组件 (输入/结果/详情) | 首页/生成页/结果页/详情页 + 公共组件 | INPUT-01..06, DISP-01..03 | 4 |
 | 4 | 收藏/历史/分享/收尾 | 收藏、历史、微信分享、深链、UI 收尾 | FAV-01..02, HIST-01..02, SHARE-01..03 | 4 |
+| 6 | 首页 + 生成页体验升级 | 重做首页主路径、场景预设、生成页反馈与恢复能力 | UX-01..06 | 6 |
 
-**4 phases** | **17 requirements mapped** | All v1 requirements covered ✓
+**4 phases + 1 follow-up phase** | **17 v1 requirements covered + UX enhancement planning** | v1 已完成，进入体验优化阶段
 
 ### Phase 5: UI 重构（OpenDesign 设计驱动）
 **Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
@@ -31,6 +32,26 @@
 - `9282f5a` 已修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
 - `6000b14` 已将 `feat/06-04/phase-05-home-bugfix` 合并到 `main`，feature 分支保留。
 - 2026-06-04 起执行新规则：用户确认验收通过后，agent 合并到 `main` 并推送后必须立即同步 `.planning/` 与项目 Markdown 状态，再进入下一个 plan / phase。
+
+---
+
+### Phase 6: 首页 + 生成页体验升级
+**Goal**: 在不改动核心匹配逻辑的前提下，把首页和生成页升级为更像“美食产品页”的高完成度体验，优先强化视觉吸引力，再补足操作效率
+**Mode**: ui-phase
+**Status**: 规划中（当前分支：`feat/06-06/phase-06-cloud-sync`）
+**Success Criteria**:
+1. 首页形成单一强主路径：Hero、主 CTA、场景预设、次级入口层级明确
+2. 一键预设从普通功能卡升级为有场景感的“做饭入口卡”
+3. 生成页能清晰展示“我已选了什么”，并提供更自然的恢复、清空、编辑流
+4. 增加“最近使用”和“恢复上次输入”等高频效率功能
+5. 视觉语言与 Phase 5 暖系手绘风兼容，但更精致、更像美食产品页
+6. 不引入云开发、登录、外部 API，不改 matcher/generator 核心规则
+
+**Planning Notes (2026-06-06)**:
+- 当前首页已具备 Hero、主 CTA、横滑预设卡、收藏/历史入口，但场景表达和层级还偏平。
+- 当前生成页已具备草稿自动保存，但“最近使用”“恢复上次输入”“已选摘要”都还没形成完整体验。
+- 本 phase 先产出 `06-UI-SPEC.md` 供 OpenDesign 出图，图回后再实现代码。
+- Phase 6 产物为 `06-CONTEXT.md`、`06-RESEARCH.md`、`06-PLAN.md`、`06-UI-SPEC.md`。
 
 ---
 

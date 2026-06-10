@@ -5,6 +5,7 @@
 import { generateRecipe, shuffleResult } from '../src/services'
 import { ALL_RECIPES, findRecipeById, QUICK_PRESETS } from '../src/data'
 import type { GenerateInput } from '../src/types'
+import { hasDraftContent, mergeRecentItems } from '../src/utils/generator-form'
 
 let pass = 0
 let fail = 0
@@ -182,6 +183,22 @@ section('9. 菜系覆盖')
   const cuisines = new Set(ALL_RECIPES.map(r => r.cuisine))
   check('覆盖 >= 5 种菜系', cuisines.size >= 5,
     `实际：${[...cuisines].join(',')}`)
+}
+
+section('10. 草稿恢复与最近使用辅助逻辑')
+{
+  check('空草稿不展示恢复条', hasDraftContent({
+    i: [], s: [], ci: [], cs: [], cu: null, t: []
+  }) === false)
+  check('有草稿内容时展示恢复条', hasDraftContent({
+    i: ['鸡蛋'], s: [], ci: [], cs: [], cu: null, t: []
+  }) === true)
+
+  const merged = mergeRecentItems(['番茄', '鸡蛋'], ['鸡蛋', '土豆', '番茄'])
+  check('最近使用按最新优先去重', merged.join(',') === '鸡蛋,土豆,番茄', merged.join(','))
+
+  const limited = mergeRecentItems(['牛肉', '白菜'], ['鸡蛋', '番茄', '土豆', '豆腐', '蒜'])
+  check('最近使用最多保留 4 项', limited.length === 4, limited.join(','))
 }
 
 console.log(`\n========================================`)

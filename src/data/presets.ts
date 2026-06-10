@@ -18,8 +18,8 @@ export const QUICK_PRESETS: QuickPreset[] = [
   {
     id: 'egg-rice',
     icon: 'paperplane',
-    title: '快手晚餐',
-    desc: '15分钟搞定',
+    title: '下班快手菜',
+    desc: '十几分钟就出锅',
     input: {
       ingredients: ['鸡蛋', '米饭', '葱'],
       seasonings: ['盐', '生抽', '食用油']
@@ -27,9 +27,9 @@ export const QUICK_PRESETS: QuickPreset[] = [
   },
   {
     id: 'tofu-quick',
-    icon: 'fire',
-    title: '国民下饭',
-    desc: '豆腐+基础调味料',
+    icon: 'gear',
+    title: '冰箱清库存',
+    desc: '有什么做什么',
     input: {
       ingredients: ['豆腐', '葱'],
       seasonings: ['盐', '生抽', '食用油', '姜']
@@ -37,9 +37,9 @@ export const QUICK_PRESETS: QuickPreset[] = [
   },
   {
     id: 'tomato-egg',
-    icon: 'staff',
-    title: '家常小炒',
-    desc: '番茄+鸡蛋，经典组合',
+    icon: 'star',
+    title: '一人食简单做',
+    desc: '刚刚好不浪费',
     input: {
       ingredients: ['番茄', '鸡蛋', '葱'],
       seasonings: ['盐', '糖', '食用油']
@@ -47,9 +47,9 @@ export const QUICK_PRESETS: QuickPreset[] = [
   },
   {
     id: 'cold-dish',
-    icon: 'loop',
-    title: '随便看看',
-    desc: '随机推荐',
+    icon: 'fire',
+    title: '今天想吃热乎的',
+    desc: '暖暖一碗很满足',
     input: {
       ingredients: ['黄瓜', '蒜'],
       seasonings: ['醋', '生抽', '香油', '盐', '糖']
@@ -61,3 +61,5 @@ export const QUICK_PRESETS: QuickPreset[] = [
  * 生成器页输入持久化 key
  */
 export const GENERATOR_DRAFT_KEY = 'recipe-generator-draft'
+export const RECENT_INGREDIENTS_KEY = 'recipe-generator-recent-ingredients'
+export const RECENT_SEASONINGS_KEY = 'recipe-generator-recent-seasonings'
