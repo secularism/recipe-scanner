@@ -1,125 +1,115 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue'
-import { INGREDIENT_GROUPS, SEASONING_GROUPS, CUISINE_LABELS, TASTE_LABELS, GENERATOR_DRAFT_KEY } from '@/data'
-import type { Cuisine, Taste, GenerateInput } from '@/types'
-import SectionTitle from '@/components/SectionTitle.vue'
-import TagSelector from '@/components/TagSelector.vue'
-import ChipInput from '@/components/ChipInput.vue'
+import GeneratorSelectionSection from '@/components/generator-selection-section.vue'
+import { useGeneratorForm } from '@/composables/use-generator-form'
 
-const selectedIngredients = ref<string[]>([])
-const selectedSeasonings = ref<string[]>([])
-const customIngredients = ref<string[]>([])
-const customSeasonings = ref<string[]>([])
-const selectedCuisine = ref<Cuisine | null>(null)
-const selectedTastes = ref<Taste[]>([])
+const {
+  allIngredients,
+  allSeasonings,
+  canSubmit,
+  cuisineOptions,
+  cuisineSummary,
+  customIngredients,
+  customSeasonings,
+  dismissRestore,
+  ingredientTagOptions,
+  onSubmit,
+  recentIngredients,
+  recentSeasonings,
+  restoreDraft,
+  seasoningTagOptions,
+  selectedCuisine,
+  selectedIngredients,
+  selectedSeasonings,
+  selectedTastes,
+  showRestoreBar,
+  tasteOptions,
+  tasteSummary,
+  toggleCuisine,
+  toggleTaste
+} = useGeneratorForm()
 
-interface Draft {
-  i: string[]; s: string[]; ci: string[]; cs: string[]
-  cu: Cuisine | null; t: Taste[]
+function updateSelectedIngredients(value: string[]) {
+  selectedIngredients.value = value
 }
 
-function loadDraft() {
-  try {
-    const raw = uni.getStorageSync(GENERATOR_DRAFT_KEY) as Draft | null
-    if (!raw || typeof raw !== 'object') return
-    selectedIngredients.value = Array.isArray(raw.i) ? raw.i : []
-    selectedSeasonings.value = Array.isArray(raw.s) ? raw.s : []
-    customIngredients.value = Array.isArray(raw.ci) ? raw.ci : []
-    customSeasonings.value = Array.isArray(raw.cs) ? raw.cs : []
-    selectedCuisine.value = raw.cu ?? null
-    selectedTastes.value = Array.isArray(raw.t) ? raw.t : []
-  } catch { /* 忽略 */ }
+function updateCustomIngredients(value: string[]) {
+  customIngredients.value = value
 }
 
-function saveDraft() {
-  try {
-    uni.setStorageSync(GENERATOR_DRAFT_KEY, {
-      i: selectedIngredients.value, s: selectedSeasonings.value,
-      ci: customIngredients.value, cs: customSeasonings.value,
-      cu: selectedCuisine.value, t: selectedTastes.value
-    })
-  } catch { /* 忽略 */ }
+function updateSelectedSeasonings(value: string[]) {
+  selectedSeasonings.value = value
 }
 
-function clearDraft() {
-  try { uni.removeStorageSync(GENERATOR_DRAFT_KEY) } catch { /* 忽略 */ }
-}
-
-onMounted(loadDraft)
-watch([selectedIngredients, selectedSeasonings, customIngredients, customSeasonings, selectedCuisine, selectedTastes],
-  saveDraft, { deep: true })
-
-const allIngredients = computed(() => [...selectedIngredients.value, ...customIngredients.value])
-const allSeasonings = computed(() => [...selectedSeasonings.value, ...customSeasonings.value])
-const canSubmit = computed(() => allIngredients.value.length > 0 || allSeasonings.value.length > 0)
-
-const cuisineOptions = Object.entries(CUISINE_LABELS).map(([v, l]) => ({ value: v, label: l }))
-const tasteOptions = Object.entries(TASTE_LABELS).map(([v, l]) => ({ value: v, label: l }))
-const ingredientTagOptions = computed(() =>
-  INGREDIENT_GROUPS.flatMap(g => g.items.map(i => ({ value: i.name, label: i.name })))
-)
-const seasoningTagOptions = computed(() =>
-  SEASONING_GROUPS.flatMap(g => g.items.map(s => ({ value: s.name, label: s.name })))
-)
-
-function clearAll() {
-  selectedIngredients.value = []
-  selectedSeasonings.value = []
-  customIngredients.value = []
-  customSeasonings.value = []
-  selectedCuisine.value = null
-  selectedTastes.value = []
-  clearDraft()
-  uni.showToast({ title: '已清空', icon: 'none' })
-}
-
-function onSubmit() {
-  if (!canSubmit.value) {
-    uni.showToast({ title: '至少选一个食材或调味料', icon: 'none' })
-    return
-  }
-  const input: GenerateInput = {
-    ingredients: allIngredients.value,
-    seasonings: allSeasonings.value,
-    cuisine: selectedCuisine.value,
-    tastes: selectedTastes.value.length > 0 ? selectedTastes.value : undefined
-  }
-  const app = getApp()
-  if (app?.globalData) app.globalData.pendingInput = input
-  uni.navigateTo({ url: '/pages/result/result' })
-}
-
-function toggleCuisine(v: string) {
-  selectedCuisine.value = selectedCuisine.value === v ? null : (v as Cuisine)
-}
-function toggleTaste(v: string) {
-  const tv = v as Taste
-  selectedTastes.value = selectedTastes.value.includes(tv)
-    ? selectedTastes.value.filter(t => t !== tv)
-    : [...selectedTastes.value, tv]
+function updateCustomSeasonings(value: string[]) {
+  customSeasonings.value = value
 }
 </script>
 
 <template>
   <view class="page">
-    <view class="section">
-      <SectionTitle icon="list" title="你有什么食材" />
-      <TagSelector v-model="selectedIngredients" :options="ingredientTagOptions" />
-      <view class="custom-row">
-        <ChipInput v-model="customIngredients" placeholder="写下你自己的" />
+    <view class="summary-bar">
+      <view class="summary-item">
+        <text>食材 </text>
+        <text class="strong">{{ allIngredients.length }}</text>
+      </view>
+      <view class="summary-divider" />
+      <view class="summary-item">
+        <text>调味 </text>
+        <text class="strong">{{ allSeasonings.length }}</text>
+      </view>
+      <view class="summary-divider" />
+      <view class="summary-item">
+        <text>菜系 </text>
+        <text class="strong">{{ cuisineSummary }}</text>
+      </view>
+      <view class="summary-divider" />
+      <view class="summary-item">
+        <text>口味 </text>
+        <text class="strong">{{ tasteSummary }}</text>
       </view>
     </view>
 
-    <view class="section">
-      <SectionTitle icon="gear" title="你有什么调味料" />
-      <TagSelector v-model="selectedSeasonings" :options="seasoningTagOptions" />
-      <view class="custom-row">
-        <ChipInput v-model="customSeasonings" placeholder="添加你的调味料" />
+    <view v-if="showRestoreBar" class="restore-bar">
+      <text class="restore-text">上次选到这里，继续吗</text>
+      <view class="restore-actions">
+        <view class="restore-btn" @tap="restoreDraft">
+          <text>恢复</text>
+        </view>
+        <view class="dismiss-btn" @tap="dismissRestore">
+          <uni-icons type="close" color="#8B5E3D" size="10" />
+        </view>
       </view>
     </view>
 
-    <view class="section">
-      <SectionTitle icon="map" title="想吃哪个菜系" />
+    <GeneratorSelectionSection
+      title="你有什么食材"
+      icon="list"
+      :options="ingredientTagOptions"
+      :selected-values="selectedIngredients"
+      :custom-values="customIngredients"
+      :recent-items="recentIngredients"
+      placeholder="添加自己的食材"
+      @update:selected-values="updateSelectedIngredients"
+      @update:custom-values="updateCustomIngredients"
+    />
+
+    <GeneratorSelectionSection
+      title="你有什么调味料"
+      icon="gear"
+      :options="seasoningTagOptions"
+      :selected-values="selectedSeasonings"
+      :custom-values="customSeasonings"
+      :recent-items="recentSeasonings"
+      placeholder="添加你的调味料"
+      @update:selected-values="updateSelectedSeasonings"
+      @update:custom-values="updateCustomSeasonings"
+    />
+
+    <view class="section compact">
+      <view class="section-title">
+        <uni-icons type="map" color="#E8783B" size="15" />
+        <text>想吃哪个菜系</text>
+      </view>
       <view class="chip-row">
         <view
           v-for="opt in cuisineOptions"
@@ -133,14 +123,17 @@ function toggleTaste(v: string) {
       </view>
     </view>
 
-    <view class="section">
-      <SectionTitle icon="fire" title="想要什么口味" />
+    <view class="section compact">
+      <view class="section-title">
+        <uni-icons type="fire" color="#E8783B" size="15" />
+        <text>想要什么口味</text>
+      </view>
       <view class="chip-row">
         <view
           v-for="opt in tasteOptions"
           :key="opt.value"
           class="chip"
-          :class="{ selected: selectedTastes.includes(opt.value as Taste) }"
+          :class="{ selected: selectedTastes.includes(opt.value as any) }"
           @tap="toggleTaste(opt.value)"
         >
           <text>{{ opt.label }}</text>
@@ -149,6 +142,10 @@ function toggleTaste(v: string) {
     </view>
 
     <view class="bottom-cta">
+      <text class="btn-summary">
+        已选 <text class="strong">{{ allIngredients.length }}</text> 个食材，
+        <text class="strong">{{ allSeasonings.length }}</text> 个调味料
+      </text>
       <view class="btn-generate" :class="{ disabled: !canSubmit }" @tap="onSubmit">
         <uni-icons type="paperplane" color="#fff" size="17" />
         <text>看看能做啥</text>
@@ -161,24 +158,93 @@ function toggleTaste(v: string) {
 .page {
   min-height: 100vh;
   background: var(--gradient-bg);
-  padding-bottom: 200rpx;
+  padding-bottom: 188rpx;
+}
+.summary-bar {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx 32rpx;
+  background: var(--color-bg-card);
+  border-bottom: 2rpx solid var(--color-border);
+}
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
+}
+.strong {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.summary-divider {
+  width: 2rpx;
+  height: 28rpx;
+  background: var(--color-border);
+}
+.restore-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12rpx 32rpx 0;
+  padding: 14rpx 18rpx;
+  border-radius: 16rpx;
+  border: 2rpx dashed var(--color-primary-light);
+  background: linear-gradient(135deg, #FFF8F0, #FFF0E0);
+}
+.restore-text {
+  font-size: 22rpx;
+  font-weight: 500;
+  color: var(--color-text);
+}
+.restore-actions {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+.restore-btn {
+  padding: 6rpx 12rpx;
+  font-size: 22rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+.dismiss-btn {
+  width: 28rpx;
+  height: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .section {
-  padding: 28rpx 32rpx;
-  border-bottom: 2rpx dashed var(--color-border);
+  padding: 24rpx 32rpx;
+  border-top: 2rpx solid var(--color-border);
 }
-.custom-row { margin-top: 16rpx; }
+.section.compact {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 14rpx;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
 .chip-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12rpx;
+  gap: 10rpx;
 }
 .chip {
-  padding: 14rpx 28rpx;
+  padding: 10rpx 22rpx;
   border-radius: var(--radius-pill);
-  font-size: 26rpx;
+  font-size: 22rpx;
   font-weight: 500;
-  border: 2rpx solid var(--color-primary-light);
+  border: 2rpx solid var(--color-border);
   background: var(--color-bg-card);
   color: var(--color-text);
 }
@@ -194,8 +260,15 @@ function toggleTaste(v: string) {
   right: 0;
   bottom: 0;
   padding: 24rpx 32rpx 32rpx;
-  background: var(--gradient-bg);
+  background: linear-gradient(180deg, rgba(255, 246, 237, 0) 0%, var(--color-bg) 35%, var(--color-bg) 100%);
   z-index: 10;
+}
+.btn-summary {
+  display: block;
+  margin-bottom: 12rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: var(--color-text-sub);
 }
 .btn-generate {
   display: flex;
