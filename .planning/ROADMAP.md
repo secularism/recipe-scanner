@@ -61,7 +61,7 @@
 ### Phase 7: Monorepo 与后端初始化
 **Goal**: 将仓库整理为 `apps/miniapp + apps/api + packages/shared + infra` 的 monorepo，并初始化可继续扩展的 NestJS 后端骨架
 **Mode**: standard
-**Status**: 已完成开发，等待用户验收
+**Status**: 已完成、已验收、已合并到 `main`
 **Success Criteria**:
 1. 小程序前端稳定落在 `apps/miniapp`
 2. 根目录具备 workspace 脚本和基础忽略规则
@@ -74,6 +74,7 @@
 - 已初始化 `apps/api`：`main.ts`、`app.module.ts`、`app.controller.ts`、`app.service.ts`、`health` 模块、Nest CLI 与 TS 配置
 - 已新增 `packages/shared/README.md` 与 `infra/nginx`、`infra/sql` 占位文件
 - 本次按用户要求未运行自动测试或构建，由用户自行验收
+- `feat/06-12/phase-07-backend-init` 已合并到 `main`
 
 ---
 

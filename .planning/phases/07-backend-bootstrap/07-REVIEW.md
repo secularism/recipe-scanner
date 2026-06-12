@@ -2,7 +2,7 @@
 
 ## Goal Check
 
-本 phase 的目标是把仓库从单前端工程整理为可承载前后端协作的 monorepo，并建立可继续扩展的 NestJS 后端入口。当前实现满足这一目标。
+本 phase 的目标是把仓库从单前端工程整理为可承载前后端协作的 monorepo，并建立可继续扩展的 NestJS 后端入口。当前实现满足这一目标，且已完成合并收口。
 
 ## What Went Well
 

@@ -2,7 +2,7 @@
 
 ## Outcome
 
-本 phase 已完成 monorepo 目录收口，并在 `apps/api` 下初始化 NestJS 后端骨架，为后续数据库接入、上传与拍照识别扩展打好了仓库基础。
+本 phase 已完成 monorepo 目录收口，并在 `apps/api` 下初始化 NestJS 后端骨架，为后续数据库接入、上传与拍照识别扩展打好了仓库基础；当前结果已合并到 `main`。
 
 ## Delivered
 
