@@ -8,14 +8,20 @@
 ## 0. 项目背景
 
 - **项目**：微信小程序「菜谱生成」(recipe-scanner)
-- **技术栈**：uni-app + Vue 3 + TypeScript + Vite + Pinia + uni-ui
+- **技术栈**：uni-app + Vue 3 + TypeScript + Vite + Pinia + uni-ui；NestJS + TypeScript（后端骨架）
 - **目标平台**：微信小程序（主），H5 兼容
-- **当前 main 分支**：v1 功能 + Phase 5 UI 重构与首页 bugfix 已合并状态
+- **当前 main 分支**：v1 功能 + Phase 6 首页/生成页体验升级已合并；仓库已切为 monorepo 结构
+
+当前仓库主结构：
+- `apps/miniapp` — uni-app 小程序前端
+- `apps/api` — NestJS 后端
+- `packages/shared` — 前后端共享类型 / 常量 / DTO
+- `infra/` — nginx、sql、部署资源
 
 `.planning/` 下有：
 - `PROJECT.md` — 项目定义
 - `REQUIREMENTS.md` — 17 条 v1 需求
-- `ROADMAP.md` — 5 个 phase 路线图
+- `ROADMAP.md` — 当前阶段路线图
 - `STATE.md` — 当前进度
 - `phases/NN-xxx/` — 每个 phase 的详细产物（CONTEXT/RESEARCH/PLAN/UI-SPEC/REVIEW）
 
@@ -155,7 +161,7 @@ chore: 删除废弃的 vue-cli 配置文件
 
 ### 3.3 一个 phase 结束时
 
-1. 跑完整验证（`npm run type-check` + `npm test` + `npm run build:mp-weixin`）
+1. 跑完整验证（至少覆盖受影响子项目；小程序默认用 `npm --prefix apps/miniapp run type-check` + `npx tsx apps/miniapp/tests/e2e.test.ts` + `npx tsx apps/miniapp/tests/matcher.test.ts` + `npm --prefix apps/miniapp run build:mp-weixin`）
 2. 更新 `.planning/STATE.md`（Last Updated、当前 phase、Plan 计数）
 3. 写本 phase 的 REVIEW.md（如适用）
 4. 提交 + 推送 feature 分支
@@ -197,7 +203,7 @@ UI 相关 phase **不要**直接动手改组件代码，必须等 OpenDesign 设
 
 ### 4.4 测试
 
-- `tests/` 下用 `npx tsx` 直接跑（项目无 jest/vitest 配置）
+- 小程序测试在 `apps/miniapp/tests/` 下用 `npx tsx` 直接跑（项目无 jest/vitest 配置）
 - 改业务代码前先看测试用例，避免改坏
 - 新功能加 e2e 用例覆盖
 - 修 bug 加一个能复现 bug 的回归测试
@@ -207,7 +213,7 @@ UI 相关 phase **不要**直接动手改组件代码，必须等 OpenDesign 设
 - **不用 emoji**（用户硬性要求）
 - 走 `<uni-icons type="xxx" />` 提供图标
 - 装饰用手绘内联 SVG
-- 颜色用 `var(--color-*)` 变量，集中在 `src/uni.scss`
+- 颜色用 `var(--color-*)` 变量，集中在 `apps/miniapp/src/uni.scss`
 - 间距用 rpx，必须是 4 的倍数
 
 ---
@@ -215,10 +221,10 @@ UI 相关 phase **不要**直接动手改组件代码，必须等 OpenDesign 设
 ## 5. 验证门（每次提交前必跑）
 
 ```bash
-npx tsc --noEmit           # type-check
-npx tsx tests/e2e.test.ts  # e2e 测试
-npx tsx tests/matcher.test.ts  # matcher 单测
-npm run build:mp-weixin    # 微信构建
+npm --prefix apps/miniapp run type-check
+npx tsx apps/miniapp/tests/e2e.test.ts
+npx tsx apps/miniapp/tests/matcher.test.ts
+npm --prefix apps/miniapp run build:mp-weixin
 ```
 
 四个都通过才能 commit。

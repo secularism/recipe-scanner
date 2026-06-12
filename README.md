@@ -1,91 +1,116 @@
 # recipe-scanner
 
-微信小程序：根据你的食材和调味料，智能推荐菜谱。
+微信小程序「菜谱生成」monorepo 仓库。当前仓库同时承载：
+
+- `apps/miniapp`：uni-app 小程序前端
+- `apps/api`：NestJS 后端骨架
+- `packages/shared`：前后端共享类型、常量、DTO 预留区
+- `infra/`：Nginx、SQL 与部署相关资源预留区
 
 ## 技术栈
 
-- **uni-app** (Vue 3 + TypeScript + Composition API)
-- **Vite** 构建（uni-app 官方推荐，vue-cli 已废弃）
-- **Pinia** 状态管理（收藏/历史持久化）
-- **uni-ui** 组件库
-- **Sass** 样式预处理
-
-## 功能
-
-- 选食材（多选/自定义）+ 选调味料（多选/自定义）
-- 首页场景预设卡 + 生成页最近使用 / 恢复上次输入
-- 选菜系 + 选口味偏好
-- 本地匹配算法：食材覆盖率 70% + 调味料覆盖率 30% + 菜系/口味加分
-- 26 道真实菜谱（川/粤/家常/西餐/日韩/东北）
-- 收藏 / 历史记录（本地存储）
-- 微信分享给好友（不含朋友圈）
-- 分享卡片点开直达菜谱详情（`?id=xxx&from=share`）
+- 小程序前端：uni-app + Vue 3 + TypeScript + Pinia + uni-ui
+- 后端骨架：NestJS + TypeScript
+- 仓库组织：npm workspaces monorepo
 
 ## 目录结构
 
-```
-src/
-├── pages/        # 6 个页面：index/generator/result/detail/favorites/history
-├── components/   # 公共组件：TagSelector/ChipInput/RecipeCard/EmptyState/SectionTitle/GeneratorSelectionSection
-├── composables/  # 页面交互逻辑：如生成页表单状态
-├── stores/       # Pinia stores：favorites/history
-├── services/     # matcher.ts + generator.ts（业务服务）
-├── types/        # TS 领域类型
-├── utils/        # 纯函数辅助逻辑
-├── data/         # 静态数据：食材/调味料/菜谱（按菜系分文件）
-├── static/       # 静态资源
-├── App.vue
-├── main.ts       # 启动入口（注册 Pinia）
-├── manifest.json # uni-app 应用配置
-├── pages.json    # 页面路由配置
-└── uni.scss      # 全局样式（手绘插画风）
+```text
+recipe-scanner/
+  .planning/
+  apps/
+    api/
+    miniapp/
+  infra/
+    nginx/
+    sql/
+  packages/
+    shared/
+  AGENTS.md
+  README.md
+  package.json
 ```
 
-当前源码文件遵循 AGENTS.md 的单文件 ≤ 300 行约束，模块边界清晰。
+## 当前状态
 
-## 开发
+- 小程序前端已迁移至 `apps/miniapp`
+- 后端已在 `apps/api` 初始化 NestJS 骨架
+- 目前仍以本地菜谱数据和本地存储逻辑为主
+- 数据库、上传、识别与鉴权能力尚未接入
+
+## 根目录命令
 
 ```bash
-# 安装依赖
-npm install
-
 # 微信小程序开发
-npm run dev:mp-weixin
-# 微信开发者工具导入 dist/dev/mp-weixin
+npm run dev:miniapp:weixin
 
 # 微信小程序生产构建
-npm run build:mp-weixin
+npm run build:miniapp:weixin
 
-# H5 开发
-npm run dev:h5
+# 小程序类型检查
+npm run type-check:miniapp
 
-# 类型检查
-npm run type-check
+# 启动 NestJS 后端开发模式
+npm run dev:api
 
-# 单元测试
-npx tsx tests/matcher.test.ts
+# 构建 NestJS 后端
+npm run build:api
 ```
 
-## 关键设计
+## 小程序前端
 
-- **模块化菜谱数据**：`src/data/recipes-{sichuan,home,western,northeast}.ts` 按菜系分文件
-- **匹配算法**：`services/matcher.ts` 单一职责，可独立测试
-- **状态持久化**：Pinia + `uni.setStorageSync`，跨页实时同步
-- **分享策略**：`onShareAppMessage` 提供 path 含 `?id=xxx&from=share`；**没有** `onShareTimeline`，确保不上朋友圈
-- **UI 风格**：手绘插画风 — 暖橘主色、米白背景、圆角卡片、uni-icons 图标与内联 SVG 装饰；UI 代码不使用 emoji
-- **首页 / 生成页体验**：首页提供 4 张场景化预设卡；生成页支持顶部摘要、草稿恢复、最近使用和已选项即时反馈
-- **收藏/历史机制**：当前版本不接登录与云端账号。收藏保存 recipe id 到本机小程序缓存 `recipe-favorites`；历史保存最近生成记录到本机小程序缓存 `recipe-history`，最多 50 条。换设备、清缓存或卸载小程序后不会保留。
+前端目录：`apps/miniapp`
 
-## 小程序验证
+核心能力：
+
+- 食材 / 调味料输入与本地规则匹配
+- 首页场景预设卡与生成页草稿恢复
+- 收藏 / 历史本地持久化
+- 微信好友分享与详情页深链
+
+前端常用命令：
 
 ```bash
-# 微信小程序开发构建，供开发者工具导入
+cd apps/miniapp
+npm install
 npm run dev:mp-weixin
-# 导入 dist/dev/mp-weixin
-
-# 微信小程序生产构建
 npm run build:mp-weixin
-# 导入 dist/build/mp-weixin
 ```
 
-当前微信小程序 appid 统一配置为 `wxb8b86d12083c52cd`。
+## 后端骨架
+
+后端目录：`apps/api`
+
+当前已初始化：
+
+- `main.ts`
+- `app.module.ts`
+- `app.controller.ts`
+- `app.service.ts`
+- `health` 模块
+- `.env.example`
+- Nest CLI / TypeScript 配置
+
+接口约定：
+
+- `GET /api`：返回服务概览
+- `GET /api/health`：返回健康状态
+
+后端常用命令：
+
+```bash
+cd apps/api
+npm install
+npm run start:dev
+```
+
+## 下一步建议
+
+- 接入 PostgreSQL 与 ORM
+- 设计菜谱、用户、收藏、历史、识别任务相关数据表
+- 增加上传与对象存储接入
+- 为拍照识别预留异步任务与结果表结构
+
+## 验收说明
+
+本次仓库结构调整与后端初始化未运行自动测试，按用户要求由用户自行验收。

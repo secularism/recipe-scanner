@@ -9,8 +9,9 @@
 | 3 | 页面与组件 (输入/结果/详情) | 首页/生成页/结果页/详情页 + 公共组件 | INPUT-01..06, DISP-01..03 | 4 |
 | 4 | 收藏/历史/分享/收尾 | 收藏、历史、微信分享、深链、UI 收尾 | FAV-01..02, HIST-01..02, SHARE-01..03 | 4 |
 | 6 | 首页 + 生成页体验升级 | 重做首页主路径、场景预设、生成页反馈与恢复能力 | UX-01..06 | 6 |
+| 7 | Monorepo 与后端初始化 | 收口前后端同仓结构并初始化 NestJS 服务端骨架 | ARCH-01..03 | 4 |
 
-**4 phases + 1 follow-up phase** | **17 v1 requirements covered + UX enhancement planning** | v1 已完成，进入体验优化阶段
+**4 phases + 2 follow-up phases** | **17 v1 requirements covered + 后端扩展基础已就绪** | v1 已完成，进入体验优化与服务端扩展阶段
 
 ### Phase 5: UI 重构（OpenDesign 设计驱动）
 **Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
@@ -54,6 +55,25 @@
 - `tests/e2e.test.ts` 已补最近使用与草稿恢复辅助逻辑覆盖。
 - 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
 - `95ea1f0` 已将 `feat/06-06/phase-06-cloud-sync` 合并到 `main` 并推送。
+
+---
+
+### Phase 7: Monorepo 与后端初始化
+**Goal**: 将仓库整理为 `apps/miniapp + apps/api + packages/shared + infra` 的 monorepo，并初始化可继续扩展的 NestJS 后端骨架
+**Mode**: standard
+**Status**: 已完成开发，等待用户验收
+**Success Criteria**:
+1. 小程序前端稳定落在 `apps/miniapp`
+2. 根目录具备 workspace 脚本和基础忽略规则
+3. `apps/api` 具备标准 NestJS 入口与健康检查模块
+4. `README.md`、`AGENTS.md` 与 `.planning` 文档同步为新仓库结构
+
+**Implementation Update (2026-06-12)**:
+- 仓库目录已切换为 monorepo：`apps/miniapp`、`apps/api`、`packages/shared`、`infra/`
+- 已新增根目录 `.gitignore` 与 workspace `package.json`
+- 已初始化 `apps/api`：`main.ts`、`app.module.ts`、`app.controller.ts`、`app.service.ts`、`health` 模块、Nest CLI 与 TS 配置
+- 已新增 `packages/shared/README.md` 与 `infra/nginx`、`infra/sql` 占位文件
+- 本次按用户要求未运行自动测试或构建，由用户自行验收
 
 ---
 
