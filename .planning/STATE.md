@@ -1,9 +1,9 @@
 # State
 
 ## Current Position
-- Phase: 6 (首页 + 生成页体验升级)
+- Phase: 7 (Monorepo 与后端初始化)
 - Plan: 1 of 1
-- Status: Phase 6 已完成、已验收、已合并到 main，等待创建下一个 UI/功能优化 plan
+- Status: Phase 7 已完成代码与文档初始化，当前在 feature 分支等待用户验收
 
 ## Project Memory
 - 项目类型: 微信小程序（uniapp vue3+ts）
@@ -32,6 +32,9 @@
 - 2026-06-10 `b2a5991` 已完成首页与生成页体验升级代码实现，新增场景卡、顶部摘要、草稿恢复、最近使用与生成页选择区拆分
 - 2026-06-10 `95ea1f0` 已将 `feat/06-06/phase-06-cloud-sync` 合并到 `main` 并推送，feature 分支保留
 - 2026-06-10 正在同步 Phase 6 SUMMARY / REVIEW 与项目总览文档状态
+- 2026-06-12 用户决定将仓库整理为 monorepo：`apps/miniapp`、`apps/api`、`packages/shared`、`infra/`
+- 2026-06-12 已在 `feat/06-12/phase-07-backend-init` 分支初始化 `apps/api` NestJS 后端骨架，并补齐根目录 workspace 配置
+- 2026-06-12 本次按用户要求未运行自动测试，由用户自行验收
 
 ## Last Updated
-- 2026-06-10 Phase 6 已合并完成，等待下一个 plan / phase
+- 2026-06-12 Phase 7 初始化完成，等待用户验收
