@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RecipeStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum RecognitionJobStatus {
+  PENDING
+  PROCESSING
+  SUCCEEDED
+  FAILED
+}
+
+enum UserAuthProvider {
+  LOCAL
+  WECHAT
+  GUEST
+}
+
+model User {
+  id            String              @id @default(uuid()) @db.Uuid
+  authProvider  UserAuthProvider    @default(GUEST)
+  externalId    String?             @unique
+  deviceKey     String?             @unique
+  nickname      String?
+  avatarUrl     String?
+  favorites     Favorite[]
+  histories     GenerationHistory[]
+  jobs          RecognitionJob[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model Recipe {
+  id                String               @id @default(uuid()) @db.Uuid
+  legacyId          String?              @unique
+  slug              String?              @unique
+  title             String
+  summary           String?
+  coverImageUrl     String?
+  cuisine           String?
+  tastes            String[]
+  tags              String[]
+  ingredients       Json
+  seasonings        Json
+  steps             Json
+  status            RecipeStatus         @default(DRAFT)
+  prepMinutes       Int?
+  cookMinutes       Int?
+  servings          Int?
+  nutrition         Json?
+  metadata          Json?
+  favorites         Favorite[]
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+
+  @@index([legacyId])
+  @@index([slug])
+  @@index([cuisine])
+}
+
+model Favorite {
+  id         String   @id @default(uuid()) @db.Uuid
+  userId     String?  @db.Uuid
+  clientKey  String?
+  recipeId   String   @db.Uuid
+  note       String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  recipe     Recipe   @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, recipeId])
+  @@unique([clientKey, recipeId])
+  @@index([userId])
+  @@index([clientKey])
+  @@index([recipeId])
+}
+
+model GenerationHistory {
+  id                String    @id @default(uuid()) @db.Uuid
+  userId            String?   @db.Uuid
+  clientKey         String?
+  inputIngredients  String[]
+  inputSeasonings   String[]
+  cuisine           String?
+  tastes            String[]
+  matchedRecipeIds  String[]
+  resultSnapshot    Json?
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt         DateTime  @default(now())
+
+  @@index([userId])
+  @@index([clientKey])
+  @@index([createdAt])
+}
+
+model RecognitionJob {
+  id                   String               @id @default(uuid()) @db.Uuid
+  userId               String?              @db.Uuid
+  sourceImageUrl       String
+  sourceImageHash      String?
+  status               RecognitionJobStatus @default(PENDING)
+  recognizedText       String?
+  recognizedIngredients String[]
+  rawPayload           Json?
+  errorMessage         String?
+  completedAt          DateTime?
+  user                 User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+}

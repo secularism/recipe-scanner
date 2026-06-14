@@ -6,6 +6,9 @@
     "apps/*",
     "packages/*"
   ],
+  "overrides": {
+    "lodash": "4.17.21"
+  },
   "scripts": {
     "dev:miniapp:weixin": "npm --prefix apps/miniapp run dev:mp-weixin",
     "build:miniapp:weixin": "npm --prefix apps/miniapp run build:mp-weixin",
