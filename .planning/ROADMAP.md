@@ -2,133 +2,49 @@
 
 ## Overview
 
-| # | Phase | Goal | Requirements | Success Criteria |
-|---|-------|------|--------------|------------------|
-| 1 | 项目骨架与架构 | 初始化 uniapp + vue3 + ts 工程，搭好目录结构与类型基础 | (基础设施) | 4 |
-| 2 | 菜谱数据与匹配引擎 | 内置菜谱库 + 标签/食材匹配 + 生成服务 | GEN-01..02 | 3 |
-| 3 | 页面与组件 (输入/结果/详情) | 首页/生成页/结果页/详情页 + 公共组件 | INPUT-01..06, DISP-01..03 | 4 |
-| 4 | 收藏/历史/分享/收尾 | 收藏、历史、微信分享、深链、UI 收尾 | FAV-01..02, HIST-01..02, SHARE-01..03 | 4 |
-| 6 | 首页 + 生成页体验升级 | 重做首页主路径、场景预设、生成页反馈与恢复能力 | UX-01..06 | 6 |
-| 7 | Monorepo 与后端初始化 | 收口前后端同仓结构并初始化 NestJS 服务端骨架 | ARCH-01..03 | 4 |
+| # | Phase | Goal | Status |
+|---|---|---|---|
+| 1 | 项目骨架与基础架构 | 初始化 uni-app + Vue 3 + TypeScript 工程 | 已完成 |
+| 2 | 菜谱数据与匹配引擎 | 建立本地菜谱库与匹配逻辑 | 已完成 |
+| 3 | 页面与组件 | 完成输入、结果、详情主流程 | 已完成 |
+| 4 | 收藏 / 历史 / 分享 / 收尾 | 完成 v1 持久化与分享能力 | 已完成 |
+| 5 | UI 重构 | 按 OpenDesign 重写页面与组件视觉 | 已完成，已合并 |
+| 6 | 首页与生成页体验升级 | 强化主流程表达、草稿恢复、最近使用 | 已完成，已合并 |
+| 7 | Monorepo 与后端初始化 | 整理同仓结构并初始化 NestJS | 已完成，已合并 |
+| 8 | 数据库初始化 | 接入 Prisma + PostgreSQL，打通首段真实数据链路 | 已完成开发，待合并 |
 
-**4 phases + 2 follow-up phases** | **17 v1 requirements covered + 后端扩展基础已就绪** | v1 已完成，进入体验优化与服务端扩展阶段
+## Phase 8
 
-### Phase 5: UI 重构（OpenDesign 设计驱动）
-**Goal**: 用 OpenDesign 出图作为设计稿，按 UI-SPEC.md 整体重构 6 个页面与 5 个组件
-**Mode**: ui-phase
-**Status**: 已完成、已验收、已合并到 `main`
-**Success Criteria**:
-1. OpenDesign 出图覆盖 6 个页面（750×1334）
-2. 配色 / 字号 / 间距 / 文案严格遵循 `05-UI-SPEC.md`
-3. 不引入 Tailwind / 第三方 icon / CDN 图片
-4. 4 种交互态在 UI 中均有体现
-5. 6 个页面 + 5 个组件的 `<template>` 与 `<style>` 全部按设计图重写
+### Goal
 
-**Implementation Update (2026-06-04)**:
-- `e5bbb99` 已按 OpenDesign 风格重构 6 个页面与 5 个组件。
-- `b4ed00f` 已修复小程序端页面显示不全、生成按钮无效、原生头部、appid、无效 `uni-icons` type 与 `.vue` 类型声明问题。
-- 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
-- 已执行 `npm run dev:mp-weixin`，微信开发者工具可导入 `dist/dev/mp-weixin` 验收。
-- `50fddcb` 已将 Phase 5 UI 重构合并到 `main`。
-- `9282f5a` 已修复首页插图缺失、一键生成卡片对齐、首页纵向位置与收藏/历史机制说明。
-- `6000b14` 已将 `feat/06-04/phase-05-home-bugfix` 合并到 `main`，feature 分支保留。
-- 2026-06-04 起执行新规则：用户确认验收通过后，agent 合并到 `main` 并推送后必须立即同步 `.planning/` 与项目 Markdown 状态，再进入下一个 plan / phase。
+在 `apps/api` 现有 NestJS 骨架之上接入 PostgreSQL 与 Prisma，建立菜谱、收藏、历史、识别任务等后续能力可复用的数据层基础。
 
----
+### Success Criteria
 
-### Phase 6: 首页 + 生成页体验升级
-**Goal**: 在不改动核心匹配逻辑的前提下，把首页和生成页升级为更像“美食产品页”的高完成度体验，优先强化视觉吸引力，再补足操作效率
-**Mode**: ui-phase
-**Status**: 已完成、已验收、已合并到 `main`
-**Success Criteria**:
-1. 首页形成单一强主路径：Hero、主 CTA、场景预设、次级入口层级明确
-2. 一键预设从普通功能卡升级为有场景感的“做饭入口卡”
-3. 生成页能清晰展示“我已选了什么”，并提供更自然的恢复、清空、编辑流
-4. 增加“最近使用”和“恢复上次输入”等高频效率功能
-5. 视觉语言与 Phase 5 暖系手绘风兼容，但更精致、更像美食产品页
-6. 不引入云开发、登录、外部 API，不改 matcher/generator 核心规则
+1. `apps/api` 完成 PostgreSQL 连接与 Prisma 初始化
+2. 首批核心表结构完成：`User`、`Recipe`、`Favorite`、`GenerationHistory`、`RecognitionJob`
+3. 本地 Prisma 开发流程、SSH Tunnel 连接方式、环境变量写法文档化
+4. 不影响现有健康检查接口
+5. 通过真实数据库读接口验证 schema 可支撑后续菜谱接口化
 
-**Implementation Update (2026-06-10)**:
-- `9336c8d` 已提交 Phase 6 的 `CONTEXT / RESEARCH / PLAN / UI-SPEC` 规划文档。
-- `b2a5991` 已完成首页与生成页代码实现：重做首页封面层级、场景预设卡、次级入口，并为生成页新增摘要条、草稿恢复、最近使用和已选反馈。
-- 新增 `src/components/generator-selection-section.vue`、`src/composables/use-generator-form.ts` 与 `src/utils/generator-form.ts` 以保证文件粒度和交互复用。
-- `tests/e2e.test.ts` 已补最近使用与草稿恢复辅助逻辑覆盖。
-- 已执行并通过：`npx tsc --noEmit`、`npx tsx tests/e2e.test.ts`、`npx tsx tests/matcher.test.ts`、`npm run build:mp-weixin`。
-- `95ea1f0` 已将 `feat/06-06/phase-06-cloud-sync` 合并到 `main` 并推送。
+### Implementation Update
 
----
+- 已新增 `apps/api/prisma/schema.prisma`
+- 已新增 `apps/api/prisma/seed.ts`
+- 已新增 `apps/api/src/prisma/*`
+- 已新增 `apps/api/src/recipes/*`
+- 已补充 `apps/api/.env.example`
+- 已补充本机 Prisma 连接远程 PostgreSQL 文档
+- 远程 PostgreSQL 已执行首版 `init` migration
+- mock 菜谱已成功 seed 到远程数据库
+- 已打通 `GET /api/recipes` 与 `GET /api/recipes/:id`
+- `mapo-tofu` 详情接口 500 已修复
+- 已形成启动 / 构建 / seed 故障分析文档，便于后续换电脑或重新部署时排障
 
-### Phase 7: Monorepo 与后端初始化
-**Goal**: 将仓库整理为 `apps/miniapp + apps/api + packages/shared + infra` 的 monorepo，并初始化可继续扩展的 NestJS 后端骨架
-**Mode**: standard
-**Status**: 已完成、已验收、已合并到 `main`
-**Success Criteria**:
-1. 小程序前端稳定落在 `apps/miniapp`
-2. 根目录具备 workspace 脚本和基础忽略规则
-3. `apps/api` 具备标准 NestJS 入口与健康检查模块
-4. `README.md`、`AGENTS.md` 与 `.planning` 文档同步为新仓库结构
+## Next Phase Direction
 
-**Implementation Update (2026-06-12)**:
-- 仓库目录已切换为 monorepo：`apps/miniapp`、`apps/api`、`packages/shared`、`infra/`
-- 已新增根目录 `.gitignore` 与 workspace `package.json`
-- 已初始化 `apps/api`：`main.ts`、`app.module.ts`、`app.controller.ts`、`app.service.ts`、`health` 模块、Nest CLI 与 TS 配置
-- 已新增 `packages/shared/README.md` 与 `infra/nginx`、`infra/sql` 占位文件
-- 本次按用户要求未运行自动测试或构建，由用户自行验收
-- `feat/06-12/phase-07-backend-init` 已合并到 `main`
+推荐下一阶段进入“菜谱接口化与写接口打通”：
 
----
-
-## Phase Details
-
-### Phase 1: 项目骨架与架构
-**Goal**: 一个能跑起来的 uniapp + vue3 + ts 空白工程，目录结构、类型定义、Pinia、ESLint 就绪
-**Mode**: standard
-**Success Criteria**:
-1. `npm run dev:mp-weixin` 能成功编译并产出 dist 目录
-2. 目录结构按 `src/{pages,components,stores,services,types,static,data}` 划分
-3. `tsconfig.json` 启用 strict，`vue-shim.d.ts` 让 .vue 文件类型可用
-4. Pinia 已装并能在 main.ts 注入；`src/types/recipe.ts` 定义核心领域模型
-
----
-
-### Phase 2: 菜谱数据与匹配引擎
-**Goal**: 一个能离线运行的本地菜谱库 + 标签/食材匹配服务
-**Mode**: standard
-**Success Criteria**:
-1. `src/data/recipes.ts` 至少包含 20 个真实菜谱（含川/粤/家常/西餐/日韩）
-2. `src/services/matcher.ts` 输入 (ingredients, seasonings, cuisine?, taste?) 输出按契合度排序的菜谱
-3. `src/services/generator.ts` 包装 matcher，对外暴露 `generateRecipe(input): Recipe[]`
-4. 契合度算法：食材覆盖率 70% + 调味料覆盖率 30%；缺失项明确标注
-5. 单测至少覆盖：精确匹配、部分匹配、空输入
-
----
-
-### Phase 3: 页面与组件 (输入/结果/详情)
-**Goal**: 完整的用户输入 → 生成 → 查看菜谱的端到端流程
-**Mode**: standard
-**Success Criteria**:
-1. 首页 `/pages/index/index` 提供两个入口：开始生成、查看收藏、查看历史
-2. 生成页 `/pages/generator/generator` 含食材多选/输入、调味料多选/输入、菜系单选、口味多选、"开始生成"按钮
-3. 结果页 `/pages/result/result` 展示匹配结果（可"换一换"），点击进入详情
-4. 详情页 `/pages/detail/detail?id=xxx` 展示完整菜谱，含收藏按钮
-5. 公共组件：`TagSelector`, `ChipInput`, `EmptyState`, `RecipeCard` 拆分清晰，每个 ≤ 150 行
-
----
-
-### Phase 4: 收藏/历史/分享/收尾
-**Goal**: 持久化 + 微信生态接入 + 整体润色
-**Mode**: standard
-**Success Criteria**:
-1. 收藏 store 持久化到 `uni.setStorageSync('favorites', ...)`，跨页实时同步
-2. 历史 store 每次生成追加一条，可单条删除
-3. 详情页右上角"···"或按钮触发 `onShareAppMessage`，自定义 title/path；无 `onShareTimeline`
-4. 分享 path 形如 `/pages/detail/detail?id=xxx&from=share`，接收端 onLoad 解析参数
-5. 整体 UI 走手绘插画风（CSS/SVG 装饰，emoji 辅助），主色暖橘 + 米白
-
----
-
-## 风险与依赖
-
-- **风险**: 微信小程序分享 API 在 H5 不可用 — 通过条件编译 `#ifdef MP-WEIXIN` 隔离
-- **依赖**: uni-ui 需在 manifest.json 引入 easycom
-- **依赖**: vue-cli 构建需 Node ≥ 16
+1. 继续扩展 `recipes` 查询参数、分页与响应裁剪
+2. 接入收藏、历史、识别任务的真实写接口
+3. 为图片上传、OCR、拍照识别保留对象存储与异步任务链路
