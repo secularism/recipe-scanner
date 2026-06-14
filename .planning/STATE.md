@@ -4,7 +4,7 @@
 
 - Phase: 8（数据库初始化）
 - Plan: 1 of 1
-- Status: Phase 8 已完成开发与验收，准备合并到 `main`
+- Status: Phase 8 已完成开发、验收并合并到 `main`
 
 ## Project Memory
 
@@ -32,4 +32,4 @@
 
 ## Last Updated
 
-- 2026-06-14 Phase 8 完成数据库初始化、seed 入库与只读接口联调，待合并主分支
+- 2026-06-14 Phase 8 完成数据库初始化、seed 入库与只读接口联调，并已合并到 `main`
