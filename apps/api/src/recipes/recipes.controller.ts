@@ -8,10 +8,12 @@ export class RecipesController {
   @Get()
   async getRecipes(
     @Query("cuisine") cuisine?: string,
+    @Query("include") include?: string,
     @Query("take") take?: string,
   ) {
     return this.recipesService.getRecipes({
       cuisine,
+      include,
       take: take ? Number(take) : undefined,
     });
   }
