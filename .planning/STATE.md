@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: planning
-last_updated: "2026-06-21T15:21:49.620Z"
-last_activity: 2026-06-21
+status: ready_to_execute
+last_updated: "2026-06-21T16:08:49.338Z"
+last_activity: 2026-06-22
 progress:
   total_phases: 3
   completed_phases: 0
-  total_plans: 3
+  total_plans: 1
   completed_plans: 0
   percent: 0
 ---
@@ -18,9 +18,9 @@ progress:
 ## Current Position
 
 - Phase: 9（recipes-api-contract）
-- Plan: 0 of 3
-- Status: Milestone v1.1 planned; ready to discuss Phase 9
-- Last activity: 2026-06-21 — Milestone v1.1 API 接入 planned
+- Plan: 1 of 1
+- Status: Phase 9 planned; ready to execute backend recipes API contract
+- Last activity: 2026-06-22 — Phase 9 plan created for recipes API contract
 
 ## Project Reference
 
@@ -58,8 +58,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 ## Last Updated
 
-- 2026-06-21 v1.1 API 接入 milestone planned; next step is Phase 9 discussion.
+- 2026-06-22 Phase 9 recipes API contract plan created; next step is Phase 9 execution.
 
 ## Operator Next Steps
 
-- Start Phase 9 with `$gsd-discuss-phase 9`.
+- Execute Phase 9 with `$gsd-execute-phase 9`.
