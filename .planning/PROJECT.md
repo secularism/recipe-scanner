@@ -15,7 +15,19 @@
 - **Backend:** `apps/api` 已有 NestJS 骨架、健康检查、Prisma 数据层和 `recipes` 只读接口
 - **Data:** 现有 mock 菜谱可通过 `npm run prisma:seed` 写入远程 PostgreSQL
 - **Planning:** v1.0 roadmap 和 requirements 已归档到 `.planning/milestones/`
-- **Next focus:** 新建 v1.1 milestone，优先讨论菜谱接口化、收藏/历史写接口、识别任务和上传/OCR 链路
+- **Current milestone:** v1.1 API 接入
+- **Next focus:** 将前端 mock 菜谱数据源切换为真实 recipes API 读链路，生成、详情、收藏展示和历史跳转都从后端读取菜谱数据
+
+## Current Milestone: v1.1 API 接入
+
+**Goal:** 把前端菜谱读取从本地 mock 数组切到真实后端 API，同时保留现有本地 matcher 的推荐体验。
+
+**Target features:**
+- 后端提供 match-ready 的 recipes 读接口，返回前端 matcher 和详情页所需字段。
+- 前端新增 recipes API client、字段 mapper 和可配置 API base URL。
+- 结果页生成流程异步加载真实菜谱数据后继续使用本地 matcher 排序。
+- 详情页、收藏页展示和历史记录跳转通过真实接口读取菜谱。
+- 网络失败时给出 loading、error 和 retry 反馈，不破坏本地收藏/历史数据。
 
 ## Tech Stack
 
@@ -89,13 +101,18 @@
 
 ### Active
 
-(None - next milestone should define fresh requirements with `$gsd-new-milestone`.)
+#### v1.1 API 接入
+- [ ] **API-01** 后端 recipes 列表接口可返回前端 matcher 所需的完整字段
+- [ ] **API-02** 前端可通过统一 API client 请求真实 recipes 接口
+- [ ] **API-03** 生成结果从真实接口获取菜谱库后仍按现有 matcher 排序
+- [ ] **API-04** 详情页可通过真实接口读取分享 path 中的菜谱 id/slug
+- [ ] **API-05** 收藏和历史仍本地存储，但展示菜谱数据时从真实接口读取
 
 ### Next Milestone Goals
 
-- 菜谱接口化：查询参数、分页、响应裁剪和前端接入边界。
-- 写接口打通：收藏、历史、识别任务进入真实后端链路。
-- 图片上传与识别准备：对象存储、OCR、拍照识别任务链路设计。
+- 完成 recipes 读链路 API 化，替换前端 mock 菜谱数据源。
+- 保持收藏、历史本地存储，不在 v1.1 引入用户身份或远程同步。
+- 为后续收藏/历史写接口、识别任务和上传/OCR 链路留下清晰边界。
 
 ### Out of Scope
 
@@ -103,6 +120,8 @@
 - 分享到朋友圈 - 用户明确排除
 - 营养计算 - 后续可加
 - 视频菜谱 - 后续可加
+- 收藏、历史、识别任务远程写接口 - v1.1 先只做 recipes 读接口接入
+- 图片上传、OCR、拍照识别 - 后续 milestone 再做
 - 完整用户资料系统（昵称、头像、手机号、资料页）
 - 非微信生态的跨平台账号体系
 - 一次性重写核心 matcher/generator 推荐逻辑
@@ -112,4 +131,4 @@
 本文档随 milestone 完成和新需求定义而演进。v1.0 已归档，下一次应从 `$gsd-new-milestone` 开始重新定义 requirements 和 roadmap。
 
 ---
-*Last updated: 2026-06-21 after v1.0 milestone*
+*Last updated: 2026-06-21 after starting v1.1 API 接入 milestone*

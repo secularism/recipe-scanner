@@ -1,33 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: MVP
-status: Awaiting next milestone
-last_updated: "2026-06-21T13:24:09.209Z"
-last_activity: 2026-06-21 — Milestone v1.0 completed and archived
+milestone: v1.1
+milestone_name: API 接入
+status: planning
+last_updated: "2026-06-21T15:21:49.620Z"
+last_activity: 2026-06-21
 progress:
-  total_phases: 8
-  completed_phases: 8
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_phases: 3
+  completed_phases: 0
+  total_plans: 3
+  completed_plans: 0
+  percent: 0
 ---
 
 # State
 
 ## Current Position
 
-- Phase: Milestone v1.0 complete
-- Plan: —
-- Status: Awaiting next milestone
-- Last activity: 2026-06-21 — Milestone v1.0 completed and archived
+- Phase: 9（recipes-api-contract）
+- Plan: 0 of 3
+- Status: Milestone v1.1 planned; ready to discuss Phase 9
+- Last activity: 2026-06-21 — Milestone v1.1 API 接入 planned
 
 ## Project Reference
 
 See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** Planning next milestone.
+**Current focus:** v1.1 API 接入 - recipes 读链路接口化。
 
 ## Project Memory
 
@@ -52,11 +52,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
   - `GET /api/recipes/:id`
 - `GET /api/recipes/mapo-tofu` 的 500 问题已修复，原因是非 UUID 参数误走了 UUID 查询分支
 - 启动与构建阶段遇到的 Nest CLI / lodash / Prisma / build 输出路径问题已全部定位并修复
+- v1.1 范围已确认：只做菜谱读接口接入，收藏/历史远程写接口、识别任务和 OCR 不进入本 milestone
+- 前端当前 `generateRecipe()` 同步依赖 `ALL_RECIPES`，需要新增 recipes API client 与 mapper 后异步化结果页
+- 后端详情接口已有 ingredients、seasonings、steps，列表接口当前裁剪字段，Phase 9 需要补齐 match-ready 契约
 
 ## Last Updated
 
-- 2026-06-21 v1.0 milestone archived; project is awaiting next milestone planning.
+- 2026-06-21 v1.1 API 接入 milestone planned; next step is Phase 9 discussion.
 
 ## Operator Next Steps
 
-- Start the next milestone with `$gsd-new-milestone`.
+- Start Phase 9 with `$gsd-discuss-phase 9`.
