@@ -1,10 +1,33 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: MVP
+status: Awaiting next milestone
+last_updated: "2026-06-21T13:24:09.209Z"
+last_activity: 2026-06-21 — Milestone v1.0 completed and archived
+progress:
+  total_phases: 8
+  completed_phases: 8
+  total_plans: 5
+  completed_plans: 5
+  percent: 100
+---
+
 # State
 
 ## Current Position
 
-- Phase: 8（数据库初始化）
-- Plan: 1 of 1
-- Status: Phase 8 已完成开发、验收并合并到 `main`
+- Phase: Milestone v1.0 complete
+- Plan: —
+- Status: Awaiting next milestone
+- Last activity: 2026-06-21 — Milestone v1.0 completed and archived
+
+## Project Reference
+
+See: `.planning/PROJECT.md` (updated 2026-06-21)
+
+**Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
+**Current focus:** Planning next milestone.
 
 ## Project Memory
 
@@ -32,4 +55,8 @@
 
 ## Last Updated
 
-- 2026-06-14 Phase 8 完成数据库初始化、seed 入库与只读接口联调，并已合并到 `main`
+- 2026-06-21 v1.0 milestone archived; project is awaiting next milestone planning.
+
+## Operator Next Steps
+
+- Start the next milestone with `$gsd-new-milestone`.
