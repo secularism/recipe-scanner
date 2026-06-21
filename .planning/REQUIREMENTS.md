@@ -7,10 +7,10 @@
 
 ### Backend Recipes API
 
-- [ ] **API-01**: 后端 recipes 列表接口可返回前端 matcher 所需字段，包括 `legacyId`/`slug`、名称、简介、菜系、口味、标签、烹饪时间、难度、食材、调味料和步骤。
-- [ ] **API-02**: 后端 recipes 详情接口可通过 `legacyId` 或 `slug` 返回完整菜谱详情，并保持现有 `mapo-tofu` 等分享路径可用。
-- [ ] **API-03**: 后端只返回 `PUBLISHED` 菜谱给小程序读取，避免草稿或归档菜谱进入前端推荐。
-- [ ] **API-04**: 后端响应结构有稳定的前端映射边界，前端不直接依赖 Prisma 内部字段命名。
+- [x] **API-01**: 后端 recipes 列表接口可返回前端 matcher 所需字段，包括 `legacyId`/`slug`、名称、简介、菜系、口味、标签、烹饪时间、难度、食材、调味料和步骤。
+- [x] **API-02**: 后端 recipes 详情接口可通过 `legacyId` 或 `slug` 返回完整菜谱详情，并保持现有 `mapo-tofu` 等分享路径可用。
+- [x] **API-03**: 后端只返回 `PUBLISHED` 菜谱给小程序读取，避免草稿或归档菜谱进入前端推荐。
+- [x] **API-04**: 后端响应结构有稳定的前端映射边界，前端不直接依赖 Prisma 内部字段命名。
 
 ### Miniapp API Client
 
@@ -70,10 +70,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| API-01 | Phase 9 | Pending |
-| API-02 | Phase 9 | Pending |
-| API-03 | Phase 9 | Pending |
-| API-04 | Phase 9 | Pending |
+| API-01 | Phase 9 | Complete |
+| API-02 | Phase 9 | Complete |
+| API-03 | Phase 9 | Complete |
+| API-04 | Phase 9 | Complete |
 | CLIENT-01 | Phase 10 | Pending |
 | CLIENT-02 | Phase 10 | Pending |
 | CLIENT-03 | Phase 10 | Pending |

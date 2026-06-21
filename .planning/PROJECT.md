@@ -12,11 +12,11 @@
 
 - **Shipped:** v1.0 MVP on 2026-06-21
 - **Frontend:** `apps/miniapp` 保留本地 matcher/generator、收藏、历史和分享主流程
-- **Backend:** `apps/api` 已有 NestJS 骨架、健康检查、Prisma 数据层和 `recipes` 只读接口
+- **Backend:** `apps/api` 已有 NestJS 骨架、健康检查、Prisma 数据层和 match-ready `recipes` 只读 DTO 契约
 - **Data:** 现有 mock 菜谱可通过 `npm run prisma:seed` 写入远程 PostgreSQL
 - **Planning:** v1.0 roadmap 和 requirements 已归档到 `.planning/milestones/`
 - **Current milestone:** v1.1 API 接入
-- **Next focus:** 将前端 mock 菜谱数据源切换为真实 recipes API 读链路，生成、详情、收藏展示和历史跳转都从后端读取菜谱数据
+- **Next focus:** Phase 10 小程序 recipes API client/mapper 与结果页生成链路接入
 
 ## Current Milestone: v1.1 API 接入
 
@@ -102,7 +102,7 @@
 ### Active
 
 #### v1.1 API 接入
-- [ ] **API-01** 后端 recipes 列表接口可返回前端 matcher 所需的完整字段
+- [x] **API-01** 后端 recipes 列表接口可返回前端 matcher 所需的完整字段
 - [ ] **API-02** 前端可通过统一 API client 请求真实 recipes 接口
 - [ ] **API-03** 生成结果从真实接口获取菜谱库后仍按现有 matcher 排序
 - [ ] **API-04** 详情页可通过真实接口读取分享 path 中的菜谱 id/slug

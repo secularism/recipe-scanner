@@ -2,32 +2,36 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: ready_to_execute
-last_updated: "2026-06-21T16:08:49.338Z"
+status: ready_to_plan
+last_updated: "2026-06-21T16:21:56.822Z"
 last_activity: 2026-06-22
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 1
-  completed_plans: 0
-  percent: 0
+  completed_plans: 1
+  percent: 33
+stopped_at: Phase 09 complete (1/1) — ready to discuss Phase 10
 ---
 
 # State
 
 ## Current Position
 
-- Phase: 9（recipes-api-contract）
-- Plan: 1 of 1
-- Status: Phase 9 planned; ready to execute backend recipes API contract
-- Last activity: 2026-06-22 — Phase 9 plan created for recipes API contract
+Phase: 10（miniapp-api-generation）
+Plan: Not started
+
+- Phase 9（recipes-api-contract）: Complete (1/1 plan)
+- Phase 10（miniapp-api-generation）: ready to discuss/planning
+- Status: Phase 9 backend recipes API contract complete; next step is Phase 10 miniapp API client/generator integration planning
+- Last activity: 2026-06-22 — Phase 9 executed and documented
 
 ## Project Reference
 
 See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** v1.1 API 接入 - recipes 读链路接口化。
+**Current focus:** Phase 10 — miniapp API client/mapper and generation API integration
 
 ## Project Memory
 
@@ -54,12 +58,12 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 - 启动与构建阶段遇到的 Nest CLI / lodash / Prisma / build 输出路径问题已全部定位并修复
 - v1.1 范围已确认：只做菜谱读接口接入，收藏/历史远程写接口、识别任务和 OCR 不进入本 milestone
 - 前端当前 `generateRecipe()` 同步依赖 `ALL_RECIPES`，需要新增 recipes API client 与 mapper 后异步化结果页
-- 后端详情接口已有 ingredients、seasonings、steps，列表接口当前裁剪字段，Phase 9 需要补齐 match-ready 契约
+- Phase 9 已完成：后端 `GET /api/recipes?include=matchFields` 返回 matcher 所需字段，列表/详情只暴露 `PUBLISHED` 菜谱，并通过 DTO 隔离 Prisma 内部字段
 
 ## Last Updated
 
-- 2026-06-22 Phase 9 recipes API contract plan created; next step is Phase 9 execution.
+- 2026-06-22 Phase 9 recipes API contract executed and documented; next step is Phase 10 discussion/planning.
 
 ## Operator Next Steps
 
-- Execute Phase 9 with `$gsd-execute-phase 9`.
+- Discuss Phase 10 with `$gsd-discuss-phase 10`.
