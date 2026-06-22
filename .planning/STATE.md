@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
 status: ready_to_plan
-last_updated: "2026-06-21T16:21:56.822Z"
+last_updated: "2026-06-22T07:16:05.145Z"
 last_activity: 2026-06-22
 progress:
   total_phases: 3
@@ -11,7 +11,7 @@ progress:
   total_plans: 1
   completed_plans: 1
   percent: 33
-stopped_at: Phase 09 complete (1/1) — ready to discuss Phase 10
+stopped_at: Phase 10 context gathered — ready to plan Phase 10
 ---
 
 # State
@@ -22,9 +22,9 @@ Phase: 10（miniapp-api-generation）
 Plan: Not started
 
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
-- Phase 10（miniapp-api-generation）: ready to discuss/planning
-- Status: Phase 9 backend recipes API contract complete; next step is Phase 10 miniapp API client/generator integration planning
-- Last activity: 2026-06-22 — Phase 9 executed and documented
+- Phase 10（miniapp-api-generation）: context gathered; ready to plan
+- Status: Phase 10 decisions captured for miniapp API client/mapper and result page generation integration
+- Last activity: 2026-06-22 — Phase 10 context gathered in `.planning/phases/10-miniapp-api-generation/10-CONTEXT.md`
 
 ## Project Reference
 
@@ -62,8 +62,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 ## Last Updated
 
-- 2026-06-22 Phase 9 recipes API contract executed and documented; next step is Phase 10 discussion/planning.
+- 2026-06-22 Phase 10 context gathered; next step is Phase 10 planning.
 
 ## Operator Next Steps
 
-- Discuss Phase 10 with `$gsd-discuss-phase 10`.
+- Plan Phase 10 with `$gsd-plan-phase 10`.

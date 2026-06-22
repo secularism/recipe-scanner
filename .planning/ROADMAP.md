@@ -7,12 +7,12 @@
 
 ## Current Position
 
-Phase 9 is complete. Phase 10 is next and ready for discussion/planning.
+Phase 9 is complete. Phase 10 context is gathered and ready for planning.
 
 Next command:
 
 ```bash
-$gsd-discuss-phase 10
+$gsd-plan-phase 10
 ```
 
 ## v1.1 API 接入
