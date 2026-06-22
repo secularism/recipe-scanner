@@ -78,9 +78,17 @@ const limited = generateRecipe(
     ingredients: ['豆腐', '猪肉', '鸡肉', '番茄', '鸡蛋', '黄瓜', '土豆', '米饭'],
     seasonings: ['盐', '糖', '生抽', '食用油', '蒜', '姜', '葱', '醋']
   },
-  3
+  3,
+  ALL_RECIPES
 )
 assert('generateRecipe 限制返回 3 个', limited.length <= 3)
+
+const emptyPool = generateRecipe(
+  { ingredients: ['豆腐'], seasonings: ['盐'] },
+  3,
+  []
+)
+assert('generateRecipe 空显式菜谱池返回空', emptyPool.length === 0)
 
 // 7. 大小写不敏感（去 normalize）
 r = matchRecipes(

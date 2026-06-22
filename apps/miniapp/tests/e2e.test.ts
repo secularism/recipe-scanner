@@ -33,7 +33,7 @@ section('1. 用户进入首页 → 选食材 → 生成')
     seasonings: ['豆瓣酱', '花椒', '生抽', '姜', '蒜', '葱', '油'],
     cuisine: 'sichuan'
   }
-  const results = generateRecipe(input)
+  const results = generateRecipe(input, 3, ALL_RECIPES)
   check('生成结果非空', results.length > 0)
   check('首推是麻婆豆腐', results[0]?.recipe.id === 'mapo-tofu',
     `实际：${results[0]?.recipe.id}`)
@@ -46,14 +46,14 @@ section('2. 用户点 "换一换"')
     ingredients: ['鸡蛋', '米饭', '葱'],
     seasonings: ['盐', '生抽', '油']
   }
-  const initial = generateRecipe(input)[0]
+  const initial = generateRecipe(input, 3, ALL_RECIPES)[0]
   check('首选非空', !!initial)
 
   // 模拟连续换 5 次，每次都得到非空结果
   let allValid = true
   let currentId = initial.recipe.id
   for (let i = 0; i < 5; i++) {
-    const next = shuffleResult(currentId, input)
+    const next = shuffleResult(currentId, input, 10, ALL_RECIPES)
     if (!next || !next.recipe) {
       allValid = false
       break
@@ -101,7 +101,7 @@ section('5. 一键生成预设')
   // 模拟点 "懒人快手" 预设
   const preset = QUICK_PRESETS.find(p => p.id === 'egg-rice')
   check('懒人快手预设存在', !!preset)
-  const results = generateRecipe(preset!.input)
+  const results = generateRecipe(preset!.input, 3, ALL_RECIPES)
   check('预设可生成结果', results.length > 0)
   // 蛋炒饭 / 番茄炒蛋 / 美式炒蛋 都有蛋
   const top = results[0]?.recipe
@@ -131,25 +131,40 @@ section('6. 历史去重（3 秒内同输入不重复入库）')
 section('7. 边界情况')
 {
   // 空输入
-  check('空输入无结果', generateRecipe({ ingredients: [], seasonings: [] }).length === 0)
+  check('空输入无结果', generateRecipe({ ingredients: [], seasonings: [] }, 3, ALL_RECIPES).length === 0)
 
   // 不存在的食材
   const r = generateRecipe({
     ingredients: ['神秘食材xxx'],
     seasonings: ['神秘调料yyy']
-  })
+  }, 3, ALL_RECIPES)
   check('无交集输入被过滤', r.length === 0)
 
   // 只输一个食材
-  const r2 = generateRecipe({ ingredients: ['豆腐'], seasonings: [] })
+  const r2 = generateRecipe({ ingredients: ['豆腐'], seasonings: [] }, 3, ALL_RECIPES)
   check('单食材也能匹配', r2.length > 0)
 
   // 自定义食材
   const r3 = generateRecipe({
     ingredients: ['鸡蛋', '神秘自填食材'],
     seasonings: ['盐']
-  })
+  }, 3, ALL_RECIPES)
   check('自定义食材 + 基础调料能匹配', r3.length > 0)
+
+  const r4 = generateRecipe({ ingredients: ['豆腐'], seasonings: ['盐'] }, 3, [])
+  check('显式空菜谱池无结果', r4.length === 0)
+}
+
+section('7.1 显式菜谱池换一换')
+{
+  const input: GenerateInput = {
+    ingredients: ['鸡蛋', '米饭', '葱'],
+    seasonings: ['盐', '生抽', '油']
+  }
+  const initial = generateRecipe(input, 3, ALL_RECIPES)[0]
+  const next = shuffleResult(initial.recipe.id, input, 10, ALL_RECIPES)
+  check('换一换不重复当前首推', !!next && next.recipe.id !== initial.recipe.id,
+    `当前：${initial.recipe.id}，实际：${next?.recipe.id}`)
 }
 
 section('8. 菜谱库完整性')
