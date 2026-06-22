@@ -7,12 +7,12 @@
 
 ## Current Position
 
-Phase 9 is complete. Phase 10 context is gathered and ready for planning.
+Phase 9 is complete. Phase 10 is planned and ready for execution.
 
 Next command:
 
 ```bash
-$gsd-plan-phase 10
+$gsd-execute-phase 10
 ```
 
 ## v1.1 API 接入
@@ -22,7 +22,7 @@ $gsd-plan-phase 10
 | # | Phase | Goal | Requirements | Status |
 |---|---|---|---|---|
 | 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
-| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Planned |
+| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Ready to execute |
 | 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并补齐测试和发布前置文档 | READ-01..05, VERIFY-01..04 | Planned |
 
 ### Phase 9: recipes-api-contract
@@ -48,6 +48,17 @@ $gsd-plan-phase 10
 2. 后端菜谱响应可映射成现有 `Recipe` 类型，matcher 测试数据不依赖真实网络。
 3. 结果页生成流程支持 loading、error、retry。
 4. “换一换”和历史入库继续基于真实 API 菜谱数据工作。
+
+**Plans:**
+
+**Wave 1**
+- `10-01-miniapp-recipes-client-mapper` — 新增 API config、recipes API client、DTO mapper，并让 generator/shuffle 支持显式 recipe pool。
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- `10-02-result-api-generation` — 将 result 页接入真实 recipes API，补齐 loading/error/retry、真实 pool 换一换和成功后历史写入。
+
+**Cross-cutting constraints:**
+- API 失败不得 fallback 到本地 `ALL_RECIPES`，默认测试不得依赖真实网络。
 
 ### Phase 11: api-read-views-verification
 

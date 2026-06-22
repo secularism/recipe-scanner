@@ -2,16 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: ready_to_plan
-last_updated: "2026-06-22T07:16:05.145Z"
-last_activity: 2026-06-22
+status: ready_to_execute
+last_updated: "2026-06-22T07:38:04.624Z"
 progress:
   total_phases: 3
   completed_phases: 1
-  total_plans: 1
+  total_plans: 3
   completed_plans: 1
   percent: 33
-stopped_at: Phase 10 context gathered — ready to plan Phase 10
 ---
 
 # State
@@ -19,12 +17,14 @@ stopped_at: Phase 10 context gathered — ready to plan Phase 10
 ## Current Position
 
 Phase: 10（miniapp-api-generation）
-Plan: Not started
+Plan: 2 plans ready to execute
 
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
-- Phase 10（miniapp-api-generation）: context gathered; ready to plan
-- Status: Phase 10 decisions captured for miniapp API client/mapper and result page generation integration
-- Last activity: 2026-06-22 — Phase 10 context gathered in `.planning/phases/10-miniapp-api-generation/10-CONTEXT.md`
+- Phase 10（miniapp-api-generation）: Planned (2 plans ready)
+- Status: Phase 10 execution plan created for miniapp API client/mapper and result page API-backed generation
+- Last activity: 2026-06-22 — Phase 10 plans created:
+  - `.planning/phases/10-miniapp-api-generation/10-01-miniapp-recipes-client-mapper-PLAN.md`
+  - `.planning/phases/10-miniapp-api-generation/10-02-result-api-generation-PLAN.md`
 
 ## Project Reference
 
@@ -62,8 +62,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 ## Last Updated
 
-- 2026-06-22 Phase 10 context gathered; next step is Phase 10 planning.
+- 2026-06-22 Phase 10 planned; next step is Phase 10 execution.
 
 ## Operator Next Steps
 
-- Plan Phase 10 with `$gsd-plan-phase 10`.
+- Execute Phase 10 with `$gsd-execute-phase 10`.
