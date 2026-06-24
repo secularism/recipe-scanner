@@ -35,6 +35,8 @@ requirements-completed: [READ-03, READ-04, READ-05, VERIFY-02, VERIFY-03]
 requirements-deferred: [VERIFY-04]
 duration: 35 min
 completed: 2026-06-24
+merged: 2026-06-24
+merge_commit: 815fef9
 commit: 49783ef0d9194052c649980d55e84b110d891c54
 ---
 

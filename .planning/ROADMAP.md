@@ -3,16 +3,16 @@
 ## Milestones
 
 - [x] **v1.0 MVP** - Phase 1-8 shipped on 2026-06-21. Archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
-- [ ] **v1.1 API 接入** - Phase 9-11 planned on 2026-06-21.
+- [x] **v1.1 API 接入** - Phase 9-11 completed and merged on 2026-06-24.
 
 ## Current Position
 
-Phase 9 and Phase 10 are complete. Phase 11 is complete on the feature branch and ready for user acceptance.
+Phase 9, Phase 10, and Phase 11 are complete. Phase 11 was accepted and merged to `main` on 2026-06-24.
 
 Next command:
 
 ```bash
-User acceptance for `feat/06-24/phase-11-api-read-views`
+Choose the next milestone or review backlog
 ```
 
 ## v1.1 API 接入
@@ -23,7 +23,7 @@ User acceptance for `feat/06-24/phase-11-api-read-views`
 |---|---|---|---|---|
 | 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
 | 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete, merged |
-| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | Complete, pending acceptance |
+| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | Complete, merged |
 
 ### Phase 9: recipes-api-contract
 
@@ -95,6 +95,9 @@ User acceptance for `feat/06-24/phase-11-api-read-views`
 **Execution summaries:**
 - [Plan 11-01 summary](phases/11-api-read-views-verification/11-01-SUMMARY.md)
 - [Plan 11-02 summary](phases/11-api-read-views-verification/11-02-SUMMARY.md)
+
+**Completed:** 2026-06-24
+**Merged to main:** 2026-06-24 (`815fef9`)
 
 ## Archived Phases
 

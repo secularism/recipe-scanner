@@ -2,8 +2,8 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: ready_for_acceptance
-last_updated: "2026-06-24T21:05:00+08:00"
+status: complete
+last_updated: "2026-06-24T21:20:00+08:00"
 progress:
   total_phases: 3
   completed_phases: 3
@@ -16,14 +16,14 @@ progress:
 
 ## Current Position
 
-Phase: 11 (api-read-views-verification) — READY FOR ACCEPTANCE
+Phase: 11 (api-read-views-verification) — COMPLETE, MERGED
 Plan: 2 of 2 complete
 
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
 - Phase 10（miniapp-api-generation）: Complete (2/2 plans)
-- Phase 11（api-read-views-verification）: Complete (2/2 plans; pending user acceptance)
-- Status: Phase 11 implementation and documentation completed on feature branch; waiting for miniapp acceptance
-- Last activity: 2026-06-24 — Plan 11-02 favorites/history verification completed (`49783ef`)
+- Phase 11（api-read-views-verification）: Complete (2/2 plans; merged to main)
+- Status: Phase 11 accepted by user, merged to `main`, and pushed to origin
+- Last activity: 2026-06-24 — Phase 11 merged to `main` at `815fef9`
 - Previous activity: 2026-06-24 — Phase 10 merged to `main` at `5270b85` after user acceptance
 - Earlier activity: 2026-06-22 — Phase 10 executed and documented:
   - `.planning/phases/10-miniapp-api-generation/10-01-SUMMARY.md`
@@ -34,7 +34,7 @@ Plan: 2 of 2 complete
 See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** Phase 11 — api-read-views-verification
+**Current focus:** v1.1 API 接入 complete; next milestone not selected
 
 ## Project Memory
 
@@ -67,11 +67,12 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 - Phase 10 已于 2026-06-24 验收通过并合并到 `main`，merge commit 为 `5270b85`
 - Phase 11 已完成讨论与规划：详情页先接 `fetchRecipeById(id)`，收藏页用真实 recipes 数据展示本地收藏 id，历史页保持本地快照并跳转 API 驱动详情
 - Phase 11 明确不新增 README/release checklist；正式发布前置文档暂缓，当前最多体验版使用
+- Phase 11 已于 2026-06-24 验收通过并合并到 `main`，merge commit 为 `815fef9`
 
 ## Last Updated
 
-- 2026-06-24 Phase 11 Plan 11-02 completed; next step is pushing the feature branch for user acceptance.
+- 2026-06-24 Phase 11 accepted, merged to `main`, and pushed.
 
 ## Operator Next Steps
 
-- Push `feat/06-24/phase-11-api-read-views` and wait for user acceptance before merging to `main`.
+- Decide the next milestone or review the backlog before starting new implementation work.
