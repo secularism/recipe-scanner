@@ -37,6 +37,8 @@ requirements-completed: [CLIENT-01, CLIENT-02, CLIENT-03, CLIENT-04]
 requirements-supported: [GENAPI-01, GENAPI-03]
 duration: 35 min
 completed: 2026-06-22
+merged: 2026-06-24
+merge_commit: 5270b85
 ---
 
 # Phase 10 Plan 10-01: Miniapp Recipes Client and Mapper Summary

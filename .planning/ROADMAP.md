@@ -22,7 +22,7 @@ $gsd-plan-phase 11
 | # | Phase | Goal | Requirements | Status |
 |---|---|---|---|---|
 | 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
-| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete |
+| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete, merged |
 | 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并补齐测试和发布前置文档 | READ-01..05, VERIFY-01..04 | Ready to plan |
 
 ### Phase 9: recipes-api-contract
@@ -61,6 +61,7 @@ $gsd-plan-phase 11
 - API 失败不得 fallback 到本地 `ALL_RECIPES`，默认测试不得依赖真实网络。
 
 **Completed:** 2026-06-22
+**Merged to main:** 2026-06-24 (`5270b85`)
 
 **Execution summaries:**
 - [Plan 10-01 summary](phases/10-miniapp-api-generation/10-01-SUMMARY.md)

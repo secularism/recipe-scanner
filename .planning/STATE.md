@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
 status: ready_to_plan
-last_updated: "2026-06-22T16:05:03+08:00"
+last_updated: "2026-06-24T14:26:59+08:00"
 progress:
   total_phases: 3
   completed_phases: 2
@@ -22,8 +22,9 @@ Plan: 0 of 0
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
 - Phase 10（miniapp-api-generation）: Complete (2/2 plans)
 - Phase 11（api-read-views-verification）: Ready for detailed planning
-- Status: Phase 10 implementation completed; result page now uses real recipes API data and the full miniapp verification gate passes
-- Last activity: 2026-06-22 — Phase 10 executed and documented:
+- Status: Phase 10 implementation completed, accepted, merged to `main`, and pushed; Phase 11 is ready for planning
+- Last activity: 2026-06-24 — Phase 10 merged to `main` at `5270b85` after user acceptance
+- Previous activity: 2026-06-22 — Phase 10 executed and documented:
   - `.planning/phases/10-miniapp-api-generation/10-01-SUMMARY.md`
   - `.planning/phases/10-miniapp-api-generation/10-02-SUMMARY.md`
 
@@ -62,10 +63,11 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 - Phase 9 已完成：后端 `GET /api/recipes?include=matchFields` 返回 matcher 所需字段，列表/详情只暴露 `PUBLISHED` 菜谱，并通过 DTO 隔离 Prisma 内部字段
 - Phase 10 已完成：小程序新增 centralized API config、recipes API client、DTO mapper，结果页改为先拉取真实 `recipes?include=matchFields` 数据后再运行本地 matcher
 - Phase 10 已恢复并通过小程序完整验证门：`type-check`、`recipes-api.test.ts`、`e2e.test.ts`、`matcher.test.ts`、`build:mp-weixin`
+- Phase 10 已于 2026-06-24 验收通过并合并到 `main`，merge commit 为 `5270b85`
 
 ## Last Updated
 
-- 2026-06-22 Phase 10 completed; next step is Phase 11 planning.
+- 2026-06-24 Phase 10 accepted and merged to `main`; next step is Phase 11 planning.
 
 ## Operator Next Steps
 
