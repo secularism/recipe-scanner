@@ -14,17 +14,17 @@
 
 ### Miniapp API Client
 
-- [ ] **CLIENT-01**: 小程序有统一 recipes API client，封装 `uni.request`、base URL、错误处理和响应解析。
-- [ ] **CLIENT-02**: 小程序有后端菜谱到前端 `Recipe` 类型的 mapper，覆盖字段重命名和 `metadata.difficulty` 默认值。
-- [ ] **CLIENT-03**: API base URL 在一个配置文件中集中管理，开发环境可指向 `http://47.96.36.31/api`。
-- [ ] **CLIENT-04**: recipes API client 可被测试替换或注入，不让单元测试依赖真实网络。
+- [x] **CLIENT-01**: 小程序有统一 recipes API client，封装 `uni.request`、base URL、错误处理和响应解析。
+- [x] **CLIENT-02**: 小程序有后端菜谱到前端 `Recipe` 类型的 mapper，覆盖字段重命名和 `metadata.difficulty` 默认值。
+- [x] **CLIENT-03**: API base URL 在一个配置文件中集中管理，开发环境可指向 `http://47.96.36.31/api`。
+- [x] **CLIENT-04**: recipes API client 可被测试替换或注入，不让单元测试依赖真实网络。
 
 ### Generation Flow
 
-- [ ] **GENAPI-01**: 结果页生成流程异步加载真实 recipes 数据后继续使用现有 matcher 计算排序和契合度。
-- [ ] **GENAPI-02**: 结果页加载期间展示明确 loading 状态，接口失败时展示错误与重试入口。
-- [ ] **GENAPI-03**: “换一换”继续在真实 recipes 数据源产生的候选池中工作，不重复当前首推菜谱。
-- [ ] **GENAPI-04**: 生成历史仍保存到本地缓存，记录的 recipe id 使用可被详情接口解析的 `legacyId` 或 `slug`。
+- [x] **GENAPI-01**: 结果页生成流程异步加载真实 recipes 数据后继续使用现有 matcher 计算排序和契合度。
+- [x] **GENAPI-02**: 结果页加载期间展示明确 loading 状态，接口失败时展示错误与重试入口。
+- [x] **GENAPI-03**: “换一换”继续在真实 recipes 数据源产生的候选池中工作，不重复当前首推菜谱。
+- [x] **GENAPI-04**: 生成历史仍保存到本地缓存，记录的 recipe id 使用可被详情接口解析的 `legacyId` 或 `slug`。
 
 ### Detail, Favorites, History
 
@@ -74,14 +74,14 @@
 | API-02 | Phase 9 | Complete |
 | API-03 | Phase 9 | Complete |
 | API-04 | Phase 9 | Complete |
-| CLIENT-01 | Phase 10 | Pending |
-| CLIENT-02 | Phase 10 | Pending |
-| CLIENT-03 | Phase 10 | Pending |
-| CLIENT-04 | Phase 10 | Pending |
-| GENAPI-01 | Phase 10 | Pending |
-| GENAPI-02 | Phase 10 | Pending |
-| GENAPI-03 | Phase 10 | Pending |
-| GENAPI-04 | Phase 10 | Pending |
+| CLIENT-01 | Phase 10 | Complete |
+| CLIENT-02 | Phase 10 | Complete |
+| CLIENT-03 | Phase 10 | Complete |
+| CLIENT-04 | Phase 10 | Complete |
+| GENAPI-01 | Phase 10 | Complete |
+| GENAPI-02 | Phase 10 | Complete |
+| GENAPI-03 | Phase 10 | Complete |
+| GENAPI-04 | Phase 10 | Complete |
 | READ-01 | Phase 11 | Pending |
 | READ-02 | Phase 11 | Pending |
 | READ-03 | Phase 11 | Pending |
@@ -99,4 +99,4 @@
 
 ---
 *Requirements defined: 2026-06-21*
-*Last updated: 2026-06-21 after v1.1 scope selection*
+*Last updated: 2026-06-22 after Phase 10 execution*

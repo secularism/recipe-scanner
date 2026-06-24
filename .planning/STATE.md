@@ -3,35 +3,36 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
 status: ready_to_plan
-last_updated: "2026-06-21T16:21:56.822Z"
-last_activity: 2026-06-22
+last_updated: "2026-06-22T16:05:03+08:00"
 progress:
   total_phases: 3
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
-  percent: 33
-stopped_at: Phase 09 complete (1/1) — ready to discuss Phase 10
+  completed_phases: 2
+  total_plans: 3
+  completed_plans: 3
+  percent: 67
 ---
 
 # State
 
 ## Current Position
 
-Phase: 10（miniapp-api-generation）
-Plan: Not started
+Phase: 11 (api-read-views-verification) — READY TO PLAN
+Plan: 0 of 0
 
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
-- Phase 10（miniapp-api-generation）: ready to discuss/planning
-- Status: Phase 9 backend recipes API contract complete; next step is Phase 10 miniapp API client/generator integration planning
-- Last activity: 2026-06-22 — Phase 9 executed and documented
+- Phase 10（miniapp-api-generation）: Complete (2/2 plans)
+- Phase 11（api-read-views-verification）: Ready for detailed planning
+- Status: Phase 10 implementation completed; result page now uses real recipes API data and the full miniapp verification gate passes
+- Last activity: 2026-06-22 — Phase 10 executed and documented:
+  - `.planning/phases/10-miniapp-api-generation/10-01-SUMMARY.md`
+  - `.planning/phases/10-miniapp-api-generation/10-02-SUMMARY.md`
 
 ## Project Reference
 
 See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** Phase 10 — miniapp API client/mapper and generation API integration
+**Current focus:** Phase 11 — api-read-views-verification
 
 ## Project Memory
 
@@ -59,11 +60,13 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 - v1.1 范围已确认：只做菜谱读接口接入，收藏/历史远程写接口、识别任务和 OCR 不进入本 milestone
 - 前端当前 `generateRecipe()` 同步依赖 `ALL_RECIPES`，需要新增 recipes API client 与 mapper 后异步化结果页
 - Phase 9 已完成：后端 `GET /api/recipes?include=matchFields` 返回 matcher 所需字段，列表/详情只暴露 `PUBLISHED` 菜谱，并通过 DTO 隔离 Prisma 内部字段
+- Phase 10 已完成：小程序新增 centralized API config、recipes API client、DTO mapper，结果页改为先拉取真实 `recipes?include=matchFields` 数据后再运行本地 matcher
+- Phase 10 已恢复并通过小程序完整验证门：`type-check`、`recipes-api.test.ts`、`e2e.test.ts`、`matcher.test.ts`、`build:mp-weixin`
 
 ## Last Updated
 
-- 2026-06-22 Phase 9 recipes API contract executed and documented; next step is Phase 10 discussion/planning.
+- 2026-06-22 Phase 10 completed; next step is Phase 11 planning.
 
 ## Operator Next Steps
 
-- Discuss Phase 10 with `$gsd-discuss-phase 10`.
+- Plan Phase 11 with `$gsd-plan-phase 11`.
