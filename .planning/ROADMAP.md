@@ -7,12 +7,12 @@
 
 ## Current Position
 
-Phase 9 and Phase 10 are complete. Phase 11 is ready for detailed planning.
+Phase 9 and Phase 10 are complete. Phase 11 is complete on the feature branch and ready for user acceptance.
 
 Next command:
 
 ```bash
-$gsd-plan-phase 11
+User acceptance for `feat/06-24/phase-11-api-read-views`
 ```
 
 ## v1.1 API 接入
@@ -23,7 +23,7 @@ $gsd-plan-phase 11
 |---|---|---|---|---|
 | 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
 | 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete, merged |
-| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并补齐测试和发布前置文档 | READ-01..05, VERIFY-01..04 | Ready to plan |
+| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | Complete, pending acceptance |
 
 ### Phase 9: recipes-api-contract
 
@@ -79,6 +79,22 @@ $gsd-plan-phase 11
 3. 历史页仍存本地记录，但点击记录进入 API 驱动详情。
 4. 网络失败不会清空收藏、历史、草稿等本地数据。
 5. mapper/API client 测试、miniapp type-check、e2e、matcher 和 build 全部通过。
+
+**Plans:**
+
+**Wave 1**
+- `11-01-detail-api-read` — 新增 `fetchRecipeById(id)`，将详情页和分享 path 切到真实详情接口，补齐 loading/error/retry 与 fake-request 测试。
+
+**Wave 2** *(blocked on Wave 1 completion)*
+- `11-02-favorites-history-verification` — 收藏页用真实 recipes 数据展示本地收藏 id，历史页保持本地快照并跳转 API 驱动详情，跑完整 miniapp 验证门。
+
+**Cross-cutting constraints:**
+- 网络/API 失败不得清空收藏、历史、草稿等本地数据，且不得 fallback 到本地 `ALL_RECIPES` 掩盖真实接口问题。
+- Phase 11 不新增 README 或 release checklist；正式发布前置文档按讨论结论暂缓，当前最多支持体验版使用。
+
+**Execution summaries:**
+- [Plan 11-01 summary](phases/11-api-read-views-verification/11-01-SUMMARY.md)
+- [Plan 11-02 summary](phases/11-api-read-views-verification/11-02-SUMMARY.md)
 
 ## Archived Phases
 
