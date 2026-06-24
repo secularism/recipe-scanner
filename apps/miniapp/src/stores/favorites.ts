@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { findRecipeById } from '@/data'
-import type { Recipe } from '@/types'
 
 const STORAGE_KEY = 'recipe-favorites'
 
@@ -39,13 +37,14 @@ export const useFavoritesStore = defineStore('favorites', () => {
     return isFavorite(id)
   }
 
-  const list = computed<Recipe[]>(() => {
-    return ids.value
-      .map(id => findRecipeById(id))
-      .filter((r): r is Recipe => r !== undefined)
-  })
+  function remove(id: string): boolean {
+    if (!isFavorite(id)) return false
+    ids.value = ids.value.filter(x => x !== id)
+    persist()
+    return true
+  }
 
   const count = computed(() => ids.value.length)
 
-  return { ids, list, count, load, isFavorite, toggle }
+  return { ids, count, load, isFavorite, toggle, remove }
 })

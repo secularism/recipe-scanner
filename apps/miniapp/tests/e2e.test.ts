@@ -238,13 +238,14 @@ section('11. API read view data protection')
   }
 
   const historyDetailUrl = `/pages/detail/detail?id=${history[0].recipeId}`
-  const apiPool = ALL_RECIPES.filter(recipe => recipe.id !== 'missing-recipe')
+  const apiPool = ALL_RECIPES.filter(recipe => recipe.id !== 'mapo-tofu')
   const favoriteViews = favorites.map(id => apiPool.find(recipe => recipe.id === id) ? 'available' : 'missing')
 
   check('detail API failure keeps local favorite ids', JSON.stringify(favorites) === beforeFavorites)
   check('detail API failure keeps local history records', JSON.stringify(history) === beforeHistory)
   check('history click keeps recipeId in detail URL', historyDetailUrl === '/pages/detail/detail?id=mapo-tofu', historyDetailUrl)
   check('favorite missing API id remains represented', favoriteViews.includes('missing'))
+  check('favorites view does not fallback to local recipe data', favoriteViews[0] === 'missing', favoriteViews.join(','))
   check('favorites API failure can preserve local count', favorites.length === 2, String(favorites.length))
 }
 
