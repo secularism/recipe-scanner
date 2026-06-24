@@ -1,5 +1,5 @@
 import { API_BASE_URL, joinApiUrl } from '../config/api'
-import { mapRecipeDtosToRecipes, type RecipeFullDto } from './recipe-mapper'
+import { mapRecipeDtoToRecipe, mapRecipeDtosToRecipes, type RecipeFullDto } from './recipe-mapper'
 
 export interface RecipesRequestSuccess {
   statusCode: number
@@ -46,6 +46,22 @@ export function createRecipesApiClient(options: RecipesApiClientOptions = {}) {
           error instanceof Error ? error.message : 'Recipes API mapping failed'
         )
       }
+    },
+
+    async fetchRecipeById(id: string) {
+      const data = await requestJson(`recipes/${encodeURIComponent(id)}`, baseUrl, request)
+
+      if (!isRecipeObject(data)) {
+        throw new RecipesApiError('Recipes API returned non-object data')
+      }
+
+      try {
+        return mapRecipeDtoToRecipe(data)
+      } catch (error) {
+        throw new RecipesApiError(
+          error instanceof Error ? error.message : 'Recipes API mapping failed'
+        )
+      }
     }
   }
 }
@@ -83,4 +99,8 @@ function defaultRequest(options: RecipesRequestOptions) {
     },
     fail: options.fail
   })
+}
+
+function isRecipeObject(value: unknown): value is RecipeFullDto {
+  return !!value && typeof value === 'object' && !Array.isArray(value)
 }

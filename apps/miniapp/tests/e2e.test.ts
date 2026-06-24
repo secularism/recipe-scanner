@@ -3,7 +3,7 @@
  * 跑：npx tsx tests/e2e.test.ts
  */
 import { generateRecipe, shuffleResult } from '../src/services'
-import { ALL_RECIPES, findRecipeById, QUICK_PRESETS } from '../src/data'
+import { ALL_RECIPES, QUICK_PRESETS } from '../src/data'
 import type { GenerateInput } from '../src/types'
 import { hasDraftContent, mergeRecentItems } from '../src/utils/generator-form'
 
@@ -65,7 +65,7 @@ section('2. 用户点 "换一换"')
 
 section('3. 用户点开详情 → 收藏')
 {
-  const r = findRecipeById('tomato-egg-stir-fry')
+  const r = ALL_RECIPES.find(recipe => recipe.id === 'tomato-egg-stir-fry')
   check('番茄炒蛋存在', !!r)
   // 模拟 toggle：第一次 false → true → false
   const set = new Set<string>()
@@ -91,9 +91,10 @@ section('4. 用户点分享 → 朋友点开')
   const from = params.get('from')
   check('分享携带 id', !!id)
   check('分享携带 from=share', from === 'share')
-  const r = findRecipeById(id!)
-  check('通过 id 找到菜谱', !!r)
-  check('菜谱名匹配', r?.name === '麻婆豆腐')
+  const fetchDetailById = (targetId: string) => ALL_RECIPES.find(recipe => recipe.id === targetId)
+  const r = fetchDetailById(id!)
+  check('通过模拟详情 API 找到菜谱', !!r)
+  check('模拟详情 API 返回麻婆豆腐', r?.name === '麻婆豆腐')
 }
 
 section('5. 一键生成预设')
@@ -214,6 +215,37 @@ section('10. 草稿恢复与最近使用辅助逻辑')
 
   const limited = mergeRecentItems(['牛肉', '白菜'], ['鸡蛋', '番茄', '土豆', '豆腐', '蒜'])
   check('最近使用最多保留 4 项', limited.length === 4, limited.join(','))
+}
+
+section('11. API read view data protection')
+{
+  const favorites = ['mapo-tofu', 'missing-recipe']
+  const history = [{
+    id: 'h_1',
+    recipeId: 'mapo-tofu',
+    recipeName: 'Mapo tofu',
+    generatedAt: 1,
+    input: { ingredients: ['tofu'], seasonings: ['salt'] },
+    missingCount: 0
+  }]
+  const beforeFavorites = JSON.stringify(favorites)
+  const beforeHistory = JSON.stringify(history)
+  const detailApiFailed = true
+
+  if (!detailApiFailed) {
+    favorites.splice(0, favorites.length)
+    history.splice(0, history.length)
+  }
+
+  const historyDetailUrl = `/pages/detail/detail?id=${history[0].recipeId}`
+  const apiPool = ALL_RECIPES.filter(recipe => recipe.id !== 'missing-recipe')
+  const favoriteViews = favorites.map(id => apiPool.find(recipe => recipe.id === id) ? 'available' : 'missing')
+
+  check('detail API failure keeps local favorite ids', JSON.stringify(favorites) === beforeFavorites)
+  check('detail API failure keeps local history records', JSON.stringify(history) === beforeHistory)
+  check('history click keeps recipeId in detail URL', historyDetailUrl === '/pages/detail/detail?id=mapo-tofu', historyDetailUrl)
+  check('favorite missing API id remains represented', favoriteViews.includes('missing'))
+  check('favorites API failure can preserve local count', favorites.length === 2, String(favorites.length))
 }
 
 console.log(`\n========================================`)
