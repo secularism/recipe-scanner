@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
 status: ready_to_plan
-last_updated: "2026-06-24T14:26:59+08:00"
+last_updated: "2026-06-24T12:20:01.901Z"
 progress:
   total_phases: 3
   completed_phases: 2
