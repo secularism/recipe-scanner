@@ -7,12 +7,12 @@
 
 ## Current Position
 
-Phase 9 and Phase 10 are complete. Phase 11 is planned and ready for execution.
+Phase 9 and Phase 10 are complete. Phase 11 is complete on the feature branch and ready for user acceptance.
 
 Next command:
 
 ```bash
-$gsd-execute-phase 11
+User acceptance for `feat/06-24/phase-11-api-read-views`
 ```
 
 ## v1.1 API 接入
@@ -23,7 +23,7 @@ $gsd-execute-phase 11
 |---|---|---|---|---|
 | 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
 | 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete, merged |
-| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | In Progress (1/2) |
+| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | Complete, pending acceptance |
 
 ### Phase 9: recipes-api-contract
 
@@ -94,6 +94,7 @@ $gsd-execute-phase 11
 
 **Execution summaries:**
 - [Plan 11-01 summary](phases/11-api-read-views-verification/11-01-SUMMARY.md)
+- [Plan 11-02 summary](phases/11-api-read-views-verification/11-02-SUMMARY.md)
 
 ## Archived Phases
 

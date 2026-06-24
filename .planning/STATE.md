@@ -2,28 +2,28 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: executing
-last_updated: "2026-06-24T20:46:12+08:00"
+status: ready_for_acceptance
+last_updated: "2026-06-24T21:05:00+08:00"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 5
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 100
 ---
 
 # State
 
 ## Current Position
 
-Phase: 11 (api-read-views-verification) — EXECUTING
-Plan: 2 of 2
+Phase: 11 (api-read-views-verification) — READY FOR ACCEPTANCE
+Plan: 2 of 2 complete
 
 - Phase 9（recipes-api-contract）: Complete (1/1 plan)
 - Phase 10（miniapp-api-generation）: Complete (2/2 plans)
-- Phase 11（api-read-views-verification）: In Progress (1/2 plans; 11-01 complete)
-- Status: Plan 11-01 completed and summarized; ready to execute Plan 11-02
-- Last activity: 2026-06-24 — Plan 11-01 detail API read completed on `feat/06-24/phase-11-api-read-views` (`6ffb78b`)
+- Phase 11（api-read-views-verification）: Complete (2/2 plans; pending user acceptance)
+- Status: Phase 11 implementation and documentation completed on feature branch; waiting for miniapp acceptance
+- Last activity: 2026-06-24 — Plan 11-02 favorites/history verification completed (`49783ef`)
 - Previous activity: 2026-06-24 — Phase 10 merged to `main` at `5270b85` after user acceptance
 - Earlier activity: 2026-06-22 — Phase 10 executed and documented:
   - `.planning/phases/10-miniapp-api-generation/10-01-SUMMARY.md`
@@ -70,8 +70,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 
 ## Last Updated
 
-- 2026-06-24 Phase 11 Plan 11-01 completed; next step is executing Plan 11-02.
+- 2026-06-24 Phase 11 Plan 11-02 completed; next step is pushing the feature branch for user acceptance.
 
 ## Operator Next Steps
 
-- Continue Phase 11 Plan 11-02 with `$gsd-execute-phase 11`.
+- Push `feat/06-24/phase-11-api-read-views` and wait for user acceptance before merging to `main`.
