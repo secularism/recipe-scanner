@@ -50,6 +50,54 @@
 
 ---
 
+## Milestone: v1.1 API 接入
+
+**Shipped:** 2026-06-26  
+**Phases:** 3 | **Plans:** 5 | **Tasks:** 20
+
+### What Was Built
+
+- 后端 recipes 列表和详情读取形成稳定 DTO 契约，支持 `include=matchFields`、`legacyId`/`slug` 查询和 `PUBLISHED` 过滤。
+- 小程序新增集中 API config、recipes API client、DTO mapper 和 fake-request 测试路径。
+- 结果页从真实 recipes API 拉取候选池后继续运行本地 matcher，补齐 loading、error、retry 和无匹配状态。
+- 详情页改为 `fetchRecipeById(id)` 驱动，分享 path、历史跳转和收藏入口都进入真实详情读取。
+- 收藏页保留本地 id 存储，但用真实 recipes 数据展示卡片；历史页保持本地快照并跳转 API 驱动详情。
+
+### What Worked
+
+- 先后端契约、再前端 client/mapper、最后读视图接入的 phase 顺序很顺，减少了跨层猜测。
+- API client 注入 request 函数让测试保持网络无关，避免公网接口波动影响默认验证。
+- 明确“不 fallback 到 `ALL_RECIPES`”让错误状态可见，防止真实接口问题被 mock 数据掩盖。
+- Phase 10 及时修复 `vue-tsc` 与 `uni-icons` 构建问题，使 Phase 11 可以完整跑 miniapp 验证门。
+
+### What Was Inefficient
+
+- 没有单独跑 `$gsd-audit-milestone`，close 时缺少一份独立 milestone audit 文件，只能用 open artifact audit 和 requirements traceability 证明收尾状态。
+- Phase 9 初期暴露的小程序工具链问题跨 phase 才完全解决，说明 shared build gate 应更早修复。
+- SDK 自动生成的 milestone task 统计偏低，需要人工从 PLAN/SUMMARY 重新核对。
+
+### Patterns Established
+
+- 后端 DTO serializer 隔离 Prisma 内部字段，前端只消费稳定 public id 和业务字段。
+- 小程序 API client 使用集中 base URL、统一错误类型、可注入 request 的测试模式。
+- 结果页、详情页、收藏页分别处理 loading/error/retry，不用本地 recipes fallback。
+- 收藏和历史继续作为本地用户数据边界，远程写入留到后续 milestone。
+
+### Key Lessons
+
+1. 真实 API 接入要把“错误是否可见”作为验收条件，否则 fallback 很容易掩盖集成问题。
+2. 前后端 public id 策略要早定，本项目固定为 `slug || legacyId`，数据库 UUID 不进入小程序业务逻辑。
+3. 默认测试应保持 fake/local，真实服务只做人工或专项验证。
+4. milestone close 前最好先跑 `$gsd-audit-milestone`，这样归档时不会缺少审计证据。
+
+### Cost Observations
+
+- Model mix: not recorded.
+- Sessions: multiple.
+- Notable: v1.1 的 GSD phase artifacts 完整度明显高于 v1.0，归档主要成本来自 PROJECT/ROADMAP/RETROSPECTIVE 的人工演进判断。
+
+---
+
 ## Cross-Milestone Trends
 
 ### Process Evolution
@@ -57,14 +105,18 @@
 | Milestone | Sessions | Phases | Key Change |
 |-----------|----------|--------|------------|
 | v1.0 | multiple | 8 | 从单体小程序推进到 monorepo + 后端真实数据链路 |
+| v1.1 | multiple | 3 | 从本地 mock 菜谱读取推进到真实 recipes API 读链路 |
 
 ### Cumulative Quality
 
 | Milestone | Tests | Coverage | Zero-Dep Additions |
 |-----------|-------|----------|-------------------|
 | v1.0 | miniapp type-check/e2e/matcher/build in covered phases | Manual + scripted verification by phase | Not recorded |
+| v1.1 | api contract, recipes-api, e2e, matcher, type-check, mp-weixin build | Requirements traceability 21/21, open artifact audit 0 issues | Network-free fake request tests for API client/mapper |
 
 ### Top Lessons (Verified Across Milestones)
 
 1. 小程序视觉和组件变更必须在微信开发者工具中验收。
 2. 规划文档需要和实际仓库结构同步，否则后续 phase 会消耗额外恢复成本。
+3. 真实 API 集成应禁止默认 fallback，确保 loading/error/retry 行为被测试覆盖。
+4. Public id 策略和 DTO mapper 是前后端解耦的关键边界，应在后续写接口继续沿用。

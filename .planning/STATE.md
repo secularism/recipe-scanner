@@ -2,8 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: API 接入
-status: complete
-last_updated: "2026-06-24T21:20:00+08:00"
+status: Awaiting next milestone
+last_updated: "2026-06-26T07:02:31.819Z"
+last_activity: 2026-06-26 — Milestone v1.1 completed and archived
 progress:
   total_phases: 3
   completed_phases: 3
@@ -16,25 +17,17 @@ progress:
 
 ## Current Position
 
-Phase: 11 (api-read-views-verification) — COMPLETE, MERGED
-Plan: 2 of 2 complete
-
-- Phase 9（recipes-api-contract）: Complete (1/1 plan)
-- Phase 10（miniapp-api-generation）: Complete (2/2 plans)
-- Phase 11（api-read-views-verification）: Complete (2/2 plans; merged to main)
-- Status: Phase 11 accepted by user, merged to `main`, and pushed to origin
-- Last activity: 2026-06-24 — Phase 11 merged to `main` at `815fef9`
-- Previous activity: 2026-06-24 — Phase 10 merged to `main` at `5270b85` after user acceptance
-- Earlier activity: 2026-06-22 — Phase 10 executed and documented:
-  - `.planning/phases/10-miniapp-api-generation/10-01-SUMMARY.md`
-  - `.planning/phases/10-miniapp-api-generation/10-02-SUMMARY.md`
+Phase: Milestone v1.1 complete
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-06-26 — Milestone v1.1 completed and archived
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-21)
+See: `.planning/PROJECT.md` (updated 2026-06-26)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** v1.1 API 接入 complete; next milestone not selected
+**Current focus:** v1.1 API 接入 complete and archived; next milestone not selected
 
 ## Project Memory
 
@@ -68,11 +61,12 @@ See: `.planning/PROJECT.md` (updated 2026-06-21)
 - Phase 11 已完成讨论与规划：详情页先接 `fetchRecipeById(id)`，收藏页用真实 recipes 数据展示本地收藏 id，历史页保持本地快照并跳转 API 驱动详情
 - Phase 11 明确不新增 README/release checklist；正式发布前置文档暂缓，当前最多体验版使用
 - Phase 11 已于 2026-06-24 验收通过并合并到 `main`，merge commit 为 `815fef9`
+- v1.1 API 接入已于 2026-06-26 完成 milestone 归档，ROADMAP 与 REQUIREMENTS 归档到 `.planning/milestones/`
 
 ## Last Updated
 
-- 2026-06-24 Phase 11 accepted, merged to `main`, and pushed.
+- 2026-06-26 v1.1 API 接入 milestone archived.
 
 ## Operator Next Steps
 
-- Decide the next milestone or review the backlog before starting new implementation work.
+- Start the next milestone with `$gsd-new-milestone`.

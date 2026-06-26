@@ -3,103 +3,36 @@
 ## Milestones
 
 - [x] **v1.0 MVP** - Phase 1-8 shipped on 2026-06-21. Archive: [v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
-- [x] **v1.1 API 接入** - Phase 9-11 completed and merged on 2026-06-24.
+- [x] **v1.1 API 接入** - Phase 9-11 shipped on 2026-06-26. Archive: [v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 
 ## Current Position
 
-Phase 9, Phase 10, and Phase 11 are complete. Phase 11 was accepted and merged to `main` on 2026-06-24.
+v1.1 API 接入已完成并归档。当前没有活动 milestone。
 
 Next command:
 
 ```bash
-Choose the next milestone or review backlog
+$gsd-new-milestone
 ```
 
-## v1.1 API 接入
+## Archived Milestones
 
-**Goal:** 把前端菜谱读取从本地 mock 数组切到真实后端 API，同时保留现有本地 matcher 的推荐体验。
+<details>
+<summary>v1.1 API 接入 (Phase 9-11) - shipped 2026-06-26</summary>
 
-| # | Phase | Goal | Requirements | Status |
+| # | Phase | Goal | Plans | Final Status |
 |---|---|---|---|---|
-| 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | API-01..04 | Complete |
-| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | CLIENT-01..04, GENAPI-01..04 | Complete, merged |
-| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | READ-01..05, VERIFY-01..04 | Complete, merged |
+| 9 | recipes-api-contract | 补齐后端 match-ready recipes 读接口和稳定响应映射边界 | 1/1 | Complete |
+| 10 | miniapp-api-generation | 新增小程序 API client/mapper，并让结果页从真实 recipes 数据源生成 | 2/2 | Complete, merged |
+| 11 | api-read-views-verification | 详情、收藏展示、历史跳转走真实接口，并完成验证门 | 2/2 | Complete, merged |
 
-### Phase 9: recipes-api-contract
+Detailed archive:
+- [v1.1 roadmap archive](milestones/v1.1-ROADMAP.md)
+- [v1.1 requirements archive](milestones/v1.1-REQUIREMENTS.md)
 
-**Goal:** 后端 recipes 接口返回前端 matcher 与详情页需要的稳定读模型。
+Phase execution directories remain in `.planning/phases/` for traceability.
 
-**Requirements:** API-01, API-02, API-03, API-04
-
-**Success Criteria:**
-1. `GET /api/recipes` 或专用 match-ready 读接口返回 ingredients、seasonings、steps 等 matcher 必需字段。
-2. `GET /api/recipes/:id` 支持 `legacyId`/`slug`，`mapo-tofu` 等旧分享路径继续可用。
-3. 小程序读取接口只暴露 `PUBLISHED` 菜谱。
-4. 后端响应有清晰 DTO 或 serializer，前端不用理解 Prisma 内部字段。
-
-### Phase 10: miniapp-api-generation
-
-**Goal:** 小程序结果页从真实 recipes API 拉取菜谱数据，再沿用现有 matcher 完成生成和换一换。
-
-**Requirements:** CLIENT-01, CLIENT-02, CLIENT-03, CLIENT-04, GENAPI-01, GENAPI-02, GENAPI-03, GENAPI-04
-
-**Success Criteria:**
-1. 小程序存在统一 recipes API client，集中管理 base URL、`uni.request` 和错误处理。
-2. 后端菜谱响应可映射成现有 `Recipe` 类型，matcher 测试数据不依赖真实网络。
-3. 结果页生成流程支持 loading、error、retry。
-4. “换一换”和历史入库继续基于真实 API 菜谱数据工作。
-
-**Plans:**
-
-**Wave 1**
-- `10-01-miniapp-recipes-client-mapper` — 新增 API config、recipes API client、DTO mapper，并让 generator/shuffle 支持显式 recipe pool。
-
-**Wave 2** *(blocked on Wave 1 completion)*
-- `10-02-result-api-generation` — 将 result 页接入真实 recipes API，补齐 loading/error/retry、真实 pool 换一换和成功后历史写入。
-
-**Cross-cutting constraints:**
-- API 失败不得 fallback 到本地 `ALL_RECIPES`，默认测试不得依赖真实网络。
-
-**Completed:** 2026-06-22
-**Merged to main:** 2026-06-24 (`5270b85`)
-
-**Execution summaries:**
-- [Plan 10-01 summary](phases/10-miniapp-api-generation/10-01-SUMMARY.md)
-- [Plan 10-02 summary](phases/10-miniapp-api-generation/10-02-SUMMARY.md)
-
-### Phase 11: api-read-views-verification
-
-**Goal:** 详情页、收藏页展示和历史记录跳转全部通过真实 recipes 读接口获取菜谱，并完成验证门。
-
-**Requirements:** READ-01, READ-02, READ-03, READ-04, READ-05, VERIFY-01, VERIFY-02, VERIFY-03, VERIFY-04
-
-**Success Criteria:**
-1. 详情页不再依赖本地 `findRecipeById`，分享 path 可直接请求真实详情。
-2. 收藏页仍存本地 id 列表，但卡片展示数据来自 API。
-3. 历史页仍存本地记录，但点击记录进入 API 驱动详情。
-4. 网络失败不会清空收藏、历史、草稿等本地数据。
-5. mapper/API client 测试、miniapp type-check、e2e、matcher 和 build 全部通过。
-
-**Plans:**
-
-**Wave 1**
-- `11-01-detail-api-read` — 新增 `fetchRecipeById(id)`，将详情页和分享 path 切到真实详情接口，补齐 loading/error/retry 与 fake-request 测试。
-
-**Wave 2** *(blocked on Wave 1 completion)*
-- `11-02-favorites-history-verification` — 收藏页用真实 recipes 数据展示本地收藏 id，历史页保持本地快照并跳转 API 驱动详情，跑完整 miniapp 验证门。
-
-**Cross-cutting constraints:**
-- 网络/API 失败不得清空收藏、历史、草稿等本地数据，且不得 fallback 到本地 `ALL_RECIPES` 掩盖真实接口问题。
-- Phase 11 不新增 README 或 release checklist；正式发布前置文档按讨论结论暂缓，当前最多支持体验版使用。
-
-**Execution summaries:**
-- [Plan 11-01 summary](phases/11-api-read-views-verification/11-01-SUMMARY.md)
-- [Plan 11-02 summary](phases/11-api-read-views-verification/11-02-SUMMARY.md)
-
-**Completed:** 2026-06-24
-**Merged to main:** 2026-06-24 (`815fef9`)
-
-## Archived Phases
+</details>
 
 <details>
 <summary>v1.0 MVP (Phase 1-8) - shipped 2026-06-21</summary>
