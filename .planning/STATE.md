@@ -1,33 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: API 接入
-status: Awaiting next milestone
-last_updated: "2026-06-26T07:02:31.819Z"
-last_activity: 2026-06-26 — Milestone v1.1 completed and archived
+milestone: v1.2
+milestone_name: 用户身份与远程同步
+status: planning
+last_updated: "2026-06-27T06:22:57.857Z"
+last_activity: 2026-06-27
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State
 
 ## Current Position
 
-Phase: Milestone v1.1 complete
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-26 — Milestone v1.1 completed and archived
+Status: Defining requirements
+Last activity: 2026-06-27 — Milestone v1.2 started
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-26)
+See: `.planning/PROJECT.md` (updated 2026-06-27)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** v1.1 API 接入 complete and archived; next milestone not selected
+**Current focus:** v1.2 用户身份与远程同步 requirements and roadmap definition
 
 ## Project Memory
 
@@ -65,8 +65,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-26)
 
 ## Last Updated
 
-- 2026-06-26 v1.1 API 接入 milestone archived.
+- 2026-06-27 v1.2 用户身份与远程同步 milestone started.
 
 ## Operator Next Steps
 
-- Start the next milestone with `$gsd-new-milestone`.
+- Define v1.2 requirements, then create the v1.2 roadmap.

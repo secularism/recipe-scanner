@@ -16,7 +16,19 @@
 - **Backend:** `apps/api` 已有 NestJS、Prisma、PostgreSQL、健康检查、match-ready recipes 列表接口和详情接口。
 - **Data:** 现有 mock 菜谱可通过 `npm run prisma:seed` 写入远程 PostgreSQL。
 - **Planning:** v1.0 与 v1.1 roadmap/requirements 均已归档到 `.planning/milestones/`。
-- **Current milestone:** 无活动 milestone，等待 `$gsd-new-milestone` 重新定义下一轮目标。
+- **Current milestone:** v1.2 用户身份与远程同步，聚焦微信静默登录、收藏/历史远程写入与本地数据合并。
+
+## Current Milestone: v1.2 用户身份与远程同步
+
+**Goal:** 为小程序建立真实用户身份基础，并把本地收藏、历史记录接入后端远程写入与恢复同步，同时保留现有本地缓存体验。
+
+**Target features:**
+
+- 微信静默登录优先：小程序端通过 `uni.login` 获取登录 code，后端维护用户身份与鉴权边界。
+- 收藏远程同步：收藏/取消收藏写入后端，收藏页可从远程恢复并保留本地缓存。
+- 历史远程同步：生成历史写入后端，历史页可读取远程记录并保留本地体验。
+- 首次登录本地数据合并：已有本地收藏和历史在首次登录后上传合并到云端。
+- 失败与冲突边界：网络失败不破坏本地收藏/历史，同步失败可保持本地可用并支持后续重试。
 
 ## Tech Stack
 
@@ -97,14 +109,17 @@
 
 ### Active
 
-无。下一轮 active requirements 应由 `$gsd-new-milestone` 重新定义。
+- [ ] 用户可通过微信静默登录建立后端用户身份。
+- [ ] 用户的收藏可写入远程并从远程恢复。
+- [ ] 用户的生成历史可写入远程并从远程恢复。
+- [ ] 用户首次登录后，本地收藏和历史可合并到云端，避免已有数据丢失。
+- [ ] 网络或同步失败不会清空或破坏本地收藏、历史和草稿数据。
 
 ### Next Milestone Candidate Goals
 
-- 收藏、历史、识别任务真实写接口。
 - 图片上传、对象存储、OCR 和拍照识别任务链路。
 - AI 生成菜谱。
-- 远程用户身份、跨设备同步和用户资料系统。
+- 用户资料页与更完整的跨设备同步体验。
 
 ### Out of Scope
 
@@ -116,7 +131,7 @@
 
 ## Evolution
 
-本文档随 milestone 完成和新需求定义而演进。v1.0 和 v1.1 已归档，下一次应从 `$gsd-new-milestone` 开始重新定义 requirements 和 roadmap。
+本文档随 milestone 完成和新需求定义而演进。v1.0 和 v1.1 已归档，v1.2 正在定义用户身份与远程同步 requirements 和 roadmap。
 
 ---
-*Last updated: 2026-06-26 after v1.1 API 接入 milestone*
+*Last updated: 2026-06-27 after starting v1.2 用户身份与远程同步 milestone*
