@@ -121,6 +121,12 @@ npm run start:dev
 
 - [docs/local-prisma-remote-postgres.md](/D:/code/recipe-scanner/docs/local-prisma-remote-postgres.md)
 
+## HTTPS 域名接入
+
+备案域名 `978978978.xyz` 的 API 冒烟测试、HTTPS 发布门和 Nginx 配置检查见：
+
+- [docs/https-domain-readiness.md](/D:/code/recipe-scanner/docs/https-domain-readiness.md)
+
 ## 当前数据库进展
 
 - Prisma 已接入 `apps/api`
@@ -137,8 +143,8 @@ npm run start:dev
 
 ## 下一步建议
 
-- 扩展 `recipes` 的筛选、分页与详情字段裁剪
-- 接入收藏、历史、识别任务的真实写接口
+- 打通 `https://978978978.xyz/api`，通过 health 和 recipes 冒烟测试后再切换小程序 API base URL
+- 接入微信静默登录、收藏远程同步和历史远程同步
 - 为图片上传、OCR 和拍照识别预留对象存储与异步任务链路
 - 为服务器部署补齐 `prisma migrate deploy` 与进程守护脚本
 
