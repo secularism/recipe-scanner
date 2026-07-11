@@ -1,33 +1,33 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: API 接入
-status: Awaiting next milestone
-last_updated: "2026-06-26T07:02:31.819Z"
-last_activity: 2026-06-26 — Milestone v1.1 completed and archived
+milestone: v1.2
+milestone_name: 用户身份与远程同步
+status: planning
+last_updated: "2026-07-01T00:00:00.000Z"
+last_activity: 2026-07-01
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 5
-  completed_plans: 5
-  percent: 100
+  total_phases: 5
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # State
 
 ## Current Position
 
-Phase: Milestone v1.1 complete
+Phase: 12 (https-domain-readiness)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-06-26 — Milestone v1.1 completed and archived
+Status: Roadmap ready, waiting to discuss or plan Phase 12
+Last activity: 2026-07-01 — v1.2 requirements and roadmap created
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-06-26)
+See: `.planning/PROJECT.md` (updated 2026-07-01)
 
 **Core value:** 用户输入食材和调味料，立刻得到一份可做的菜谱。
-**Current focus:** v1.1 API 接入 complete and archived; next milestone not selected
+**Current focus:** v1.2 Phase 12 HTTPS domain readiness before auth and sync implementation
 
 ## Project Memory
 
@@ -36,6 +36,8 @@ See: `.planning/PROJECT.md` (updated 2026-06-26)
 - 小程序前端仍保留本地规则匹配与本地存储逻辑
 - 后端已完成从 mock 数据到 PostgreSQL 的第一段真实链路
 - 远程服务器健康检查接口已可访问：`http://47.96.36.31/api/health`
+- 备案域名 HTTP 已可访问：`http://978978978.xyz/api/health`
+- 备案域名 HTTPS 当前未通过：`https://978978978.xyz/api/health` 在 TLS/接收阶段失败，不能切换小程序 `API_BASE_URL`
 - 本阶段数据库开发方式已固定为：本机 Prisma + SSH Tunnel + 远程 PostgreSQL
 
 ## Accumulated Context
@@ -53,7 +55,6 @@ See: `.planning/PROJECT.md` (updated 2026-06-26)
 - `GET /api/recipes/mapo-tofu` 的 500 问题已修复，原因是非 UUID 参数误走了 UUID 查询分支
 - 启动与构建阶段遇到的 Nest CLI / lodash / Prisma / build 输出路径问题已全部定位并修复
 - v1.1 范围已确认：只做菜谱读接口接入，收藏/历史远程写接口、识别任务和 OCR 不进入本 milestone
-- 前端当前 `generateRecipe()` 同步依赖 `ALL_RECIPES`，需要新增 recipes API client 与 mapper 后异步化结果页
 - Phase 9 已完成：后端 `GET /api/recipes?include=matchFields` 返回 matcher 所需字段，列表/详情只暴露 `PUBLISHED` 菜谱，并通过 DTO 隔离 Prisma 内部字段
 - Phase 10 已完成：小程序新增 centralized API config、recipes API client、DTO mapper，结果页改为先拉取真实 `recipes?include=matchFields` 数据后再运行本地 matcher
 - Phase 10 已恢复并通过小程序完整验证门：`type-check`、`recipes-api.test.ts`、`e2e.test.ts`、`matcher.test.ts`、`build:mp-weixin`
@@ -62,11 +63,14 @@ See: `.planning/PROJECT.md` (updated 2026-06-26)
 - Phase 11 明确不新增 README/release checklist；正式发布前置文档暂缓，当前最多体验版使用
 - Phase 11 已于 2026-06-24 验收通过并合并到 `main`，merge commit 为 `815fef9`
 - v1.1 API 接入已于 2026-06-26 完成 milestone 归档，ROADMAP 与 REQUIREMENTS 归档到 `.planning/milestones/`
+- v1.2 research 已完成，建议使用 opaque random bearer token、自有 `UserSession`、`/api/me/*` guard、收藏/历史 merge endpoint 和本地优先同步策略
+- v1.2 requirements 已创建，共 22 条，映射到 Phase 12-16
+- v1.2 roadmap 已创建，Phase 12 先处理 HTTPS 域名前置项，再进入 auth、favorites、history 和 bootstrap hardening
 
 ## Last Updated
 
-- 2026-06-26 v1.1 API 接入 milestone archived.
+- 2026-07-01 v1.2 requirements and roadmap created; Phase 12 is next.
 
 ## Operator Next Steps
 
-- Start the next milestone with `$gsd-new-milestone`.
+- Run `$gsd-discuss-phase 12` to clarify HTTPS domain readiness tasks, or `$gsd-plan-phase 12` to create the first implementation plan directly.
