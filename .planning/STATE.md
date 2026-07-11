@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: 用户身份与远程同步
 status: planning
-last_updated: "2026-07-01T00:00:00.000Z"
-last_activity: 2026-07-01
+last_updated: "2026-07-11T00:00:00.000Z"
+last_activity: 2026-07-11
 progress:
   total_phases: 5
   completed_phases: 0
@@ -20,7 +20,7 @@ progress:
 Phase: 12 (https-domain-readiness)
 Plan: —
 Status: Roadmap ready, waiting to discuss or plan Phase 12
-Last activity: 2026-07-01 — v1.2 requirements and roadmap created
+Last activity: 2026-07-11 — v1.2 planning branch merged into main
 
 ## Project Reference
 
@@ -69,6 +69,7 @@ See: `.planning/PROJECT.md` (updated 2026-07-01)
 
 ## Last Updated
 
+- 2026-07-11 v1.2 planning branch merged into `main`; Phase 12 remains the next phase.
 - 2026-07-01 v1.2 requirements and roadmap created; Phase 12 is next.
 
 ## Operator Next Steps
